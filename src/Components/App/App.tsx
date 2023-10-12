@@ -5,21 +5,12 @@ import AdventureContainer from '../AdventureContainer/AdventureContainer';
 import { Route, Routes } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import postAdventure from '../../apiCalls';
+import { AdventureProp } from '../AdventureCard/AdventureCard';
 
-interface Adventure {
-  activity: string;
-  date: string;
-  notes: string;
-  image_url: string;
-  stress_level: string;
-  hydration: number;
-  diet: string;
-  avdenture_id: number;
-}
 
 interface AppState {
   userName: string;
-  adventures: Adventure[];
+  adventures: AdventureProp[];
 }
 
 function App() {
@@ -27,8 +18,7 @@ function App() {
 
   useEffect(() => {
     postAdventure().then((data) => {
-      console.log(data.data[0].attributes);
-      setAdventures(data.data as Adventure[]);
+      setAdventures(data.data[0].attributes as AdventureProp[]);
     });
   }, []);
 
@@ -36,7 +26,7 @@ function App() {
     <div className='App'>
       <NavBar />
       <Routes>
-        <Route path='/' element={<Homepage />} />
+        <Route path='/' element={<Homepage adventures={adventures}/>} />
       </Routes>
     </div>
   );
