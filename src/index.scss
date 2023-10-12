@@ -1,5 +1,19 @@
+$blue-green: #73BDA8;
+$brown: #6F5643;
+$tan: #FBF3E3;
+$red: #CC6B49;
+$yellow: #D2A24C;
+
+@mixin center {
+  display: flex;
+  flex-direction: center;
+  justify-content: center;
+}
+
+
 body {
   margin: 0;
+  padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
