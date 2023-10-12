@@ -27,6 +27,7 @@ function AdventureContainer({ adventures }: AdventureContainerProps) {
         hydration={adventure.hydration}
         diet={adventure.diet}
         avdenture_id={adventure.avdenture_id}
+        key={adventure.avdenture_id}
       />
     );
   });
