@@ -1,13 +1,12 @@
 import './App.scss';
 import Homepage from '../Homepage/Homepage';
 import NavBar from '../NavBar/NavBar';
-import Adventure from '../Adventure/Adventure';
 import AdventureContainer from '../AdventureContainer/AdventureContainer';
 import { Route, Routes } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import postAdventure from '../../apiCalls';
 
-interface Adventures {
+interface Adventure {
   activity: string;
   date: string;
   notes: string;
@@ -20,26 +19,24 @@ interface Adventures {
 
 interface AppState {
   userName: string;
-  adventures: Adventures[];
+  adventures: Adventure[];
 }
 
 function App() {
-  const [adventures, setAdventures] = useState<AppState['adventures']>()
+  const [adventures, setAdventures] = useState<AppState['adventures']>([]);
 
   useEffect(() => {
-    postAdventure()
-      .then(data => {
-        console.log(data)
-        setAdventures(data as Adventures[])
-      })
-      
-  }, []) 
+    postAdventure().then((data) => {
+      console.log(data.data[0].attributes);
+      setAdventures(data.data as Adventure[]);
+    });
+  }, []);
 
   return (
     <div className='App'>
       <NavBar />
-      <Routes> 
-        <Route path='/' element={<Homepage /> } />
+      <Routes>
+        <Route path='/' element={<Homepage />} />
       </Routes>
     </div>
   );
