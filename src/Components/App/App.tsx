@@ -7,7 +7,6 @@ import { useEffect, useState } from 'react';
 import postAdventure from '../../apiCalls';
 import { AdventureProp } from '../AdventureCard/AdventureCard';
 
-
 interface AppState {
   userName: string;
   adventures: AdventureProp[];
