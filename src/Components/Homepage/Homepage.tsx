@@ -1,8 +1,12 @@
 import './Homepage.scss'
+import Adventure from '../Adventure/Adventure'
+import AdventureContainer from '../AdventureContainer/AdventureContainer'
 
 function Homepage () {
   return(
-    <div>Homepage</div>
+    <div>
+      <AdventureContainer />
+    </div>
   )
 }
 
