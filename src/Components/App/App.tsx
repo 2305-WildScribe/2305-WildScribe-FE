@@ -4,7 +4,8 @@ import NavBar from '../NavBar/NavBar';
 import Adventure from '../Adventure/Adventure';
 import AdventureContainer from '../AdventureContainer/AdventureContainer';
 import { Route, Routes } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import postAdventure from '../../apiCalls';
 
 interface Adventures {
   activity: string;
@@ -24,7 +25,12 @@ interface AppState {
 
 function App() {
   const [adventures, setAdventures] = useState<AppState['adventures']>()
-  
+
+  useEffect(() => {
+    postAdventure()
+      .then(data => console.log(data))
+  }, []) 
+
   return (
     <div className='App'>
       <NavBar />
