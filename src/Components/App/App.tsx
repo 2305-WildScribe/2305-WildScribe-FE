@@ -28,7 +28,11 @@ function App() {
 
   useEffect(() => {
     postAdventure()
-      .then(data => console.log(data))
+      .then(data => {
+        console.log(data)
+        setAdventures(data as Adventures[])
+      })
+      
   }, []) 
 
   return (
