@@ -23,7 +23,7 @@ function AdventureCard({
 }: AdventureProp) {
   return (
     <div key={avdenture_id}>
-      <h1>{activity}</h1>
+      <p>{activity}</p>
       <img src={image_url} alt={activity} />
       <p>{date}</p>
       <p>{notes}</p>

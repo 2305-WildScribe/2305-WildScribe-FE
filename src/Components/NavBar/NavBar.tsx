@@ -1,12 +1,20 @@
-import React from 'react'
+import './NavBar.scss';
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 
-function NavBar () {
+function NavBar() {
   return (
-    <header>
-      Home
-    
-    </header>
-  )
+    <nav className='nav-bar'>
+      <div className='nav-button-container'>
+        <NavLink className='nav-link' to='/'>
+          Home
+        </NavLink>
+        {/* <NavLink className='nav-link' to='/'> 
+        Log New Adventure
+      </NavLink> */}
+      </div>
+    </nav>
+  );
 }
 
-export default NavBar
+export default NavBar;
