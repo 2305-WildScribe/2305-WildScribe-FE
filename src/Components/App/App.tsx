@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import postAdventure from '../../apiCalls';
 import { AdventureProp } from '../AdventureCard/AdventureCard';
+import LogAdventureForm from '../LogAdventureForm/LogAdventureForm';
 
 interface AppState {
   userName: string;
@@ -23,6 +24,7 @@ function App() {
   return (
     <div className='App'>
       <NavBar />
+      <LogAdventureForm />
       <Routes>
         <Route path='/' element={<Homepage adventures={adventures}/>} />
       </Routes>

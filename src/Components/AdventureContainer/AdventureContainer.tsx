@@ -10,7 +10,7 @@ function AdventureContainer({ adventures }: AdventureContainerProps) {
   const adventureCards = adventures.map((adventure) => {
     console.log(adventure);
     return (
-      <div>
+      <div key={adventure.adventure_id}>
         <AdventureCard
           activity={adventure.activity}
           date={adventure.date}
@@ -19,8 +19,7 @@ function AdventureContainer({ adventures }: AdventureContainerProps) {
           stress_level={adventure.stress_level}
           hydration={adventure.hydration}
           diet={adventure.diet}
-          avdenture_id={adventure.avdenture_id}
-          key={adventure.avdenture_id}
+          adventure_id={adventure.adventure_id}
         />
       </div>
     );
