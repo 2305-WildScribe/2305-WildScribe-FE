@@ -1,0 +1,12 @@
+@import '../../index.scss';
+
+.adventure-img {
+  width: 15rem;
+  height: auto;
+}
+
+.adventure-card {
+  display: flex;
+  background-color: $blue-green;
+  width: 100%;
+}
