@@ -1,18 +1,22 @@
-import './Homepage.scss'
-import { AdventureProp } from '../AdventureCard/AdventureCard'
-import AdventureContainer from '../AdventureContainer/AdventureContainer'
+import './Homepage.scss';
+import { AdventureProp } from '../AdventureCard/AdventureCard';
+import AdventureContainer from '../AdventureContainer/AdventureContainer';
 
-interface HomepageProps{
+interface HomepageProps {
   adventures: AdventureProp[];
 }
 
-function Homepage ({adventures} : HomepageProps) {
-  
-  return(
+function Homepage({ adventures }: HomepageProps) {
+  return (
     <div>
-      <AdventureContainer adventures={adventures}/>
+      <main className='homepage'>
+        <div className='inner-homepage'>
+          <button className='search-btn'>Search Logs</button>
+        <AdventureContainer adventures={adventures} />
+        </div>
+      </main>
     </div>
-  )
+  );
 }
 
-export default  Homepage
+export default Homepage;
