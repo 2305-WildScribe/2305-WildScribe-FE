@@ -19,10 +19,14 @@ function App(): React.ReactElement {
   return (
     <div className='App'>
       <NavBar />
-      <LogAdventureForm />
-      <Routes>
-        <Route path='/' element={<Homepage adventures={adventures}/>} />
-      </Routes>
+      <div className='main'>
+        <div className='inner-main'>
+          <Routes>
+            <Route path='/' element={<Homepage adventures={adventures}/>} />
+            <Route path='/logAdventure' element={<LogAdventureForm />} />
+          </Routes>
+        </div>
+      </div>
     </div>
   );
 }

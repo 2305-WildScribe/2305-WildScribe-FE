@@ -5,15 +5,23 @@ function LogAdventureForm(): React.ReactElement {
   const [activity, setActivity] = useState<string>('');
   const [date, setDate] = useState<string | null>(null);
   const [notes, setNotes] = useState<string>('');
-  const [image, setImage] = useState<string>('');
-  const [stressLevel, setStressLevel] = useState<number>(1); 
+  const [image, setImage] = useState<File | null>(null);
+  const [stressLevel, setStressLevel] = useState<number>(0); 
   const [hydration, setHydration] = useState<number>(0);
   const [diet, setDiet] = useState<string>('');
+
+  const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = (event.target.files as FileList)[0];
+    if (file) {
+      setImage(file);
+    }
+  };
 
   const handleDateChange = (event: ChangeEvent<HTMLInputElement>) => {
     const selectedDateValue: string = event.target.value;
     setDate(selectedDateValue);
   };
+
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -50,36 +58,46 @@ function LogAdventureForm(): React.ReactElement {
         max={new Date().toISOString().split('T')[0]}
       />
       <label htmlFor='image'>Add Image:</label>
-      <input 
-        type='text'
+      <input
+        type='file'
         name='image'
-        value={image}
-        onChange={event => setImage(event.target.value)}
+        accept='image/*'
+        onChange={handleImageUpload}
+        multiple={false}
       />
       <label htmlFor='stress-level-input'>Stress Level:</label>
-      <input
-        type='number'
+      <select
         name='stressLevel'
         value={stressLevel}
-        onChange={event => setStressLevel(parseInt(event.target.value, 10))}
-        min='1'
-        max='10'
-      />
+        onChange={event => setStressLevel(parseInt(event.target.value))}
+      >
+        <option value='1'>Min</option>
+        <option value='2'>Low</option>
+        <option value='3'>Moderate</option>
+        <option value='4'>High</option>
+        <option value='5'>Max</option>
+      </select>
       <label htmlFor='hydration-input'>Hydration Level:</label>
-      <input
-        type='number'
+      <select
         name='hydration'
         value={hydration}
         onChange={event => setHydration(parseInt(event.target.value))}
-        min='0'
-      />
+      >
+        <option value='1'>Dehydrated</option>
+        <option value='2'>Somewhat Hydrated</option>
+        <option value='3'>Hydrated</option>
+        <option value='4'>Very Hydrated</option>
+      </select>
       <label htmlFor='diet-input'>How Is Your Diet:</label>
-      <input 
-        type='text'
+      <select
         name='diet'
         value={diet}
         onChange={event => setDiet(event.target.value)}
-      />
+      >
+        <option value='poor'>Poor</option>
+        <option value='average'>Average</option>
+        <option value='good'>Good</option>
+      </select>
       <label htmlFor='notes-input'>Notes:</label>
       <input 
         type='text'
