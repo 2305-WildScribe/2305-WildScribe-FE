@@ -13,7 +13,7 @@ interface AdventureProp {
   stress_level: string;
   hydration: number;
   diet: string;
-  avdenture_id: number;
+  adventure_id: number;
 }
 
 function AdventureCard({
@@ -24,10 +24,10 @@ function AdventureCard({
   stress_level,
   hydration,
   diet,
-  avdenture_id,
+  adventure_id,
 }: AdventureProp) {
   return (
-    <div key={avdenture_id} className='adventure-card'>
+    <div key={adventure_id} className='adventure-card'>
       <div className='inner-card'>
         <img className='adventure-img' src={image_url} alt={activity} />
         <div className='card-text-wrapper'>
