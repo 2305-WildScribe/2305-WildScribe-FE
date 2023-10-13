@@ -4,3 +4,21 @@
  box-sizing: border-box;
  height: 100vh;
 }
+
+.main{
+  @include center;
+  height: 92vh;
+  padding: 1rem;
+  background-color: $brown;
+  box-sizing: border-box;
+}
+
+.inner-main{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  background-color: $tan;
+  overflow-y: scroll;
+}
