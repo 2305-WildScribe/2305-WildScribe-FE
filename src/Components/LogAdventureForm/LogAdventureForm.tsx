@@ -15,6 +15,23 @@ function LogAdventureForm() {
     setDate(selectedDateValue);
   };
 
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+
+    const newAdventure = {
+      activity,
+      date,
+      notes,
+      image,
+      stressLevel,
+      hydration,
+      diet,
+    };
+
+    console.log(newAdventure);
+  };
+
+
   return (
     <form>
       <label htmlFor='activity-input'>Activity:</label>
@@ -70,6 +87,7 @@ function LogAdventureForm() {
         value={notes}
         onChange={event => setNotes(event.target.value)}
       />
+      <button className="submit-button" onClick={event => handleSubmit(event)}>Submit</button>
     </form>
   )
 }
