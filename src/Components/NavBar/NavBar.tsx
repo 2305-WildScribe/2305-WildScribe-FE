@@ -2,7 +2,7 @@ import './NavBar.scss';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-function NavBar() {
+function NavBar(): React.ReactElement {
   return (
     <nav className='nav-bar'>
       <div className='nav-button-container'>

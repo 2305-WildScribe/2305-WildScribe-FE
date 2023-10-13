@@ -1,11 +1,13 @@
-import { AdventureCard, AdventureProp } from '../AdventureCard/AdventureCard';
+import { AdventureCard } from '../AdventureCard/AdventureCard';
+import  Adventure  from '../../../types';
+
 import './AdventureContainer.scss';
 
 interface AdventureContainerProps {
-  adventures: AdventureProp[];
+  adventures: Adventure[];
 }
 
-function AdventureContainer({ adventures }: AdventureContainerProps) {
+function AdventureContainer({ adventures }: AdventureContainerProps): React.ReactElement {
   console.log('HERE', adventures);
   const adventureCards = adventures.map((adventure) => {
     console.log(adventure);
