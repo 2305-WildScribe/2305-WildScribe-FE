@@ -7,7 +7,17 @@
   margin: 0px;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content:space-between;
+}
+
+.logo{
+  object-fit: cover;
+  height: 4rem;
+  margin-left: 0.5rem;
+}
+
+.nav-text-wrapper{
+ display: flex;
 }
 
 .nav-button-container {
