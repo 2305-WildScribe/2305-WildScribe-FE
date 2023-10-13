@@ -1,8 +1,10 @@
-import { AdventureCard, AdventureProp } from '../AdventureCard/AdventureCard';
+import { AdventureCard } from '../AdventureCard/AdventureCard';
+import  Adventure  from '../../../types';
+
 import './AdventureContainer.scss';
 
 interface AdventureContainerProps {
-  adventures: AdventureProp[];
+  adventures: Adventure[];
 }
 
 function AdventureContainer({ adventures }: AdventureContainerProps) {

@@ -1,9 +1,9 @@
 import './Homepage.scss';
-import { AdventureProp } from '../AdventureCard/AdventureCard';
+import  Adventure  from '../../../types';
 import AdventureContainer from '../AdventureContainer/AdventureContainer';
 
 interface HomepageProps {
-  adventures: AdventureProp[];
+  adventures: Adventure[];
 }
 
 function Homepage({ adventures }: HomepageProps) {
