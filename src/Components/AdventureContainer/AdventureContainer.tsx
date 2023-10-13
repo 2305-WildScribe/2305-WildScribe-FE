@@ -7,7 +7,7 @@ interface AdventureContainerProps {
   adventures: Adventure[];
 }
 
-function AdventureContainer({ adventures }: AdventureContainerProps) {
+function AdventureContainer({ adventures }: AdventureContainerProps): React.ReactElement {
   console.log('HERE', adventures);
   const adventureCards = adventures.map((adventure) => {
     console.log(adventure);

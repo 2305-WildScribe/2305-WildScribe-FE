@@ -7,7 +7,7 @@ import postAdventure from '../../apiCalls';
 import  Adventure  from '../../../types';
 import LogAdventureForm from '../LogAdventureForm/LogAdventureForm';
 
-function App() {
+function App(): React.ReactElement {
   const [adventures, setAdventures] = useState<Adventure[]>([]);
 
   useEffect(() => {

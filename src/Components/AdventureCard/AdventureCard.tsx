@@ -13,7 +13,7 @@ function AdventureCard({
   hydration,
   diet,
   adventure_id,
-}: Adventure) {
+}: Adventure): React.ReactElement {
   return (
     <div key={adventure_id} className='adventure-card'>
       <div className='inner-card'>

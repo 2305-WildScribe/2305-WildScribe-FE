@@ -6,7 +6,7 @@ interface HomepageProps {
   adventures: Adventure[];
 }
 
-function Homepage({ adventures }: HomepageProps) {
+function Homepage({ adventures }: HomepageProps): React.ReactElement {
   return (
     <div>
       <main className='homepage'>

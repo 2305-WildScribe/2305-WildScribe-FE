@@ -1,7 +1,7 @@
 import { useState, ChangeEvent } from 'react';
 import './LogAdventureForm.scss';
 
-function LogAdventureForm() {
+function LogAdventureForm(): React.ReactElement {
   const [activity, setActivity] = useState<string>('');
   const [date, setDate] = useState<string | null>(null);
   const [notes, setNotes] = useState<string>('');
