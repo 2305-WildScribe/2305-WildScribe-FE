@@ -9,11 +9,9 @@ interface HomepageProps {
 function Homepage({ adventures }: HomepageProps): React.ReactElement {
   return (
     <div>
-      <main className='homepage'>
-        <div className='inner-homepage'>
-          <button className='search-btn'>Search Logs</button>
+      <main>
+        <button className='search-btn'>Search Logs</button>
         <AdventureContainer adventures={adventures} />
-        </div>
       </main>
     </div>
   );
