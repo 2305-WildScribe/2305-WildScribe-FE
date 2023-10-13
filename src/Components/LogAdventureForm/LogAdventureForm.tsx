@@ -5,15 +5,23 @@ function LogAdventureForm(): React.ReactElement {
   const [activity, setActivity] = useState<string>('');
   const [date, setDate] = useState<string | null>(null);
   const [notes, setNotes] = useState<string>('');
-  const [image, setImage] = useState<string>('');
+  const [image, setImage] = useState<File | null>(null);
   const [stressLevel, setStressLevel] = useState<number>(0); 
   const [hydration, setHydration] = useState<number>(0);
   const [diet, setDiet] = useState<string>('');
+
+  const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = (event.target.files as FileList)[0];
+    if (file) {
+      setImage(file);
+    }
+  };
 
   const handleDateChange = (event: ChangeEvent<HTMLInputElement>) => {
     const selectedDateValue: string = event.target.value;
     setDate(selectedDateValue);
   };
+
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -50,11 +58,12 @@ function LogAdventureForm(): React.ReactElement {
         max={new Date().toISOString().split('T')[0]}
       />
       <label htmlFor='image'>Add Image:</label>
-      <input 
-        type='text'
+      <input
+        type='file'
         name='image'
-        value={image}
-        onChange={event => setImage(event.target.value)}
+        accept='image/*'
+        onChange={handleImageUpload}
+        multiple={false}
       />
       <label htmlFor='stress-level-input'>Stress Level:</label>
       <select
