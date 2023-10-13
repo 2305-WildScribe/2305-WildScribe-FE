@@ -6,7 +6,7 @@ function NavBar(): React.ReactElement {
   return (
     <nav className='nav-bar'>
       <div className='nav-button-container'>
-        <NavLink className='nav-link' to='/'>
+        <NavLink className='home-btn nav-link' to='/'>
           Home
         </NavLink>
         <NavLink className='nav-link' to='/logAdventure'> 
