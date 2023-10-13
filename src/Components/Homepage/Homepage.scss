@@ -1,22 +1,5 @@
 @import '../../index.scss';
 
-.homepage {
-  @include center;
-  height: 92vh;
-  padding: 1rem;
-  background-color: $brown;
-  box-sizing: border-box;
-}
-
-.inner-homepage {
-  display: flex;
-  flex-direction: column;
- align-items: center;
-  height: 100%;
-  width: 100%;
-  background-color: $tan;
-}
-
 .search-btn{
   @include btn;
   width: 7rem;
