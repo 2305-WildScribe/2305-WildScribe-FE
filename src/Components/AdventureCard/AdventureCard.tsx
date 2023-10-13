@@ -23,14 +23,16 @@ function AdventureCard({
 }: AdventureProp) {
   return (
     <div key={avdenture_id} className='adventure-card'>
-      <img className='adventure-img' src={image_url} alt={activity} />
-      <div className='card-text-wrapper'>
-      <p>{activity}</p>
-      <p>{date}</p>
-      <p>{notes}</p>
-      <p>{stress_level}</p>
-      <p>{hydration}</p>
-      <p>{diet}</p>
+      <div className='inner-card'>
+        <img className='adventure-img' src={image_url} alt={activity} />
+        <div className='card-text-wrapper'>
+          <p>{activity}</p>
+          <p>{date}</p>
+          <p>{notes}</p>
+          <p>{stress_level}</p>
+          <p>{hydration}</p>
+          <p>{diet}</p>
+        </div>
       </div>
     </div>
   );

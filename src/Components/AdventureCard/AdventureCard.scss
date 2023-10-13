@@ -3,10 +3,15 @@
 .adventure-img {
   width: 15rem;
   height: auto;
+  object-fit: cover;
 }
 
 .adventure-card {
-  display: flex;
   background-color: $blue-green;
-  width: 100%;
+  padding: 1rem;
+}
+
+.inner-card{
+  display: flex;
+  background-color: $tan;
 }
