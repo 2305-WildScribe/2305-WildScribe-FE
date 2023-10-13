@@ -1,0 +1,23 @@
+$blue-green: #73BDA8;
+$brown: #6F5643;
+$tan: #FBF3E3;
+$red: #CC6B49;
+$yellow: #D2A24C;
+
+@mixin center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin btn {
+  &:hover{
+    cursor: pointer;
+    background-color: $red;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}

@@ -1,0 +1,31 @@
+@import '../../index.scss';
+
+.nav-bar {
+  width: 100%;
+  height: 8vh;
+  background-color: $blue-green;
+  margin: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.nav-button-container {
+  @include center;
+  margin-right: 1rem;
+}
+
+.nav-link {
+  @include center;
+  text-decoration: none;
+  height: 3rem;
+  width: 5rem;
+
+  &:hover {
+    background-color: $red;
+  }
+}
+
+.active {
+  background-color: $yellow;
+}

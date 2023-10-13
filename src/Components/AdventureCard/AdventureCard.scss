@@ -1,0 +1,59 @@
+@import '../../index.scss';
+
+.adventure-img {
+  width: 15rem;
+  object-fit: cover;
+  border: 1px solid $brown;
+}
+
+.adventure-card {
+  background-color: $blue-green;
+  padding: 1rem;
+}
+
+.card-text-wrapper {
+  background-color: $tan;
+  margin-left: 1rem;
+  width: 100%;
+  p {
+    margin-left: 1rem;
+  }
+}
+
+.inner-card {
+  display: flex;
+  width: 100%;
+}
+
+.top-line-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.second-line-info {
+  display: flex;
+}
+
+span{
+  font-weight: bold;
+}
+
+.top-line-text{
+  display: flex;
+}
+
+.fa-btn{
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  &:hover{
+    background-color: $red;
+  }
+}
+
+.card-button-wrapper{
+  margin-right: 1rem;
+}
