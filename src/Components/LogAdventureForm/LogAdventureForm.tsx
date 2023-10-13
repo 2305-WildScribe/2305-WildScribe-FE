@@ -6,7 +6,7 @@ function LogAdventureForm(): React.ReactElement {
   const [date, setDate] = useState<string | null>(null);
   const [notes, setNotes] = useState<string>('');
   const [image, setImage] = useState<string>('');
-  const [stressLevel, setStressLevel] = useState<number>(1); 
+  const [stressLevel, setStressLevel] = useState<number>(0); 
   const [hydration, setHydration] = useState<number>(0);
   const [diet, setDiet] = useState<string>('');
 
@@ -57,29 +57,38 @@ function LogAdventureForm(): React.ReactElement {
         onChange={event => setImage(event.target.value)}
       />
       <label htmlFor='stress-level-input'>Stress Level:</label>
-      <input
-        type='number'
+      <select
         name='stressLevel'
         value={stressLevel}
-        onChange={event => setStressLevel(parseInt(event.target.value, 10))}
-        min='1'
-        max='10'
-      />
+        onChange={event => setStressLevel(parseInt(event.target.value))}
+      >
+        <option value='1'>Min</option>
+        <option value='2'>Low</option>
+        <option value='3'>Moderate</option>
+        <option value='4'>High</option>
+        <option value='5'>Max</option>
+      </select>
       <label htmlFor='hydration-input'>Hydration Level:</label>
-      <input
-        type='number'
+      <select
         name='hydration'
         value={hydration}
         onChange={event => setHydration(parseInt(event.target.value))}
-        min='0'
-      />
+      >
+        <option value='1'>Dehydrated</option>
+        <option value='2'>Somewhat Hydrated</option>
+        <option value='3'>Hydrated</option>
+        <option value='4'>Very Hydrated</option>
+      </select>
       <label htmlFor='diet-input'>How Is Your Diet:</label>
-      <input 
-        type='text'
+      <select
         name='diet'
         value={diet}
         onChange={event => setDiet(event.target.value)}
-      />
+      >
+        <option value='poor'>Poor</option>
+        <option value='average'>Average</option>
+        <option value='good'>Good</option>
+      </select>
       <label htmlFor='notes-input'>Notes:</label>
       <input 
         type='text'
