@@ -9,9 +9,9 @@ function NavBar(): React.ReactElement {
         <NavLink className='nav-link' to='/'>
           Home
         </NavLink>
-        {/* <NavLink className='nav-link' to='/'> 
+        <NavLink className='nav-link' to='/logAdventure'> 
         Log New Adventure
-      </NavLink> */}
+      </NavLink>
       </div>
     </nav>
   );
