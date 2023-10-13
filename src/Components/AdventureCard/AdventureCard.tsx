@@ -1,4 +1,9 @@
 import './AdventureCard.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faXmark,
+  faPencil
+} from '@fortawesome/free-solid-svg-icons';
 
 interface AdventureProp {
   activity: string;
@@ -26,12 +31,23 @@ function AdventureCard({
       <div className='inner-card'>
         <img className='adventure-img' src={image_url} alt={activity} />
         <div className='card-text-wrapper'>
-          <p>{activity}</p>
-          <p>{date}</p>
-          <p>{notes}</p>
-          <p>{stress_level}</p>
-          <p>{hydration}</p>
-          <p>{diet}</p>
+          <div className='top-line-info'>
+            <div className='top-line-text'>
+              <p><span>Activity Type: </span>{activity}</p>
+              <p><span>Date: </span>{date}</p>
+            </div>
+            <div className='card-button-wrapper'>
+              <button className='fa-btn'> <FontAwesomeIcon icon={faPencil} /></button>
+              <button className='fa-btn'> <FontAwesomeIcon icon={faXmark} /></button>
+
+            </div>
+          </div>
+          <div className='second-line-info'>
+            <p><span>Hydration: </span>{hydration} oz</p>
+            <p><span>Diet: </span>{diet}</p>
+            <p><span>Stress Level:</span>{stress_level}</p>
+          </div>
+          <p><span>Notes: </span>{notes}</p>
         </div>
       </div>
     </div>
