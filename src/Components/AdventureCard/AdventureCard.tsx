@@ -15,7 +15,7 @@ function AdventureCard({
   adventure_id,
 }: Adventure): React.ReactElement {
   return (
-    <div key={adventure_id} className='adventure-card'>
+    <div key={adventure_id} id={`${adventure_id}`} className='adventure-card'>
       <div className='inner-card'>
         <img className='adventure-img' src={image_url} alt={activity} />
         <div className='card-text-wrapper'>
