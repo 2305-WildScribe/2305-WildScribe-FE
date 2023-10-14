@@ -10,6 +10,11 @@ import LogAdventureForm from '../LogAdventureForm/LogAdventureForm';
 function App(): React.ReactElement {
   const [adventures, setAdventures] = useState<Adventure[]>([]);
 
+  const logNewAdventure = (newAdventureData: Adventure) => {
+      setAdventures([...adventures, newAdventureData])
+  }
+
+
   useEffect(() => {
     postAdventure().then((data) => {
       setAdventures(data.data[0].attributes as Adventure[]);
@@ -22,8 +27,8 @@ function App(): React.ReactElement {
       <div className='main'>
         <div className='inner-main'>
           <Routes>
-            <Route path='/' element={<Homepage adventures={adventures}/>} />
-            <Route path='/logAdventure' element={<LogAdventureForm />} />
+            <Route path='/' element={<Homepage adventures={adventures} />} />
+            <Route path='/logAdventure' element={<LogAdventureForm logNewAdventure={logNewAdventure}/>} />
           </Routes>
         </div>
       </div>
