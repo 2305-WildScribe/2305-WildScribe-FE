@@ -1,3 +1,9 @@
+// import  Adventure  from '../../../types';
+
+// interface AdventureContainerProps {
+//   adventures: Adventure[];
+// }
+
 async function postAdventure() {
   try {
     const response = await fetch(
