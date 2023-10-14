@@ -1,7 +1,16 @@
 import { useState, ChangeEvent } from 'react';
 import './LogAdventureForm.scss';
+import postAdventure from '../../apiCalls';
+import  Adventure  from '../../../types';
 
-function LogAdventureForm(): React.ReactElement {
+interface LogAdventureFormProps {
+  logNewAdventure: (newAdventureData: Adventure) => void;
+}
+interface AdventureContainerProps {
+  adventures: Adventure[];
+}
+
+function LogAdventureForm({ logNewAdventure}: LogAdventureFormProps, {adventures}: AdventureContainerProps): React.ReactElement {
   const [activity, setActivity] = useState<string>('');
   const [date, setDate] = useState<string | null>(null);
   const [notes, setNotes] = useState<string>('');
@@ -23,21 +32,28 @@ function LogAdventureForm(): React.ReactElement {
   };
 
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-
-    const newAdventure = {
-      activity,
-      date,
-      notes,
-      image,
-      stressLevel,
-      hydration,
-      diet,
-    };
-
-    console.log(newAdventure);
+  
+    // const newAdventureData = {
+    //   activity,
+    //   date,
+    //   notes,
+    //   stressLevel,
+    //   hydration,
+    //   diet,
+    // };
+  
+    try {
+      const response = await postAdventure();
+      if (response && response.data) {
+        logNewAdventure(response.data);
+      }
+    } catch (error) {
+      console.error('Error posting adventure:', error);
+    }
   };
+  
 
 
   return (
