@@ -12,6 +12,9 @@ function AdventureCard({
   stress_level,
   hydration,
   diet,
+  sleep, 
+  extraDietNotes,
+  extraSleepNotes,
   adventure_id,
 }: Adventure): React.ReactElement {
   return (
@@ -44,7 +47,7 @@ function AdventureCard({
           <div className='second-line-info'>
             <p>
               <span>Hydration: </span>
-              {hydration} oz
+              {hydration}
             </p>
             <p>
               <span>Diet: </span>
@@ -56,7 +59,15 @@ function AdventureCard({
             </p>
           </div>
           <p>
-            <span>Notes: </span>
+            <span>Extra Diet Notes: </span>
+            {extraDietNotes}
+          </p>
+          <p>
+            <span>Extra Stress Notes: </span>
+            {extraSleepNotes}
+          </p>
+          <p>
+            <span>Beta Notes: </span>
             {notes}
           </p>
         </div>

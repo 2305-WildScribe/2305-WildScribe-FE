@@ -19,6 +19,9 @@ function AdventureContainer({ adventures }: AdventureContainerProps): React.Reac
           stress_level={adventure.stress_level}
           hydration={adventure.hydration}
           diet={adventure.diet}
+          sleep={adventure.sleep}
+          extraDietNotes={adventure.extraDietNotes}
+          extraSleepNotes={adventure.extraSleepNotes}
           adventure_id={adventure.adventure_id}
         />
       </div>
