@@ -1,6 +1,6 @@
 import { useState, ChangeEvent } from 'react';
 import './LogAdventureForm.scss';
-import { postAdventure, postNewAdventure } from '../../apiCalls';
+import { fetchUserLogs, postNewAdventure } from '../../apiCalls';
 import Adventure from '../../../types';
 import { useNavigate } from 'react-router-dom';
 
@@ -99,57 +99,57 @@ function LogAdventureForm({
       <p>Over the last 48 hours, how would you describe the following:</p>
       <div className='second-line-components'>
         {/* <div> */}
-          {/* <label htmlFor='stress-level-input'>Stress Level:</label> */}
-          <select
-            name='stressLevel'
-            value={stress_level}
-            onChange={(event) => setStressLevel(event.target.value)}
-          >
-            <option value=''>Stress Level:</option>
-            <option value='Min'>No stress</option>
-            <option value='Low'>Low</option>
-            <option value='Moderate'>Moderate</option>
-            <option value='High'>High</option>
-            <option value='Max'>Max</option>
-          </select>
+        {/* <label htmlFor='stress-level-input'>Stress Level:</label> */}
+        <select
+          name='stressLevel'
+          value={stress_level}
+          onChange={(event) => setStressLevel(event.target.value)}
+        >
+          <option value=''>Stress Level:</option>
+          <option value='Min'>No stress</option>
+          <option value='Low'>Low</option>
+          <option value='Moderate'>Moderate</option>
+          <option value='High'>High</option>
+          <option value='Max'>Max</option>
+        </select>
         {/* </div> */}
         {/* <div> */}
-          {/* <label htmlFor='hydration-input'>Hydration Level:</label> */}
-          <select
-            name='hydration'
-            value={hydration}
-            onChange={(event) => setHydration(event.target.value)}
-          >
-            <option value=''>Hydration Level:</option>
-            <option value='Dehydrated'>Dehydrated</option>
-            <option value='Somewhat Hydrated'>Somewhat Hydrated</option>
-            <option value='Hydrated'>Hydrated</option>
-            <option value='Very Hydrated'>Very Hydrated</option>
-          </select>
+        {/* <label htmlFor='hydration-input'>Hydration Level:</label> */}
+        <select
+          name='hydration'
+          value={hydration}
+          onChange={(event) => setHydration(event.target.value)}
+        >
+          <option value=''>Hydration Level:</option>
+          <option value='Dehydrated'>Dehydrated</option>
+          <option value='Somewhat Hydrated'>Somewhat Hydrated</option>
+          <option value='Hydrated'>Hydrated</option>
+          <option value='Very Hydrated'>Very Hydrated</option>
+        </select>
         {/* </div> */}
         {/* <div> */}
-          {/* <label htmlFor='diet-input'>How Is Your Diet:</label> */}
-          <select
-            name='diet'
-            value={diet}
-            onChange={(event) => setDiet(event.target.value)}
-          >
-            <option value=''>Overall Diet:</option>
-            <option value='Poor'>Poor</option>
-            <option value='Average'>Average</option>
-            <option value='Good'>Good</option>
-          </select>
-          {/* <label htmlFor='sleep-input'>Sleep:</label> */}
-          <select
-            name='sleep'
-            value={sleep}
-            onChange={(event) => setSleep(event.target.value)}
-          >
-            <option value='Poor'>Sleep Quality:</option>
-            <option value='Poor'>Poor</option>
-            <option value='Average'>Average</option>
-            <option value='Good'>Good</option>
-          </select>
+        {/* <label htmlFor='diet-input'>How Is Your Diet:</label> */}
+        <select
+          name='diet'
+          value={diet}
+          onChange={(event) => setDiet(event.target.value)}
+        >
+          <option value=''>Overall Diet:</option>
+          <option value='Poor'>Poor</option>
+          <option value='Average'>Average</option>
+          <option value='Good'>Good</option>
+        </select>
+        {/* <label htmlFor='sleep-input'>Sleep:</label> */}
+        <select
+          name='sleep'
+          value={sleep}
+          onChange={(event) => setSleep(event.target.value)}
+        >
+          <option value='Poor'>Sleep Quality:</option>
+          <option value='Poor'>Poor</option>
+          <option value='Average'>Average</option>
+          <option value='Good'>Good</option>
+        </select>
         {/* </div> */}
       </div>
       <textarea
