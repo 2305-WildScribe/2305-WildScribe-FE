@@ -44,14 +44,14 @@ function AdventureCard({
           <div className='second-line-info'>
             <p>
               <span>Hydration: </span>
-              {hydration} oz
+              {hydration}
             </p>
             <p>
               <span>Diet: </span>
               {diet}
             </p>
             <p>
-              <span>Stress Level:</span>
+              <span>Stress Level: </span>
               {stress_level}
             </p>
           </div>
