@@ -1,30 +1,28 @@
 import { useState, ChangeEvent } from 'react';
 import './LogAdventureForm.scss';
-import postAdventure from '../../apiCalls';
+import {postAdventure, postNewAdventure }from '../../apiCalls';
 import  Adventure  from '../../../types';
+import { useNavigate } from 'react-router-dom';
 
 interface LogAdventureFormProps {
   logNewAdventure: (newAdventureData: Adventure) => void;
+  adventures: Adventure[];
+  setAdventures: React.Dispatch<React.SetStateAction<Adventure[]>>;
 }
 interface AdventureContainerProps {
   adventures: Adventure[];
 }
 
-function LogAdventureForm({ logNewAdventure}: LogAdventureFormProps, {adventures}: AdventureContainerProps): React.ReactElement {
+function LogAdventureForm({ adventures, setAdventures }: LogAdventureFormProps): React.ReactElement {
   const [activity, setActivity] = useState<string>('');
   const [date, setDate] = useState<string | null>(null);
   const [notes, setNotes] = useState<string>('');
-  const [image, setImage] = useState<File | null>(null);
-  const [stressLevel, setStressLevel] = useState<number>(0); 
-  const [hydration, setHydration] = useState<number>(0);
+  const [image_url, setImage] = useState<string>('');
+  const [stress_level, setStressLevel] = useState<string>(''); 
+  const [hydration, setHydration] = useState<string>('');
   const [diet, setDiet] = useState<string>('');
 
-  const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = (event.target.files as FileList)[0];
-    if (file) {
-      setImage(file);
-    }
-  };
+  const navigate = useNavigate()
 
   const handleDateChange = (event: ChangeEvent<HTMLInputElement>) => {
     const selectedDateValue: string = event.target.value;
@@ -35,25 +33,23 @@ function LogAdventureForm({ logNewAdventure}: LogAdventureFormProps, {adventures
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
   
-    // const newAdventureData = {
-    //   activity,
-    //   date,
-    //   notes,
-    //   stressLevel,
-    //   hydration,
-    //   diet,
-    // };
+    const newAdventureData: Adventure = {
+      activity,
+      date: date || '',
+      notes,
+      image_url,
+      stress_level, 
+      hydration,
+      diet,
+      adventure_id: Date.now(),
+    };
   
-    try {
-      const response = await postAdventure();
-      if (response && response.data) {
-        logNewAdventure(response.data);
-      }
-    } catch (error) {
-      console.error('Error posting adventure:', error);
-    }
+    postNewAdventure(newAdventureData)
+    .then(response =>{
+      setAdventures([...adventures, newAdventureData])
+      navigate('/')
+    })
   };
-  
 
 
   return (
@@ -75,34 +71,34 @@ function LogAdventureForm({ logNewAdventure}: LogAdventureFormProps, {adventures
       />
       <label htmlFor='image'>Add Image:</label>
       <input
-        type='file'
+        type='text'
         name='image'
-        accept='image/*'
-        onChange={handleImageUpload}
-        multiple={false}
+        value={image_url}
+        onChange={event => setImage(event.target.value)}
+        placeholder='Enter the image URL'
       />
       <label htmlFor='stress-level-input'>Stress Level:</label>
       <select
         name='stressLevel'
-        value={stressLevel}
-        onChange={event => setStressLevel(parseInt(event.target.value))}
+        value={stress_level}
+        onChange={event => setStressLevel(event.target.value)}
       >
-        <option value='1'>Min</option>
-        <option value='2'>Low</option>
-        <option value='3'>Moderate</option>
-        <option value='4'>High</option>
-        <option value='5'>Max</option>
+        <option value='Min'>Min</option>
+        <option value='Low'>Low</option>
+        <option value='Moderate'>Moderate</option>
+        <option value='High'>High</option>
+        <option value='Max'>Max</option>
       </select>
       <label htmlFor='hydration-input'>Hydration Level:</label>
       <select
         name='hydration'
         value={hydration}
-        onChange={event => setHydration(parseInt(event.target.value))}
+        onChange={event => setHydration(event.target.value)}
       >
-        <option value='1'>Dehydrated</option>
-        <option value='2'>Somewhat Hydrated</option>
-        <option value='3'>Hydrated</option>
-        <option value='4'>Very Hydrated</option>
+        <option value='Dehydrated'>Dehydrated</option>
+        <option value='Somewhat Hydrated'>Somewhat Hydrated</option>
+        <option value='Hydrated'>Hydrated</option>
+        <option value='Very Hydrated'>Very Hydrated</option>
       </select>
       <label htmlFor='diet-input'>How Is Your Diet:</label>
       <select
@@ -110,9 +106,9 @@ function LogAdventureForm({ logNewAdventure}: LogAdventureFormProps, {adventures
         value={diet}
         onChange={event => setDiet(event.target.value)}
       >
-        <option value='poor'>Poor</option>
-        <option value='average'>Average</option>
-        <option value='good'>Good</option>
+        <option value='Poor'>Poor</option>
+        <option value='Average'>Average</option>
+        <option value='Good'>Good</option>
       </select>
       <label htmlFor='notes-input'>Notes:</label>
       <input 
