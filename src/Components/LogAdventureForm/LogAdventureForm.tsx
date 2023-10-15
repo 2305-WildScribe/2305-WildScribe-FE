@@ -51,75 +51,93 @@ function LogAdventureForm({ adventures, setAdventures }: LogAdventureFormProps):
     })
   };
 
-
   return (
-    <form>
-      <label htmlFor='activity-input'>Activity:</label>
-      <input 
-        type='text'
-        name='activity'
-        value={activity}
-        onChange={event => setActivity(event.target.value)}
-      />
-      <label htmlFor='date-input'>Date:</label>
-      <input
-        type='date'
-        name='date'
-        value={date || ''}
-        onChange={handleDateChange}
-        max={new Date().toISOString().split('T')[0]}
-      />
-      <label htmlFor='image'>Add Image:</label>
-      <input
-        type='text'
-        name='image'
-        value={image_url}
-        onChange={event => setImage(event.target.value)}
-        placeholder='Enter the image URL'
-      />
-      <label htmlFor='stress-level-input'>Stress Level:</label>
-      <select
-        name='stressLevel'
-        value={stress_level}
-        onChange={event => setStressLevel(event.target.value)}
-      >
-        <option value='Min'>Min</option>
-        <option value='Low'>Low</option>
-        <option value='Moderate'>Moderate</option>
-        <option value='High'>High</option>
-        <option value='Max'>Max</option>
-      </select>
-      <label htmlFor='hydration-input'>Hydration Level:</label>
-      <select
-        name='hydration'
-        value={hydration}
-        onChange={event => setHydration(event.target.value)}
-      >
-        <option value='Dehydrated'>Dehydrated</option>
-        <option value='Somewhat Hydrated'>Somewhat Hydrated</option>
-        <option value='Hydrated'>Hydrated</option>
-        <option value='Very Hydrated'>Very Hydrated</option>
-      </select>
-      <label htmlFor='diet-input'>How Is Your Diet:</label>
-      <select
-        name='diet'
-        value={diet}
-        onChange={event => setDiet(event.target.value)}
-      >
-        <option value='Poor'>Poor</option>
-        <option value='Average'>Average</option>
-        <option value='Good'>Good</option>
-      </select>
-      <label htmlFor='notes-input'>Notes:</label>
-      <input 
-        type='text'
+    <form className='form'>
+      <div className='top-line-components'>
+        <div>
+          <label htmlFor='activity-input'>Activity:</label>
+          <input
+            type='text'
+            name='activity'
+            value={activity}
+            onChange={(event) => setActivity(event.target.value)}
+          />
+          <label htmlFor='date-input'>Date:</label>
+          <input
+            type='date'
+            name='date'
+            value={date || ''}
+            onChange={handleDateChange}
+            max={new Date().toISOString().split('T')[0]}
+          />
+          <label htmlFor='image'>Add Image:</label>
+          <input
+            type='text'
+            name='image'
+            value={image_url}
+            onChange={event => setImage(event.target.value)}
+            placeholder='Enter the image URL'
+          />
+        </div>
+        <div className='form-btn-wrapper'>
+          <button
+            className='submit-button'
+            onClick={(event) => handleSubmit(event)}
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+      <div className='second-line-components'>
+        <div>
+          <label htmlFor='stress-level-input'>Stress Level:</label>
+          <select
+            name='stressLevel'
+            value={stress_level}
+            onChange={(event) => setStressLevel(event.target.value)}
+          >
+            <option value='Min'>Min</option>
+            <option value='Low'>Low</option>
+            <option value='Moderate'>Moderate</option>
+            <option value='High'>High</option>
+            <option value='Max'>Max</option>
+          </select>
+        </div>
+        <div>
+          <label htmlFor='hydration-input'>Hydration Level:</label>
+          <select
+            name='hydration'
+            value={hydration}
+            onChange={(event) => setHydration(event.target.value)}
+          >
+            <option value='Dehydrated'>Dehydrated</option>
+            <option value='Somewhat Hydrated'>Somewhat Hydrated</option>
+            <option value='Hydrated'>Hydrated</option>
+            <option value='Very Hydrated'>Very Hydrated</option>
+          </select>
+        </div>
+        <div>
+          <label htmlFor='diet-input'>How Is Your Diet:</label>
+          <select
+            name='diet'
+            value={diet}
+            onChange={(event) => setDiet(event.target.value)}
+          >
+            <option value='Poor'>Poor</option>
+            <option value='Average'>Average</option>
+            <option value='Good'>Good</option>
+          </select>
+        </div>
+      </div>
+      <textarea
+        className='notes-input'
+        placeholder='Log your notes here'
         name='notes'
         value={notes}
-        onChange={event => setNotes(event.target.value)}
+        onChange={(event) => setNotes(event.target.value)}
       />
-      <button className="submit-button" onClick={event => handleSubmit(event)}>Submit</button>
     </form>
-  )
+  );
 }
 
 export default LogAdventureForm;

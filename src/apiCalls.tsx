@@ -21,7 +21,11 @@ export async function postAdventure() {
       throw new Error('error');
     }
     return await response.json();
-  } catch (error) {}
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error('Error:', error.message);
+    }
+  }
 }
 
 export async function postNewAdventure(newAdventureData: Adventure) {

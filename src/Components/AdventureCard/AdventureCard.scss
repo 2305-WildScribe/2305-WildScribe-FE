@@ -49,8 +49,12 @@ span{
   color: inherit;
   font: inherit;
   cursor: pointer;
+}
+
+.fa-icon{
+  margin-left: 0.5rem;
   &:hover{
-    background-color: $red;
+    color: $red;
   }
 }
 

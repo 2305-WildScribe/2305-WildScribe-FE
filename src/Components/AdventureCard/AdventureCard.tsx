@@ -1,6 +1,6 @@
 import './AdventureCard.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark, faPencil } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faPencil } from '@fortawesome/free-solid-svg-icons';
 
 import  Adventure  from '../../../types';
 
@@ -33,11 +33,11 @@ function AdventureCard({
             <div className='card-button-wrapper'>
               <button className='fa-btn'>
                 {' '}
-                <FontAwesomeIcon icon={faPencil} />
+                <FontAwesomeIcon icon={faPencil} className='fa-icon'/>
               </button>
               <button className='fa-btn'>
                 {' '}
-                <FontAwesomeIcon icon={faXmark} />
+                <FontAwesomeIcon icon={faTrash} className='fa-icon'/>
               </button>
             </div>
           </div>
