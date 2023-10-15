@@ -46,6 +46,7 @@ function LogAdventureForm({ adventures, setAdventures }: LogAdventureFormProps):
   
     postNewAdventure(newAdventureData)
     .then(response =>{
+      console.log(response)
       setAdventures([...adventures, newAdventureData])
       navigate('/')
     })
@@ -130,8 +131,22 @@ function LogAdventureForm({ adventures, setAdventures }: LogAdventureFormProps):
         </div>
       </div>
       <textarea
+        className='sleep-notes-input'
+        placeholder='Add any extra notes on sleep or stress'
+        name='notes'
+        value={notes}
+        onChange={(event) => setNotes(event.target.value)}
+      />
+        <textarea
+        className='hydro-notes-input'
+        placeholder='Add any extra notes on diet or hydration'
+        name='notes'
+        value={notes}
+        onChange={(event) => setNotes(event.target.value)}
+      />
+        <textarea
         className='notes-input'
-        placeholder='Log your notes here'
+        placeholder='Add any extra notes on any beta '
         name='notes'
         value={notes}
         onChange={(event) => setNotes(event.target.value)}

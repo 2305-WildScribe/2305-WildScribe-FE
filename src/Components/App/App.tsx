@@ -32,7 +32,6 @@ function App(): React.ReactElement {
             <Route path='/logAdventure' element={<LogAdventureForm logNewAdventure={logNewAdventure} adventures={adventures} setAdventures={setAdventures}/>} />
             <Route path='/error' element={<ErrorPage />} />
             <Route path='*' element={<ErrorPage />} />
-
           </Routes>
         </div>
       </main>
