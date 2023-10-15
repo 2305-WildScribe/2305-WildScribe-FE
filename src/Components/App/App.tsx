@@ -3,7 +3,7 @@ import Homepage from '../Homepage/Homepage';
 import NavBar from '../NavBar/NavBar';
 import { Route, Routes } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import postAdventure from '../../apiCalls';
+import {postAdventure} from '../../apiCalls';
 import  Adventure  from '../../../types';
 import LogAdventureForm from '../LogAdventureForm/LogAdventureForm';
 
@@ -28,7 +28,7 @@ function App(): React.ReactElement {
         <div className='inner-main'>
           <Routes>
             <Route path='/' element={<Homepage adventures={adventures} />} />
-            <Route path='/logAdventure' element={<LogAdventureForm logNewAdventure={logNewAdventure}/>} />
+            <Route path='/logAdventure' element={<LogAdventureForm logNewAdventure={logNewAdventure} adventures={adventures} setAdventures={setAdventures}/>} />
           </Routes>
         </div>
       </div>
