@@ -4,7 +4,7 @@ interface Adventure {
   notes: string;
   image_url: string;
   stress_level: string;
-  hydration: number;
+  hydration: string;
   diet: string;
   adventure_id: number;
 }
