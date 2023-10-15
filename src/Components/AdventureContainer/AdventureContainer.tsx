@@ -8,9 +8,7 @@ interface AdventureContainerProps {
 }
 
 function AdventureContainer({ adventures }: AdventureContainerProps): React.ReactElement {
-  console.log('HERE', adventures);
   const adventureCards = adventures.map((adventure) => {
-    console.log(adventure);
     return (
       <div key={adventure.adventure_id}>
         <AdventureCard

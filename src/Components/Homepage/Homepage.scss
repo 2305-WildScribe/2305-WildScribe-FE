@@ -1,9 +1,19 @@
 @import '../../index.scss';
 
-.search-btn{
+.search-btn {
   @include btn;
   width: 7rem;
   height: 3rem;
   align-self: flex-end;
   margin: 1rem;
+}
+
+#home-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  overflow-y: hidden;
+  padding: 1rem;
 }
