@@ -3,7 +3,7 @@ import Homepage from '../Homepage/Homepage';
 import NavBar from '../NavBar/NavBar';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { postAdventure } from '../../apiCalls';
+import { fetchUserLogs } from '../../apiCalls';
 import { Adventure, Error } from '../../../types';
 import LogAdventureForm from '../LogAdventureForm/LogAdventureForm';
 import ErrorPage from '../ErrorPage/ErrorPage';
@@ -19,9 +19,13 @@ function App(): React.ReactElement {
   const navigate = useNavigate();
 
   useEffect(() => {
-    postAdventure()
+    fetchUserLogs()
       .then((data) => {
-        setAdventures(data.data[0].attributes as Adventure[]);
+        console.log('here', data.data.attributes)
+        // if(data.data.attributes.length === 0){
+        //   setAdventures()
+        // }
+        setAdventures(data.data.attributes as Adventure[]);
         setError({ error: false, message: '' });
       })
       .catch((error) => {

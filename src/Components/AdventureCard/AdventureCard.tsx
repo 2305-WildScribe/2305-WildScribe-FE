@@ -7,14 +7,14 @@ import  { Adventure }  from '../../../types';
 function AdventureCard({
   activity,
   date,
-  notes,
+  beta_notes,
   image_url,
   stress_level,
   hydration,
   diet,
-  sleep,
-  extraDietNotes,
-  extraSleepNotes,
+  hours_slept,
+  diet_hydration_notes,
+  sleep_stress_notes,
   adventure_id,
 }: Adventure): React.ReactElement {
   return (
@@ -67,29 +67,29 @@ function AdventureCard({
                 {stress_level}
               </p>
             )}
-            {sleep && (
+            {hours_slept && (
               <p>
                 <span>Sleep Quality:</span>
-                {sleep}
+                {hours_slept}
               </p>
             )}
           </div>
-          {extraDietNotes && (
+          {diet_hydration_notes && (
             <p>
               <span>Extra Diet Notes: </span>
-              {extraDietNotes}
+              {diet_hydration_notes}
             </p>
           )}
-          {extraSleepNotes && (
+          {sleep_stress_notes && (
             <p>
               <span>Extra Stress Notes: </span>
-              {extraSleepNotes}
+              {sleep_stress_notes}
             </p>
           )}
-          {notes && (
+          {beta_notes && (
             <p>
               <span>Beta Notes: </span>
-              {notes}
+              {beta_notes}
             </p>
           )}
         </div>
