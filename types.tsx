@@ -1,4 +1,4 @@
-interface Adventure {
+export interface Adventure {
   activity: string;
   date: string;
   notes: string;
@@ -9,4 +9,7 @@ interface Adventure {
   adventure_id: number;
 }
 
-export default Adventure
+export interface Error {
+  error: boolean | undefined;
+  message: string| '';
+}

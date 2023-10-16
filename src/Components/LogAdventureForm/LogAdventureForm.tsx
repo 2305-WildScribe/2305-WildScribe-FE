@@ -1,7 +1,7 @@
 import { useState, ChangeEvent } from 'react';
 import './LogAdventureForm.scss';
 import {postAdventure, postNewAdventure }from '../../apiCalls';
-import  Adventure  from '../../../types';
+import  { Adventure }  from '../../../types';
 import { useNavigate } from 'react-router-dom';
 
 interface LogAdventureFormProps {
@@ -9,9 +9,10 @@ interface LogAdventureFormProps {
   adventures: Adventure[];
   setAdventures: React.Dispatch<React.SetStateAction<Adventure[]>>;
 }
-interface AdventureContainerProps {
-  adventures: Adventure[];
-}
+
+// interface AdventureContainerProps {
+//   adventures: Adventure[];
+// }
 
 function LogAdventureForm({ adventures, setAdventures }: LogAdventureFormProps): React.ReactElement {
   const [activity, setActivity] = useState<string>('');

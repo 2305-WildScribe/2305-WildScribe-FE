@@ -1,31 +1,29 @@
-import Adventure from "../types";
+import { Adventure } from '../types';
 
 export async function postAdventure() {
-  try {
-    const response = await fetch(
-      'https://117105e4-6093-4d95-8632-31f93d58b35a.mock.pstmn.io/api/v0/adventures',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+  return fetch(
+    'https://117105e4-6093-4d95-8632-31f93d58b35a.mock.pstmn.io/api/v0/adventures',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        data: {
+          type: 'adventures',
+          user_id: 12,
         },
-        body: JSON.stringify({
-          data: {
-            type: 'adventures',
-            user_id: 12,
-          },
-        }),
-      }
-    );
+      }),
+    }
+  ).then((response) => {
+    if (response.status === 404) {
+      throw new Error('404 page not found');
+    }
     if (!response.ok) {
-      throw new Error('error');
+      throw new Error(response.statusText);
     }
-    return await response.json();
-  } catch (error) {
-    if (error instanceof Error) {
-      console.error('Error:', error.message);
-    }
-  }
+    return response.json();
+  });
 }
 
 export async function postNewAdventure(newAdventureData: Adventure) {
@@ -42,7 +40,7 @@ export async function postNewAdventure(newAdventureData: Adventure) {
             type: 'adventures',
             user_id: 12,
             attributes: {
-              newAdventureData
+              newAdventureData,
             },
           },
         }),
