@@ -38,6 +38,7 @@ describe('log adventure form', () => {
     cy.get('[name="image"]').should('have.attr', 'placeholder', 'Enter the image URL')
     cy.get('[name="image"]').type('https://www.rei.com/adventures/assets/adventures/images/trip/gallery/northamerica/crh_12')
     cy.get('p').should('contain', 'Over the last 48 hours, how would you describe the following')
+    cy.get('[name="stressLevel"]').select('Moderate')
     
   })
 })
