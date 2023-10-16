@@ -40,5 +40,6 @@ describe('log adventure form', () => {
     cy.get('p').should('contain', 'Over the last 48 hours, how would you describe the following')
     cy.get('[name="stressLevel"]').select('Moderate')
     cy.get('[name="hydration"]').select('Hydrated')
+    cy.get('[name="diet"]').select('Average')
   })
 })
