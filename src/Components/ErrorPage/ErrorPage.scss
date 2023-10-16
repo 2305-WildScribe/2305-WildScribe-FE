@@ -1,0 +1,6 @@
+@import '../../index.scss';
+
+.error-msg{
+  height: 100%;
+  @include center
+}

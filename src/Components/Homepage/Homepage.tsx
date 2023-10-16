@@ -1,5 +1,5 @@
 import './Homepage.scss';
-import  Adventure  from '../../../types';
+import  { Adventure }  from '../../../types';
 import AdventureContainer from '../AdventureContainer/AdventureContainer';
 
 interface HomepageProps {
