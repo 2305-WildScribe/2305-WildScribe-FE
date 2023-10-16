@@ -1,4 +1,4 @@
-import { Adventure } from '../types';
+import { Adventure } from './types';
 
 export async function fetchUserLogs() {
   return fetch(
@@ -77,7 +77,7 @@ export async function postNewAdventure(newAdventureData: Adventure) {
       }
     );
     if (!response.ok) {
-      throw new Error('error');
+      throw new Error('Oops, something went wrong. Please try again later.');
     }
     return await response.json();
   } catch (error) {}

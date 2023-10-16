@@ -1,18 +1,21 @@
 import { useState, ChangeEvent } from 'react';
 import './LogAdventureForm.scss';
 import { postNewAdventure } from '../../apiCalls';
-import { Adventure } from '../../../types';
+import { Adventure, Error } from '../../types';
 import { useNavigate } from 'react-router-dom';
 
 interface LogAdventureFormProps {
   logNewAdventure: (newAdventureData: Adventure) => void;
   adventures: Adventure[];
   setAdventures: React.Dispatch<React.SetStateAction<Adventure[]>>;
+  error: Error;
+  setError: React.Dispatch<React.SetStateAction<Error>>;
 }
 
 function LogAdventureForm({
   adventures,
   setAdventures,
+  setError,
 }: LogAdventureFormProps): React.ReactElement {
   const [activity, setActivity] = useState<string>('');
   const [date, setDate] = useState<string | null>(null);
@@ -24,8 +27,10 @@ function LogAdventureForm({
   const [extraSleepNotes, setExtraSleepNotes] = useState<string>('');
   const [extraDietNotes, setExtraDietNotes] = useState<string>('');
   const [sleep, setSleep] = useState<number>(0);
+  const [userMsg, setUserMsg] = useState<string>('');
 
   const navigate = useNavigate();
+
   const handleDateChange = (event: ChangeEvent<HTMLInputElement>) => {
     const selectedDateValue: string = event.target.value;
     setDate(selectedDateValue);
@@ -33,27 +38,45 @@ function LogAdventureForm({
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    setUserMsg('');
+    if (activity === '') {
+      setUserMsg("Please specify the activity you're logging");
+      return;
+    }
+    if (!date) {
+      setUserMsg('Please specify a date for your adventure!');
+      return;
+    } else {
+      const newAdventureData: Adventure = {
+        user_id: 12,
+        activity,
+        date: date || '',
+        beta_notes: betaNotes,
+        image_url,
+        stress_level,
+        hydration,
+        diet,
+        hours_slept: sleep,
+        diet_hydration_notes: extraDietNotes,
+        sleep_stress_notes: extraSleepNotes,
+        adventure_id: undefined,
+      };
 
-    const newAdventureData: Adventure = {
-      user_id: 12,
-      activity,
-      date: date || '',
-      beta_notes: betaNotes,
-      image_url,
-      stress_level,
-      hydration,
-      diet,
-      hours_slept: sleep,
-      diet_hydration_notes: extraDietNotes,
-      sleep_stress_notes: extraSleepNotes,
-      adventure_id: undefined,
-    };
-
-    postNewAdventure(newAdventureData).then((response) => {
-      console.log(response);
-      setAdventures([...adventures, newAdventureData]);
-      navigate('/');
-    });
+      postNewAdventure(newAdventureData)
+        .then((response) => {
+          console.log(response);
+          setAdventures([...adventures, newAdventureData]);
+          setError({ error: false, message: '' });
+          navigate('/');
+        })
+        .catch((error) => {
+          setError({
+            error: true,
+            message: 'Oops, something went wront, please try again later',
+          });
+          navigate('/error');
+        });
+    }
   };
 
   return (
@@ -85,6 +108,7 @@ function LogAdventureForm({
           />
         </div>
         <div className='form-btn-wrapper'>
+          {userMsg !== '' && <p>{userMsg}</p>}
           <button
             className='submit-button'
             onClick={(event) => handleSubmit(event)}
@@ -129,13 +153,18 @@ function LogAdventureForm({
           <option value='Good'>Good</option>
         </select>
         <div>
-          <label htmlFor='sleep-input'>Hours slept:</label>
+          <label htmlFor='sleep-input'>Hours slept / night:</label>
           <input
             type='number'
             name='sleep'
             value={sleep}
-            onChange={(event) => setSleep(Number(event.target.value))}
-            placeholder=''
+            onChange={(event) => {
+              const inputValue = Number(event.target.value);
+              if (inputValue >= 0) {
+                setSleep(inputValue);
+              }
+            }}
+            min='0'
           />
         </div>
       </div>

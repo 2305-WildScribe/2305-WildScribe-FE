@@ -4,7 +4,7 @@ import NavBar from '../NavBar/NavBar';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { fetchUserLogs } from '../../apiCalls';
-import { Adventure, Error } from '../../../types';
+import { Adventure, Error } from '../../types';
 import LogAdventureForm from '../LogAdventureForm/LogAdventureForm';
 import ErrorPage from '../ErrorPage/ErrorPage';
 
@@ -12,6 +12,7 @@ function App(): React.ReactElement {
   const [adventures, setAdventures] = useState<Adventure[]>([]);
 
   const [error, setError] = useState<Error>({ error: false, message: '' });
+
   const logNewAdventure = (newAdventureData: Adventure) => {
     setAdventures([...adventures, newAdventureData]);
   };
@@ -21,10 +22,7 @@ function App(): React.ReactElement {
   useEffect(() => {
     fetchUserLogs()
       .then((data) => {
-        console.log('here', data.data.attributes)
-        // if(data.data.attributes.length === 0){
-        //   setAdventures()
-        // }
+        // console.log('here', data.data.attributes);
         setAdventures(data.data.attributes as Adventure[]);
         setError({ error: false, message: '' });
       })
@@ -48,6 +46,8 @@ function App(): React.ReactElement {
                   logNewAdventure={logNewAdventure}
                   adventures={adventures}
                   setAdventures={setAdventures}
+                  error={error}
+                  setError={setError}
                 />
               }
             />

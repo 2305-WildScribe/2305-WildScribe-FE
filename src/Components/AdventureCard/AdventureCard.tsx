@@ -2,7 +2,7 @@ import './AdventureCard.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faPencil } from '@fortawesome/free-solid-svg-icons';
 
-import  { Adventure }  from '../../../types';
+import { Adventure } from '../../types';
 
 function AdventureCard({
   activity,
@@ -67,7 +67,7 @@ function AdventureCard({
                 {stress_level}
               </p>
             )}
-            {hours_slept && (
+            {hours_slept > 0 && (
               <p>
                 <span>Sleep Quality:</span>
                 {hours_slept}

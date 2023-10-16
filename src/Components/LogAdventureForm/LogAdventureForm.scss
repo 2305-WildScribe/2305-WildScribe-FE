@@ -19,7 +19,6 @@ label {
 
 textarea {
   width: 100%;
-  // height: 75%;
   padding: 12px 20px;
   box-sizing: border-box;
   border: 2px solid #ccc;
@@ -34,7 +33,7 @@ textarea {
   height: 10%;
 }
 
-.notes-input{
+.notes-input {
   height: 50%;
 }
 
@@ -53,4 +52,11 @@ textarea {
   @include btn;
   width: 7rem;
   height: 3rem;
+}
+
+.form-btn-wrapper {
+  display: flex;
+  p {
+    margin-right: 1rem;
+  }
 }
