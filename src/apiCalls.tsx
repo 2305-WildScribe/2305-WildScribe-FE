@@ -1,4 +1,4 @@
-import { Adventure } from '../types';
+import { Adventure } from './types';
 
 export async function fetchUserLogs() {
   return fetch(

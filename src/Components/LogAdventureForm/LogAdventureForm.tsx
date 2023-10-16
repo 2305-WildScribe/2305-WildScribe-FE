@@ -1,18 +1,21 @@
 import { useState, ChangeEvent } from 'react';
 import './LogAdventureForm.scss';
 import { postNewAdventure } from '../../apiCalls';
-import { Adventure } from '../../../types';
+import { Adventure, Error } from '../../types';
 import { useNavigate } from 'react-router-dom';
 
 interface LogAdventureFormProps {
   logNewAdventure: (newAdventureData: Adventure) => void;
   adventures: Adventure[];
   setAdventures: React.Dispatch<React.SetStateAction<Adventure[]>>;
+  error: Error;
+  setError: React.Dispatch<React.SetStateAction<Error>>;
 }
 
 function LogAdventureForm({
   adventures,
   setAdventures,
+  setError,
 }: LogAdventureFormProps): React.ReactElement {
   const [activity, setActivity] = useState<string>('');
   const [date, setDate] = useState<string | null>(null);
@@ -49,11 +52,17 @@ function LogAdventureForm({
       adventure_id: undefined,
     };
 
-    postNewAdventure(newAdventureData).then((response) => {
-      console.log(response);
-      setAdventures([...adventures, newAdventureData]);
-      navigate('/');
-    });
+    postNewAdventure(newAdventureData)
+      .then((response) => {
+        console.log(response);
+        setAdventures([...adventures, newAdventureData]);
+        setError({ error: false, message: '' });
+        navigate('/');
+      })
+      .catch((error) => {
+        setError({ error: true, message: error });
+        navigate('/error')
+      });
   };
 
   return (

@@ -1,7 +1,7 @@
 @import '../../index.scss';
 
 .adventure-img {
-  width: 15rem;
+  min-width: 15rem;
   object-fit: cover;
   border: 1px solid $brown;
 }

@@ -1,5 +1,5 @@
 import { AdventureCard } from '../AdventureCard/AdventureCard';
-import { Adventure } from '../../../types';
+import { Adventure } from '../../types';
 
 import './AdventureContainer.scss';
 

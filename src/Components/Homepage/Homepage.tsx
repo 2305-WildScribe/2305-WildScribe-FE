@@ -1,5 +1,5 @@
 import './Homepage.scss';
-import { Adventure } from '../../../types';
+import { Adventure } from '../../types';
 import AdventureContainer from '../AdventureContainer/AdventureContainer';
 
 interface HomepageProps {
@@ -7,7 +7,6 @@ interface HomepageProps {
 }
 
 function Homepage({ adventures }: HomepageProps): React.ReactElement {
-  console.log('here', adventures.length);
   return (
     <div id='home-main'>
       {adventures.length ? (
@@ -17,9 +16,9 @@ function Homepage({ adventures }: HomepageProps): React.ReactElement {
         </>
       ) : (
         <p className='welcome-message'>
-          Welcome to WildScribe! Here, you can track your adventures, training,
-          beta, etc. in order to improve in the activities you enjoy. To get
-          started, log your first adventure!
+          Welcome to WildScribe, an app that lets track your adventures,
+          training, beta, etc. in order to improve in the activities you enjoy.
+          To get started, log your first adventure!
         </p>
       )}
     </div>
@@ -27,4 +26,3 @@ function Homepage({ adventures }: HomepageProps): React.ReactElement {
 }
 
 export default Homepage;
-

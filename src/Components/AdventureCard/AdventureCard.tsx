@@ -2,7 +2,7 @@ import './AdventureCard.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faPencil } from '@fortawesome/free-solid-svg-icons';
 
-import  { Adventure }  from '../../../types';
+import { Adventure } from '../../types';
 
 function AdventureCard({
   activity,
