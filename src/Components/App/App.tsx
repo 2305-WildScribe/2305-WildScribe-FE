@@ -1,9 +1,9 @@
 import './App.scss';
 import Homepage from '../Homepage/Homepage';
 import NavBar from '../NavBar/NavBar';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { fetchUserLogs } from '../../apiCalls';
+// import { fetchUserLogs } from '../../apiCalls';
 import { Adventure, Error } from '../../types';
 import LogAdventureForm from '../LogAdventureForm/LogAdventureForm';
 import ErrorPage from '../ErrorPage/ErrorPage';
@@ -19,26 +19,7 @@ function App(): React.ReactElement {
   };
 
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const [userAuthentication, setUserAuthentication] = useState<object>({
-    email: '',
-    password: '',
-  });
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    fetchUserLogs()
-      .then((data) => {
-        // console.log('here', data.data.attributes);
-        setAdventures(data.data.attributes as Adventure[]);
-        setError({ error: false, message: '' });
-      })
-      .catch((error) => {
-        setError({ error: true, message: error });
-        navigate('/error');
-      });
-  }, []);
-
+ 
   return (
     <div className='App'>
       <NavBar isLoggedIn={isLoggedIn}/>
@@ -46,15 +27,17 @@ function App(): React.ReactElement {
         <div className='inner-main'>
           <Routes>
             <Route
-              path='/login'
+              path='/'
               element={
                 <LoginPage
-                  userAuthentication={userAuthentication}
-                  setUserAuthentication={setUserAuthentication}
+                  setIsLoggedIn={setIsLoggedIn}
+                  setAdventures={setAdventures}
+                  setError={setError}
+                  error={error}
                 />
               }
             />
-            <Route path='/' element={<Homepage adventures={adventures} />} />
+            <Route path='/home' element={<Homepage adventures={adventures} />} />
             <Route
               path='/logAdventure'
               element={

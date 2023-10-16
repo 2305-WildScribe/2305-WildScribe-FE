@@ -1,6 +1,6 @@
 import { Adventure } from './types';
 
-export async function fetchUserLogs() {
+export async function fetchUserLogs(user_id: number) {
   return fetch(
     'https://117105e4-6093-4d95-8632-31f93d58b35a.mock.pstmn.io/api/v0/user/adventures',
     {
@@ -12,7 +12,7 @@ export async function fetchUserLogs() {
         data: {
           type: 'adventures',
           attributes: {
-            user_id: '12',
+            user_id,
           },
         },
       }),
@@ -81,4 +81,33 @@ export async function postNewAdventure(newAdventureData: Adventure) {
     }
     return await response.json();
   } catch (error) {}
+}
+
+export async function userLogin(email:string, password:string) {
+  return fetch(
+    'https://117105e4-6093-4d95-8632-31f93d58b35a.mock.pstmn.io/user',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        "data":{
+            "type": "user",
+            "attributes": {
+                "email": email,
+                "password": password
+            }
+        }
+    }),
+    }
+  ).then((response) => {
+    if (response.status === 404) {
+      throw new Error('404 page not found');
+    }
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+    return response.json();
+  });
 }

@@ -19,7 +19,7 @@ function NavBar({ isLoggedIn }: NavBarProps): React.ReactElement {
       </div>
       {isLoggedIn && (
         <div className='nav-button-container'>
-          <NavLink className='home-btn nav-link' to='/'>
+          <NavLink className='home-btn nav-link' to='/home'>
             Home
           </NavLink>
           <NavLink className='new-adventure-btn nav-link' to='/logAdventure'>
