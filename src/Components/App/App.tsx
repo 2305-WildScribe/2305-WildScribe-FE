@@ -7,6 +7,7 @@ import { fetchUserLogs } from '../../apiCalls';
 import { Adventure, Error } from '../../types';
 import LogAdventureForm from '../LogAdventureForm/LogAdventureForm';
 import ErrorPage from '../ErrorPage/ErrorPage';
+import LoginPage from '../LoginPage/LoginPage';
 
 function App(): React.ReactElement {
   const [adventures, setAdventures] = useState<Adventure[]>([]);
@@ -16,6 +17,12 @@ function App(): React.ReactElement {
   const logNewAdventure = (newAdventureData: Adventure) => {
     setAdventures([...adventures, newAdventureData]);
   };
+
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [userAuthentication, setUserAuthentication] = useState<object>({
+    email: '',
+    password: '',
+  });
 
   const navigate = useNavigate();
 
@@ -34,10 +41,19 @@ function App(): React.ReactElement {
 
   return (
     <div className='App'>
-      <NavBar />
+      <NavBar isLoggedIn={isLoggedIn}/>
       <main className='main'>
         <div className='inner-main'>
           <Routes>
+            <Route
+              path='/login'
+              element={
+                <LoginPage
+                  userAuthentication={userAuthentication}
+                  setUserAuthentication={setUserAuthentication}
+                />
+              }
+            />
             <Route path='/' element={<Homepage adventures={adventures} />} />
             <Route
               path='/logAdventure'
