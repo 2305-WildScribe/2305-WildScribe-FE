@@ -6,6 +6,9 @@ interface Adventure {
   stress_level: string;
   hydration: string;
   diet: string;
+  sleep: string;
+  extraDietNotes: string,
+  extraSleepNotes: string,
   adventure_id: number;
 }
 

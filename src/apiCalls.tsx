@@ -1,6 +1,6 @@
-import Adventure from "../types";
+import Adventure from '../types';
 
-export async function postAdventure() {
+export async function fetchUserLogs() {
   try {
     const response = await fetch(
       'https://117105e4-6093-4d95-8632-31f93d58b35a.mock.pstmn.io/api/v0/adventures',
@@ -42,7 +42,7 @@ export async function postNewAdventure(newAdventureData: Adventure) {
             type: 'adventures',
             user_id: 12,
             attributes: {
-              newAdventureData
+              newAdventureData,
             },
           },
         }),
