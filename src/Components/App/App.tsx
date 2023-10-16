@@ -1,24 +1,37 @@
 import './App.scss';
 import Homepage from '../Homepage/Homepage';
 import NavBar from '../NavBar/NavBar';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { fetchUserLogs } from '../../apiCalls';
-import Adventure from '../../../types';
+import { Adventure, Error } from '../../../types';
 import LogAdventureForm from '../LogAdventureForm/LogAdventureForm';
 import ErrorPage from '../ErrorPage/ErrorPage';
 
 function App(): React.ReactElement {
   const [adventures, setAdventures] = useState<Adventure[]>([]);
 
+  const [error, setError] = useState<Error>({ error: false, message: '' });
   const logNewAdventure = (newAdventureData: Adventure) => {
     setAdventures([...adventures, newAdventureData]);
   };
 
+  const navigate = useNavigate();
+
   useEffect(() => {
-    fetchUserLogs().then((data) => {
-      setAdventures(data.data[0].attributes as Adventure[]);
-    });
+    fetchUserLogs()
+      .then((data) => {
+        console.log('here', data.data.attributes)
+        // if(data.data.attributes.length === 0){
+        //   setAdventures()
+        // }
+        setAdventures(data.data.attributes as Adventure[]);
+        setError({ error: false, message: '' });
+      })
+      .catch((error) => {
+        setError({ error: true, message: error });
+        navigate('/error');
+      });
   }, []);
 
   return (
@@ -38,8 +51,11 @@ function App(): React.ReactElement {
                 />
               }
             />
-            <Route path='/error' element={<ErrorPage />} />
-            <Route path='*' element={<ErrorPage />} />
+            <Route
+              path='/error'
+              element={<ErrorPage message={error.message} />}
+            />
+            <Route path='*' element={<ErrorPage message={error.message} />} />
           </Routes>
         </div>
       </main>

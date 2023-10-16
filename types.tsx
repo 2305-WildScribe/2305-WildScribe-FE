@@ -1,15 +1,19 @@
-interface Adventure {
+export interface Adventure {
+  user_id: number;
+  adventure_id: string | undefined;
   activity: string;
   date: string;
-  notes: string;
   image_url: string;
   stress_level: string;
+  hours_slept: number;
+  sleep_stress_notes: string;
   hydration: string;
   diet: string;
-  sleep: string;
-  extraDietNotes: string,
-  extraSleepNotes: string,
-  adventure_id: number;
+  diet_hydration_notes: string;
+  beta_notes: string;
 }
 
-export default Adventure
+export interface Error {
+  error: boolean | undefined;
+  message: string| '';
+}

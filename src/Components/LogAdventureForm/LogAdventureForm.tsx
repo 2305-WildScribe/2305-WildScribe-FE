@@ -1,7 +1,7 @@
 import { useState, ChangeEvent } from 'react';
 import './LogAdventureForm.scss';
 import { postNewAdventure } from '../../apiCalls';
-import Adventure from '../../../types';
+import { Adventure } from '../../../types';
 import { useNavigate } from 'react-router-dom';
 
 interface LogAdventureFormProps {
@@ -9,9 +9,6 @@ interface LogAdventureFormProps {
   adventures: Adventure[];
   setAdventures: React.Dispatch<React.SetStateAction<Adventure[]>>;
 }
-// interface AdventureContainerProps {
-//   adventures: Adventure[];
-// }
 
 function LogAdventureForm({
   adventures,
@@ -19,17 +16,16 @@ function LogAdventureForm({
 }: LogAdventureFormProps): React.ReactElement {
   const [activity, setActivity] = useState<string>('');
   const [date, setDate] = useState<string | null>(null);
-  const [notes, setNotes] = useState<string>('');
+  const [betaNotes, setBetaNotes] = useState<string>('');
   const [image_url, setImage] = useState<string>('');
   const [stress_level, setStressLevel] = useState<string>('');
   const [hydration, setHydration] = useState<string>('');
   const [diet, setDiet] = useState<string>('');
   const [extraSleepNotes, setExtraSleepNotes] = useState<string>('');
   const [extraDietNotes, setExtraDietNotes] = useState<string>('');
-  const [sleep, setSleep] = useState<string>('');
+  const [sleep, setSleep] = useState<number>(0);
 
   const navigate = useNavigate();
-
   const handleDateChange = (event: ChangeEvent<HTMLInputElement>) => {
     const selectedDateValue: string = event.target.value;
     setDate(selectedDateValue);
@@ -39,17 +35,18 @@ function LogAdventureForm({
     event.preventDefault();
 
     const newAdventureData: Adventure = {
+      user_id: 12,
       activity,
       date: date || '',
-      notes,
+      beta_notes: betaNotes,
       image_url,
       stress_level,
       hydration,
       diet,
-      sleep,
-      extraDietNotes,
-      extraSleepNotes,
-      adventure_id: Date.now(),
+      hours_slept: sleep,
+      diet_hydration_notes: extraDietNotes,
+      sleep_stress_notes: extraSleepNotes,
+      adventure_id: undefined,
     };
 
     postNewAdventure(newAdventureData).then((response) => {
@@ -98,8 +95,6 @@ function LogAdventureForm({
       </div>
       <p>Over the last 48 hours, how would you describe the following:</p>
       <div className='second-line-components'>
-        {/* <div> */}
-        {/* <label htmlFor='stress-level-input'>Stress Level:</label> */}
         <select
           name='stressLevel'
           value={stress_level}
@@ -112,9 +107,6 @@ function LogAdventureForm({
           <option value='High'>High</option>
           <option value='Max'>Max</option>
         </select>
-        {/* </div> */}
-        {/* <div> */}
-        {/* <label htmlFor='hydration-input'>Hydration Level:</label> */}
         <select
           name='hydration'
           value={hydration}
@@ -126,9 +118,6 @@ function LogAdventureForm({
           <option value='Hydrated'>Hydrated</option>
           <option value='Very Hydrated'>Very Hydrated</option>
         </select>
-        {/* </div> */}
-        {/* <div> */}
-        {/* <label htmlFor='diet-input'>How Is Your Diet:</label> */}
         <select
           name='diet'
           value={diet}
@@ -139,18 +128,16 @@ function LogAdventureForm({
           <option value='Average'>Average</option>
           <option value='Good'>Good</option>
         </select>
-        {/* <label htmlFor='sleep-input'>Sleep:</label> */}
-        <select
-          name='sleep'
-          value={sleep}
-          onChange={(event) => setSleep(event.target.value)}
-        >
-          <option value='Poor'>Sleep Quality:</option>
-          <option value='Poor'>Poor</option>
-          <option value='Average'>Average</option>
-          <option value='Good'>Good</option>
-        </select>
-        {/* </div> */}
+        <div>
+          <label htmlFor='sleep-input'>Hours slept:</label>
+          <input
+            type='number'
+            name='sleep'
+            value={sleep}
+            onChange={(event) => setSleep(Number(event.target.value))}
+            placeholder=''
+          />
+        </div>
       </div>
       <textarea
         className='sleep-notes-input'
@@ -170,8 +157,8 @@ function LogAdventureForm({
         className='notes-input'
         placeholder='Add any extra notes on any beta '
         name='notes'
-        value={notes}
-        onChange={(event) => setNotes(event.target.value)}
+        value={betaNotes}
+        onChange={(event) => setBetaNotes(event.target.value)}
       />
     </form>
   );
