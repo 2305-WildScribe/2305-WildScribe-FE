@@ -148,7 +148,7 @@ function LogAdventureForm({
           <option value='Good'>Good</option>
         </select>
         <div>
-          <label htmlFor='sleep-input'>Hours slept:</label>
+          <label htmlFor='sleep-input'>Hours slept / night:</label>
           <input
             type='number'
             name='sleep'
@@ -159,7 +159,6 @@ function LogAdventureForm({
                 setSleep(inputValue);
               }
             }}
-            placeholder=''
             min='0'
           />
         </div>
