@@ -2,7 +2,7 @@ import { Adventure } from './types';
 
 export async function fetchUserLogs() {
   return fetch(
-    'https://117105e4-6093-4d95-8632-31f93d58b35a.mock.pstmn.io/api/v0/adventures',
+    'https://117105e4-6093-4d95-8632-31f93d58b35a.mock.pstmn.io/api/v0/user/adventures',
     {
       method: 'POST',
       headers: {
@@ -12,7 +12,7 @@ export async function fetchUserLogs() {
         data: {
           type: 'adventures',
           attributes: {
-            user_id: '10',
+            user_id: '12',
           },
         },
       }),
@@ -77,7 +77,7 @@ export async function postNewAdventure(newAdventureData: Adventure) {
       }
     );
     if (!response.ok) {
-      throw new Error('error');
+      throw new Error('Oops, something went wrong. Please try again later.');
     }
     return await response.json();
   } catch (error) {}

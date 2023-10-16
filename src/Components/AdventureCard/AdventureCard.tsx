@@ -67,7 +67,7 @@ function AdventureCard({
                 {stress_level}
               </p>
             )}
-            {hours_slept && (
+            {hours_slept > 0 && (
               <p>
                 <span>Sleep Quality:</span>
                 {hours_slept}

@@ -30,6 +30,7 @@ function LogAdventureForm({
   const [userMsg, setUserMsg] = useState<string>('');
 
   const navigate = useNavigate();
+
   const handleDateChange = (event: ChangeEvent<HTMLInputElement>) => {
     const selectedDateValue: string = event.target.value;
     setDate(selectedDateValue);
@@ -40,6 +41,10 @@ function LogAdventureForm({
     setUserMsg('');
     if (activity === '') {
       setUserMsg("Please specify the activity you're logging");
+      return;
+    }
+    if (!date) {
+      setUserMsg('Please specify a date for your adventure!');
       return;
     } else {
       const newAdventureData: Adventure = {
