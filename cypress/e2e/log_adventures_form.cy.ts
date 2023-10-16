@@ -15,7 +15,7 @@ describe('log adventure form', () => {
             stress_level: 'Moderate',
             hydration: 'Hydrated',
             diet: 'Average',
-            hours_slept: '8',
+            hours_slept: '10',
             diet_hydration_notes: 'More Protein',
             sleep_stress_notes: 'At least 8 hours instead of 6 hours next time',
             beta_notes: 'great place'
@@ -43,6 +43,6 @@ describe('log adventure form', () => {
     cy.get('[name="hydration"]').select('Hydrated')
     cy.get('[name="diet"]').select('Average')
     cy.get('.second-line-components > div > label').contains('Hours slept')
-    cy.get('.second-line-components > div > input').click()
+    cy.get('.second-line-components > div > input').type('{upArrow}0')
   })
 })
