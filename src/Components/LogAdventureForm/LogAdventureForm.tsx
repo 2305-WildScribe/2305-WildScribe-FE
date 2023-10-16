@@ -27,6 +27,7 @@ function LogAdventureForm({
   const [extraSleepNotes, setExtraSleepNotes] = useState<string>('');
   const [extraDietNotes, setExtraDietNotes] = useState<string>('');
   const [sleep, setSleep] = useState<number>(0);
+  const [userMsg, setUserMsg] = useState<string>('');
 
   const navigate = useNavigate();
   const handleDateChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -36,33 +37,41 @@ function LogAdventureForm({
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    setUserMsg('');
+    if (activity === '') {
+      setUserMsg("Please specify the activity you're logging");
+      return;
+    } else {
+      const newAdventureData: Adventure = {
+        user_id: 12,
+        activity,
+        date: date || '',
+        beta_notes: betaNotes,
+        image_url,
+        stress_level,
+        hydration,
+        diet,
+        hours_slept: sleep,
+        diet_hydration_notes: extraDietNotes,
+        sleep_stress_notes: extraSleepNotes,
+        adventure_id: undefined,
+      };
 
-    const newAdventureData: Adventure = {
-      user_id: 12,
-      activity,
-      date: date || '',
-      beta_notes: betaNotes,
-      image_url,
-      stress_level,
-      hydration,
-      diet,
-      hours_slept: sleep,
-      diet_hydration_notes: extraDietNotes,
-      sleep_stress_notes: extraSleepNotes,
-      adventure_id: undefined,
-    };
-
-    postNewAdventure(newAdventureData)
-      .then((response) => {
-        console.log(response);
-        setAdventures([...adventures, newAdventureData]);
-        setError({ error: false, message: '' });
-        navigate('/');
-      })
-      .catch((error) => {
-        setError({ error: true, message: error });
-        navigate('/error')
-      });
+      postNewAdventure(newAdventureData)
+        .then((response) => {
+          console.log(response);
+          setAdventures([...adventures, newAdventureData]);
+          setError({ error: false, message: '' });
+          navigate('/');
+        })
+        .catch((error) => {
+          setError({
+            error: true,
+            message: 'Oops, something went wront, please try again later',
+          });
+          navigate('/error');
+        });
+    }
   };
 
   return (
@@ -94,6 +103,7 @@ function LogAdventureForm({
           />
         </div>
         <div className='form-btn-wrapper'>
+          {userMsg !== '' && <p>{userMsg}</p>}
           <button
             className='submit-button'
             onClick={(event) => handleSubmit(event)}
@@ -143,8 +153,14 @@ function LogAdventureForm({
             type='number'
             name='sleep'
             value={sleep}
-            onChange={(event) => setSleep(Number(event.target.value))}
+            onChange={(event) => {
+              const inputValue = Number(event.target.value);
+              if (inputValue >= 0) {
+                setSleep(inputValue);
+              }
+            }}
             placeholder=''
+            min='0'
           />
         </div>
       </div>
