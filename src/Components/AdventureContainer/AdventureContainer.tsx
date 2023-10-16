@@ -1,5 +1,5 @@
 import { AdventureCard } from '../AdventureCard/AdventureCard';
-import  { Adventure }  from '../../../types';
+import { Adventure } from '../../../types';
 
 import './AdventureContainer.scss';
 
@@ -7,7 +7,9 @@ interface AdventureContainerProps {
   adventures: Adventure[];
 }
 
-function AdventureContainer({ adventures }: AdventureContainerProps): React.ReactElement {
+function AdventureContainer({
+  adventures,
+}: AdventureContainerProps): React.ReactElement {
   const adventureCards = adventures.map((adventure) => {
     return (
       <div key={adventure.adventure_id}>

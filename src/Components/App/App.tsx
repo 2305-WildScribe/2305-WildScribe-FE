@@ -22,9 +22,6 @@ function App(): React.ReactElement {
     fetchUserLogs()
       .then((data) => {
         console.log('here', data.data.attributes)
-        // if(data.data.attributes.length === 0){
-        //   setAdventures()
-        // }
         setAdventures(data.data.attributes as Adventure[]);
         setError({ error: false, message: '' });
       })
