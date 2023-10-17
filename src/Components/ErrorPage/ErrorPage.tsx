@@ -2,6 +2,7 @@ import './ErrorPage.scss'
 
 interface ErrorPageProps{
   message: string;
+  
 }
 
 function ErrorPage({ message }: ErrorPageProps): React.ReactElement {

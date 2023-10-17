@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import logo from '../../Assets/logo.png';
 
 interface NavBarProps {
-  isLoggedIn: boolean;
+  isLoggedIn: boolean | null;
 }
 function NavBar({ isLoggedIn }: NavBarProps): React.ReactElement {
   return (
