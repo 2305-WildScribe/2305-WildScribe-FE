@@ -15,8 +15,8 @@ function NavBar(): React.ReactElement {
           Home
         </NavLink>
         <NavLink className='new-adventure-btn nav-link' to='/logAdventure'> 
-        Log New Adventure
-      </NavLink>
+          Log New Adventure
+        </NavLink>
       </div>
     </nav>
   );
