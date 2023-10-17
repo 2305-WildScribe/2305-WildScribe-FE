@@ -10,14 +10,12 @@ interface LogAdventureFormProps {
   setAdventures: React.Dispatch<React.SetStateAction<Adventure[]>>;
   error: Error;
   setError: React.Dispatch<React.SetStateAction<Error>>;
-  setLoading: (loading: boolean) => void;
 }
 
 function LogAdventureForm({
   adventures,
   setAdventures,
   setError,
-  setLoading,
 }: LogAdventureFormProps): React.ReactElement {
   const [activity, setActivity] = useState<string>('');
   const [date, setDate] = useState<string | null>(null);
@@ -63,7 +61,7 @@ function LogAdventureForm({
         sleep_stress_notes: extraSleepNotes,
         adventure_id: undefined,
       };
-      setLoading(true)
+      // setLoading(true)
       postNewAdventure(newAdventureData)
         .then((response) => {
           console.log(response);

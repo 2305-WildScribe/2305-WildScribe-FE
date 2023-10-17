@@ -52,7 +52,6 @@ function App(): React.ReactElement {
                   setAdventures={setAdventures}
                   error={error}
                   setError={setError}
-                  setLoading={setLoading}
                 />
               }
             />
