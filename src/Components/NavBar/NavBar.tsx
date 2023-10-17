@@ -1,12 +1,19 @@
 import './NavBar.scss';
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import logo from '../../Assets/logo.png';
 
 interface NavBarProps {
-  isLoggedIn: boolean | null;
+  isLoggedIn: boolean|null;
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean | null>>
 }
-function NavBar({ isLoggedIn }: NavBarProps): React.ReactElement {
+function NavBar({ isLoggedIn,setIsLoggedIn }: NavBarProps): React.ReactElement {
+  const navigate = useNavigate()
+  const handleLogOut = () => {
+    setIsLoggedIn(false)
+    localStorage.setItem('UserId', JSON.stringify(false));
+    navigate('/')
+  }
   return (
     <nav className='nav-bar'>
       <div className='nav-text-wrapper'>
@@ -25,6 +32,9 @@ function NavBar({ isLoggedIn }: NavBarProps): React.ReactElement {
           <NavLink className='new-adventure-btn nav-link' to='/logAdventure'>
             Log New Adventure
           </NavLink>
+          <button onClick={()=>handleLogOut()} className='nav-link log-out-btn'>
+            Log Out
+          </button>
         </div>
       )}
     </nav>

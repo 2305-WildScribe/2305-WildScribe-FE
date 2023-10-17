@@ -1,35 +1,23 @@
 import { useEffect, useState } from 'react';
-import { Adventure, Error } from '../../types';
 import './LoginPage.scss';
-import { userLogin, fetchUserLogs } from '../../apiCalls';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 interface LoginPageProps {
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean | null>>;
-  // setAdventures: React.Dispatch<React.SetStateAction<Adventure[]>>;
-  // error: Error;
-  // setError: React.Dispatch<React.SetStateAction<Error>>;
-  // setUserId: React.Dispatch<React.SetStateAction<number | null>>
-  // userId: number|null;
+  isLoggedIn:boolean|null;
 }
 
-function LoginPage({
-  setIsLoggedIn,
-  // setAdventures,
-  // setError,
-  // setUserId,
-  // userId
-}: LoginPageProps): React.ReactElement {
+function LoginPage({ setIsLoggedIn, isLoggedIn }: LoginPageProps): React.ReactElement {
   const [userEmail, setUserEmail] = useState<string>('');
   const [userPassword, setUserPassword] = useState<string>('');
   const navigate = useNavigate();
 
-
-
   const handleLogin = (event: React.FormEvent) => {
     event.preventDefault();
-      setIsLoggedIn(true);
-      navigate('/home');
+    setIsLoggedIn(true)
+    localStorage.setItem('UserId', JSON.stringify(true));
+    console.log('isLoggedIn',isLoggedIn)
+    navigate('/home');
   };
 
   return (

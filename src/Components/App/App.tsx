@@ -18,16 +18,25 @@ function App(): React.ReactElement {
     setAdventures([...adventures, newAdventureData]);
   };
 
-
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
-
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(() => {
+    const savedIsLoggedIn = localStorage.getItem('isLoggedIn');
+    const parsedBoolean = savedIsLoggedIn ? JSON.parse(savedIsLoggedIn) : null;
+    return parsedBoolean || null;
+  });
 
   const [userId, setUserId] = useState<string | null>(() => {
     const savedUserId = localStorage.getItem('UserId');
     const parsedId = savedUserId ? JSON.parse(savedUserId) : null;
     return parsedId || null;
   });
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
+  }, [isLoggedIn]);
+
+  console.log('is logged in?',isLoggedIn)
 
   const retrieveUserInformation = async (id: number) => {
     try {
@@ -36,7 +45,6 @@ function App(): React.ReactElement {
 
       setAdventures(data.data.attributes as Adventure[]);
       setError({ error: false, message: '' });
-      setIsLoggedIn(true);
     } catch (error) {
       setIsLoggedIn(false);
       setError({
@@ -49,9 +57,8 @@ function App(): React.ReactElement {
 
   useEffect(() => {
     userLogin('bill.bob@bob.com', "don'tlookatthis").then((response) => {
+      console.log('response',response)
       const userId = response.data.attributes.user_id;
-      console.log('user id before api call', userId);
-
       setUserId(userId);
       localStorage.setItem('UserId', JSON.stringify(userId));
       console.log('userId', userId);
@@ -61,7 +68,7 @@ function App(): React.ReactElement {
 
   return (
     <div className='App'>
-      <NavBar isLoggedIn={isLoggedIn} />
+      <NavBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
       <main className='main'>
         <div className='inner-main'>
           <Routes>
@@ -70,6 +77,7 @@ function App(): React.ReactElement {
               element={
                 <LoginPage
                   setIsLoggedIn={setIsLoggedIn}
+                  isLoggedIn={isLoggedIn}
                 />
               }
             />
@@ -89,6 +97,7 @@ function App(): React.ReactElement {
                 />
               }
             />
+          
             <Route
               path='/error'
               element={<ErrorPage message={error.message} />}
