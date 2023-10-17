@@ -38,7 +38,7 @@ function App(): React.ReactElement {
 
   console.log('is logged in?',isLoggedIn)
 
-  const retrieveUserInformation = async (id: number) => {
+  const retrieveUserInformation = async (id: string) => {
     try {
       const data = await fetchUserLogs(id);
       console.log('user id', id);
@@ -56,7 +56,7 @@ function App(): React.ReactElement {
   };
 
   useEffect(() => {
-    userLogin('bill.bob@bob.com', "don'tlookatthis").then((response) => {
+    userLogin('me@gmail.com', "hi").then((response) => {
       console.log('response',response)
       const userId = response.data.attributes.user_id;
       setUserId(userId);

@@ -1,8 +1,8 @@
 import { Adventure } from './types';
 
-export async function fetchUserLogs(user_id: number) {
+export async function fetchUserLogs(user_id: string) {
   return fetch(
-    'https://117105e4-6093-4d95-8632-31f93d58b35a.mock.pstmn.io/api/v0/user/adventures',
+    'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/user/adventures',
     {
       method: 'POST',
       headers: {
@@ -59,7 +59,7 @@ export async function postNewAdventure(newAdventureData: Adventure) {
 
   try {
     const response = await fetch(
-      'https://117105e4-6093-4d95-8632-31f93d58b35a.mock.pstmn.io/api/v0/adventure',
+      'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/adventure',
       {
         method: 'POST',
         headers: {
@@ -84,8 +84,10 @@ export async function postNewAdventure(newAdventureData: Adventure) {
 }
 
 export async function userLogin(email:string, password:string) {
+  console.log('email',email)
+  console.log("password",password)
   return fetch(
-    'https://117105e4-6093-4d95-8632-31f93d58b35a.mock.pstmn.io/user',
+    'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/user',
     {
       method: 'POST',
       headers: {
@@ -102,6 +104,7 @@ export async function userLogin(email:string, password:string) {
     }),
     }
   ).then((response) => {
+    console.log('response',response)
     if (response.status === 404) {
       throw new Error('404 page not found');
     }
