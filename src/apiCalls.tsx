@@ -1,6 +1,7 @@
 import { Adventure } from './types';
 
 export async function fetchUserLogs(user_id: string) {
+  console.log(user_id)
   return fetch(
     'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/user/adventures',
     {
@@ -90,6 +91,7 @@ export async function userLogin(email:string, password:string) {
     'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/user',
     {
       method: 'POST',
+      mode: 'no-cors',
       headers: {
         'Content-Type': 'application/json',
       },
