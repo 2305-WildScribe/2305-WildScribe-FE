@@ -61,7 +61,7 @@ function LogAdventureForm({
         sleep_stress_notes: extraSleepNotes,
         adventure_id: undefined,
       };
-
+      // setLoading(true)
       postNewAdventure(newAdventureData)
         .then((response) => {
           console.log(response);
