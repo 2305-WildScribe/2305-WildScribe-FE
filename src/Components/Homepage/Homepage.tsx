@@ -6,9 +6,10 @@ interface HomepageProps {
   adventures: Adventure[];
 }
 
-function Homepage({ adventures }: HomepageProps): React.ReactElement {
+function Homepage({ adventures, }: HomepageProps): React.ReactElement {
   return (
     <div id='home-main'>
+      
       {adventures.length ? (
         <>
           <button className='search-btn'>Search Logs</button>
