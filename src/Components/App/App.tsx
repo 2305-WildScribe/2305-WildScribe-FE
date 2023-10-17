@@ -18,11 +18,9 @@ function App(): React.ReactElement {
     setAdventures([...adventures, newAdventureData]);
   };
 
-  // const [userId, setUserId] = useState<number | null>(null);
 
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
 
-  // console.log('id in app', userId);
 
   const [userId, setUserId] = useState<string | null>(() => {
     const savedUserId = localStorage.getItem('UserId');
