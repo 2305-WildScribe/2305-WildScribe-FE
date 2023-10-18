@@ -70,25 +70,6 @@ function App(): React.ReactElement {
     });
   }, [userId]);
 
-
-  //   fetchUserLogs(userId)
-  //     .then((data) => {
-  //       setAdventures(data.data.attributes as Adventure[]);
-  //       setLoading(false)
-  //       setError({ error: false, message: '' });
-  //     })
-  //     .catch((error) => {
-  //       setError({ error: true, message: error });
-  //       setLoading(false)
-  //       navigate('/error');
-  //     });
-  // }, []);
-
-
-
-
-
-
   return (
     <div className='App'>
       <NavBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
@@ -102,6 +83,7 @@ function App(): React.ReactElement {
                 <LoginPage
                   setIsLoggedIn={setIsLoggedIn}
                   isLoggedIn={isLoggedIn}
+                  loading={loading}
                 />
               }
             />
@@ -113,6 +95,7 @@ function App(): React.ReactElement {
               path='/logAdventure'
               element={
                 <LogAdventureForm
+                loading={loading}
                   logNewAdventure={logNewAdventure}
                   adventures={adventures}
                   setAdventures={setAdventures}
