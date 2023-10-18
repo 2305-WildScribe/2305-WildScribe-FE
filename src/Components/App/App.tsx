@@ -33,9 +33,22 @@ function App(): React.ReactElement {
 
   const navigate = useNavigate();
 
-  const setSearchedAdventures = (search: any) => {
-    console.log(adventures);
-    console.log(search)
+  const filteredAdventures = (keyword: any) => {
+    console.log('keyword', keyword);
+
+    let searchedLogs = adventures.map((adventure) => {
+      if (
+        adventure.activity.includes(keyword) ||
+        adventure.date.includes(keyword) ||
+        adventure.sleep_stress_notes.includes(keyword) ||
+        adventure.diet_hydration_notes.includes(keyword) ||
+        adventure.beta_notes.includes(keyword)
+      ) {
+        return adventure;
+      }
+    });
+
+    return searchedLogs;
   };
 
   useEffect(() => {
@@ -88,7 +101,14 @@ function App(): React.ReactElement {
             />
             <Route
               path='/home'
-              element={!loading && <Homepage setSearchedAdventures={setSearchedAdventures} adventures={adventures} />}
+              element={
+                !loading && (
+                  <Homepage
+                  filteredAdventures={filteredAdventures}
+                    adventures={adventures}
+                  />
+                )
+              }
             />
             <Route
               path='/logAdventure'

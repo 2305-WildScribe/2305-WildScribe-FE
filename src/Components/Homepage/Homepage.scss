@@ -1,12 +1,12 @@
 @import '../../index.scss';
 
-.search-btn {
-  @include btn;
-  width: 7rem;
-  height: 3rem;
-  align-self: flex-end;
-  margin: 1rem;
-}
+// .search-btn {
+//   @include btn;
+//   width: 7rem;
+//   height: 3rem;
+//   // align-self: flex-end;
+//   margin: 1rem;
+// }
 
 #home-main {
   display: flex;
@@ -24,3 +24,28 @@
   margin-top: 15rem;
   text-align: center;
 }
+
+.search-bar {
+  position: relative;
+  display: inline-block;
+  // height: 2rem;
+}
+
+.search-input {
+  padding-right: 40px; 
+  // height: 100%;
+}
+
+.search-btn {
+  // height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  // padding: 8px 10px; /* Adjust the padding as needed */
+}
+
+
+
+
+
