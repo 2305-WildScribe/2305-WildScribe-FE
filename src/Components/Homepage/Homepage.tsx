@@ -1,18 +1,46 @@
 import './Homepage.scss';
 import { Adventure } from '../../types';
 import AdventureContainer from '../AdventureContainer/AdventureContainer';
+// import { useSearchParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 interface HomepageProps {
   adventures: Adventure[];
+  setSearchedAdventures: (e: any) => void;
 }
 
-function Homepage({ adventures, }: HomepageProps): React.ReactElement {
+function Homepage({
+  adventures,
+  setSearchedAdventures,
+}: HomepageProps): React.ReactElement {
+  
+  const [keyword, setKeyword] = useState<string>('');
+
+  const handleSearch = () => {
+    console.log('search btn hit');
+    setSearchedAdventures(keyword);
+    clearSearch();
+  };
+
+  const clearSearch = () => {
+    setKeyword('');
+    setSearchedAdventures('');
+  };
+
   return (
     <div id='home-main'>
-      
       {adventures.length ? (
         <>
-          <button className='search-btn'>Search Logs</button>
+          {keyword !=='' && <button>{keyword}</button>}
+          <input
+            type='text'
+            placeholder='Search...'
+            value={keyword}
+            onChange={(e) => setKeyword(e.target.value)}
+          />
+          <button className='search-btn' onClick={() => handleSearch()}>
+            Search Logs
+          </button>
           <AdventureContainer adventures={adventures} />
         </>
       ) : (

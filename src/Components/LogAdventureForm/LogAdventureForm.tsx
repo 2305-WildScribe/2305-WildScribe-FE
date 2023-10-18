@@ -11,6 +11,7 @@ interface LogAdventureFormProps {
   error: Error;
   setError: React.Dispatch<React.SetStateAction<Error>>;
   loading: boolean;
+  userId: string | null;
 }
 
 function LogAdventureForm({
@@ -18,6 +19,7 @@ function LogAdventureForm({
   setAdventures,
   setError,
   loading,
+  userId,
 }: LogAdventureFormProps): React.ReactElement {
   const [activity, setActivity] = useState<string>('');
   const [date, setDate] = useState<string | null>(null);
@@ -40,6 +42,7 @@ function LogAdventureForm({
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    console.log()
     setUserMsg('');
     if (activity === '') {
       setUserMsg("Please specify the activity you're logging");
@@ -63,13 +66,14 @@ function LogAdventureForm({
         sleep_stress_notes: extraSleepNotes,
         adventure_id: undefined,
       };
-      postNewAdventure(newAdventureData)
+      postNewAdventure(newAdventureData, userId)
         .then((response) => {
-          console.log(response);
+          console.log('response --->',response);
           setAdventures([...adventures, newAdventureData]);
           setError({ error: false, message: '' });
           navigate('/home');
         })
+        .then(data=> console.log('data',data))
         .catch((error) => {
           setError({
             error: true,

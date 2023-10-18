@@ -1,7 +1,7 @@
 import { Adventure } from './types';
 
 export async function fetchUserLogs(user_id: string) {
-  console.log(user_id)
+  // console.log(user_id)
   return fetch(
     'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/user/adventures',
     {
@@ -29,7 +29,7 @@ export async function fetchUserLogs(user_id: string) {
   });
 }
 
-export async function postNewAdventure(newAdventureData: Adventure) {
+export async function postNewAdventure(newAdventureData: Adventure, id:string | null) {
   const {
     user_id,
     activity,
@@ -69,7 +69,7 @@ export async function postNewAdventure(newAdventureData: Adventure) {
         body: JSON.stringify({
           data: {
             type: 'adventures',
-            user_id: 12,
+            user_id: id,
             attributes: {
               newAdventure,
             },
@@ -77,16 +77,18 @@ export async function postNewAdventure(newAdventureData: Adventure) {
         }),
       }
     );
+    console.log(response)
     if (!response.ok) {
       throw new Error('Oops, something went wrong. Please try again later.');
     }
+    // await console.log(response)
     return await response.json();
   } catch (error) {}
 }
 
 export async function userLogin(email:string, password:string) {
-  console.log('email',email)
-  console.log("password",password)
+  // console.log('email',email)
+  // console.log("password",password)
   return fetch(
     'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/user',
     {
@@ -106,7 +108,7 @@ export async function userLogin(email:string, password:string) {
     }),
     }
   ).then((response) => {
-    console.log('response---->',response)
+    // console.log('response---->',response)
     if (response.status === 404) {
       throw new Error('404 page not found');
     }
