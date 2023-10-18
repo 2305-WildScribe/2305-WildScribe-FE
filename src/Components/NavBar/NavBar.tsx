@@ -30,8 +30,8 @@ function NavBar({ isLoggedIn,setIsLoggedIn }: NavBarProps): React.ReactElement {
             Home
           </NavLink>
           <NavLink className='new-adventure-btn nav-link' to='/logAdventure'>
-            Log New Adventure
-          </NavLink>
+              Log New Adventure
+            </NavLink>
           <button onClick={()=>handleLogOut()} className='nav-link log-out-btn'>
             Log Out
           </button>

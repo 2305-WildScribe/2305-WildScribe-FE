@@ -8,11 +8,12 @@ import { Adventure, Error } from '../../types';
 import LogAdventureForm from '../LogAdventureForm/LogAdventureForm';
 import ErrorPage from '../ErrorPage/ErrorPage';
 import LoginPage from '../LoginPage/LoginPage';
+import Loading from '../Loading/Loading';
 
 function App(): React.ReactElement {
   const [adventures, setAdventures] = useState<Adventure[]>([]);
-
   const [error, setError] = useState<Error>({ error: false, message: '' });
+  const [loading, setLoading] = useState(false)
 
   const logNewAdventure = (newAdventureData: Adventure) => {
     setAdventures([...adventures, newAdventureData]);
@@ -65,12 +66,26 @@ function App(): React.ReactElement {
       retrieveUserInformation(userId);
     });
   }, [userId]);
+    setLoading(true)
+    fetchUserLogs()
+      .then((data) => {
+        setAdventures(data.data.attributes as Adventure[]);
+        setLoading(false)
+        setError({ error: false, message: '' });
+      })
+      .catch((error) => {
+        setError({ error: true, message: error });
+        setLoading(false)
+        navigate('/error');
+      });
+  }, []);
 
   return (
     <div className='App'>
       <NavBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
       <main className='main'>
         <div className='inner-main'>
+          {loading && <Loading />}
           <Routes>
             <Route
               path='/'
@@ -83,7 +98,7 @@ function App(): React.ReactElement {
             />
             <Route
               path='/home'
-              element={<Homepage adventures={adventures} />}
+              element={!loading && <Homepage adventures={adventures} />}
             />
             <Route
               path='/logAdventure'
