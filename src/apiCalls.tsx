@@ -91,7 +91,7 @@ export async function userLogin(email:string, password:string) {
     'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/user',
     {
       method: 'POST',
-      mode: 'no-cors',
+      // mode: 'no-cors',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -106,12 +106,12 @@ export async function userLogin(email:string, password:string) {
     }),
     }
   ).then((response) => {
-    console.log('response',response)
+    console.log('response---->',response)
     if (response.status === 404) {
       throw new Error('404 page not found');
     }
     if (!response.ok) {
-      throw new Error(response.statusText);
+      throw new Error('error');
     }
     return response.json();
   });
