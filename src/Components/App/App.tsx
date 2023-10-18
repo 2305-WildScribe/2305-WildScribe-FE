@@ -6,14 +6,15 @@ import { useEffect, useState } from 'react';
 import { fetchUserLogs, userLogin } from '../../apiCalls';
 import { Adventure, Error } from '../../types';
 import LogAdventureForm from '../LogAdventureForm/LogAdventureForm';
-import ErrorPage from '../ErrorPage/ErrorPage';
 import LoginPage from '../LoginPage/LoginPage';
 import Loading from '../Loading/Loading';
+import ErrorPage from '../ErrorPage/ErrorPage';
 
 function App(): React.ReactElement {
+
   const [adventures, setAdventures] = useState<Adventure[]>([]);
   const [error, setError] = useState<Error>({ error: false, message: '' });
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   const logNewAdventure = (newAdventureData: Adventure) => {
     setAdventures([...adventures, newAdventureData]);
@@ -43,11 +44,12 @@ function App(): React.ReactElement {
     try {
       const data = await fetchUserLogs(id);
       console.log('user id', id);
-
+      setLoading(false)
       setAdventures(data.data.attributes as Adventure[]);
       setError({ error: false, message: '' });
     } catch (error) {
       setIsLoggedIn(false);
+      setLoading(false)
       setError({
         error: true,
         message: 'Oops, something went wrong, please try again later',
@@ -55,9 +57,10 @@ function App(): React.ReactElement {
       navigate('/error');
     }
   };
-
+  
   useEffect(() => {
-    userLogin('me@gmail.com', "hi").then((response) => {
+    setLoading(true)
+      userLogin('me@gmail.com', "hi").then((response) => {
       console.log('response',response)
       const userId = response.data.attributes.user_id;
       setUserId(userId);
@@ -66,19 +69,25 @@ function App(): React.ReactElement {
       retrieveUserInformation(userId);
     });
   }, [userId]);
-    setLoading(true)
-    fetchUserLogs()
-      .then((data) => {
-        setAdventures(data.data.attributes as Adventure[]);
-        setLoading(false)
-        setError({ error: false, message: '' });
-      })
-      .catch((error) => {
-        setError({ error: true, message: error });
-        setLoading(false)
-        navigate('/error');
-      });
-  }, []);
+
+
+  //   fetchUserLogs(userId)
+  //     .then((data) => {
+  //       setAdventures(data.data.attributes as Adventure[]);
+  //       setLoading(false)
+  //       setError({ error: false, message: '' });
+  //     })
+  //     .catch((error) => {
+  //       setError({ error: true, message: error });
+  //       setLoading(false)
+  //       navigate('/error');
+  //     });
+  // }, []);
+
+
+
+
+
 
   return (
     <div className='App'>
