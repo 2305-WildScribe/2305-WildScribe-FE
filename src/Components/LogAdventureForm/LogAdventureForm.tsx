@@ -67,7 +67,7 @@ function LogAdventureForm({
           console.log(response);
           setAdventures([...adventures, newAdventureData]);
           setError({ error: false, message: '' });
-          navigate('/');
+          navigate('/home');
         })
         .catch((error) => {
           setError({

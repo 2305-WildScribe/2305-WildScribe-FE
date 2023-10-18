@@ -1,8 +1,9 @@
 import { Adventure } from './types';
 
-export async function fetchUserLogs() {
+export async function fetchUserLogs(user_id: string) {
+  console.log(user_id)
   return fetch(
-    'https://117105e4-6093-4d95-8632-31f93d58b35a.mock.pstmn.io/api/v0/user/adventures',
+    'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/user/adventures',
     {
       method: 'POST',
       headers: {
@@ -12,7 +13,7 @@ export async function fetchUserLogs() {
         data: {
           type: 'adventures',
           attributes: {
-            user_id: '12',
+            user_id,
           },
         },
       }),
@@ -59,7 +60,7 @@ export async function postNewAdventure(newAdventureData: Adventure) {
 
   try {
     const response = await fetch(
-      'https://117105e4-6093-4d95-8632-31f93d58b35a.mock.pstmn.io/api/v0/adventure',
+      'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/adventure',
       {
         method: 'POST',
         headers: {
@@ -81,4 +82,37 @@ export async function postNewAdventure(newAdventureData: Adventure) {
     }
     return await response.json();
   } catch (error) {}
+}
+
+export async function userLogin(email:string, password:string) {
+  console.log('email',email)
+  console.log("password",password)
+  return fetch(
+    'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/user',
+    {
+      method: 'POST',
+      // mode: 'no-cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        "data":{
+            "type": "user",
+            "attributes": {
+                "email": email,
+                "password": password
+            }
+        }
+    }),
+    }
+  ).then((response) => {
+    console.log('response---->',response)
+    if (response.status === 404) {
+      throw new Error('404 page not found');
+    }
+    if (!response.ok) {
+      throw new Error('error');
+    }
+    return response.json();
+  });
 }
