@@ -1,6 +1,5 @@
 import { AdventureCard } from '../AdventureCard/AdventureCard';
 import { Adventure } from '../../types';
-import { useEffect } from 'react';
 
 interface AdventureContainerProps {
   adventures: Adventure[];
@@ -9,7 +8,7 @@ interface AdventureContainerProps {
 
 function AdventureContainer({
   adventures,
-  deleteAdventureOnDom
+  deleteAdventureOnDom,
 }: AdventureContainerProps): React.ReactElement {
 
   

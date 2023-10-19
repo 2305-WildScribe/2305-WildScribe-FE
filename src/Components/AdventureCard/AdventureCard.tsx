@@ -11,7 +11,7 @@ interface AdventureCardProps {
 
 function AdventureCard({
   adventure,
-  deleteAdventureOnDom
+  deleteAdventureOnDom,
 }: AdventureCardProps): React.ReactElement {
   const {
     activity,
@@ -28,7 +28,6 @@ function AdventureCard({
   } = adventure;
 
   const handleDelete = () => {
-    console.log('delete button was clicked', typeof adventure_id);
     deleteAdventure(adventure_id)
     deleteAdventureOnDom(adventure_id);
   }

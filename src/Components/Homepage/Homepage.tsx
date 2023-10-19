@@ -79,7 +79,6 @@ function Homepage({
           {filter ? (
             <AdventureContainer adventures={searchedAdventures} 
             deleteAdventureOnDom={deleteAdventureOnDom}
-
             />
           ) : (
             <AdventureContainer adventures={adventures} 
