@@ -10,12 +10,16 @@ interface LogAdventureFormProps {
   setAdventures: React.Dispatch<React.SetStateAction<Adventure[]>>;
   error: Error;
   setError: React.Dispatch<React.SetStateAction<Error>>;
+  deleteAdventure: (adventureId: string) => void
 }
+
+
 
 function LogAdventureForm({
   adventures,
   setAdventures,
   setError,
+  deleteAdventure 
 }: LogAdventureFormProps): React.ReactElement {
   const [activity, setActivity] = useState<string>('');
   const [date, setDate] = useState<string | null>(null);

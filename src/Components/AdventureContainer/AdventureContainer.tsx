@@ -5,11 +5,14 @@ import './AdventureContainer.scss';
 
 interface AdventureContainerProps {
   adventures: Adventure[];
+  deleteAdventure: (adventureId: string) => void
 }
 
 function AdventureContainer({
   adventures,
+  deleteAdventure,
 }: AdventureContainerProps): React.ReactElement {
+  
   const adventureCards = adventures.map((adventure) => {
     return (
       <div key={adventure.adventure_id}>
@@ -26,6 +29,7 @@ function AdventureContainer({
           diet_hydration_notes={adventure.diet_hydration_notes}
           sleep_stress_notes={adventure.sleep_stress_notes}
           adventure_id={adventure.adventure_id}
+          deleteAdventure={deleteAdventure}
         />
       </div>
     );

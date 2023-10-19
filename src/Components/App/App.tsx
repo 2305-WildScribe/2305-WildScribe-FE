@@ -18,11 +18,35 @@ function App(): React.ReactElement {
     setAdventures([...adventures, newAdventureData]);
   };
 
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    setLoading(true)
-    fetchUserLogs()
+    const deleteAdventure = async (adventureId: string) => {
+    try {
+      const response = await fetch(`https://117105e4-6093-4d95-8632-31f93d58b35a.mock.pstmn.io/api/v0/adventures/${adventureId}`, {
+        method: 'DELETE'
+      });
+  
+      if (response.ok) {
+        const updatedAdventures = adventures.filter(adventure => adventure.adventure_id !== adventureId);
+        setAdventures(updatedAdventures);
+      } else {
+        console.log('Delete adventure failed. Status:', response.status);
+      }
+    } catch (error) {
+      // setError(`Request failed - ${error.message}`);
+    }
+  };
+  // const deleteAdventure = (adventureId: string) => {
+  //     const filterAdventures = adventures.filter(adventure => adventure.adventure_id !== adventureId)
+  //     setAdventures(filterAdventures)
+  //   }
+    // const allAdventures = adventures.filter(adventure => {
+    //   console.log(adventure.adventure_id)
+    //   if (adventure.adventure_id )
+    // })
+    const navigate = useNavigate();
+    
+    useEffect(() => {
+      setLoading(true)
+      fetchUserLogs()
       .then((data) => {
         setAdventures(data.data.attributes as Adventure[]);
         setLoading(false)
@@ -52,6 +76,7 @@ function App(): React.ReactElement {
                   setAdventures={setAdventures}
                   error={error}
                   setError={setError}
+                  deleteAdventure={deleteAdventure}
                 />
               }
             />
