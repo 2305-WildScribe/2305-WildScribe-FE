@@ -1,5 +1,5 @@
 export interface Adventure {
-  user_id: number;
+  user_id: string | null;
   adventure_id: string | undefined;
   activity: string;
   date: string;

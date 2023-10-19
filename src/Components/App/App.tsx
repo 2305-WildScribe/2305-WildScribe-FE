@@ -3,7 +3,7 @@ import Homepage from '../Homepage/Homepage';
 import NavBar from '../NavBar/NavBar';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { fetchUserLogs, userLogin } from '../../apiCalls';
+import { fetchUserAdventures, userLogin } from '../../apiCalls';
 import { Adventure, Error } from '../../types';
 import LogAdventureForm from '../LogAdventureForm/LogAdventureForm';
 import LoginPage from '../LoginPage/LoginPage';
@@ -11,10 +11,9 @@ import Loading from '../Loading/Loading';
 import ErrorPage from '../ErrorPage/ErrorPage';
 
 function App(): React.ReactElement {
-
   const [adventures, setAdventures] = useState<Adventure[]>([]);
   const [error, setError] = useState<Error>({ error: false, message: '' });
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false);
 
   const logNewAdventure = (newAdventureData: Adventure) => {
     setAdventures([...adventures, newAdventureData]);
@@ -34,22 +33,39 @@ function App(): React.ReactElement {
 
   const navigate = useNavigate();
 
+  const filteredAdventures = (keyword: any) => {
+    console.log('keyword', keyword);
+
+    let searchedLogs = adventures.map((adventure) => {
+      if (
+        adventure.activity.toLowerCase().includes(keyword) ||
+        adventure.date?.includes(keyword) ||
+        adventure.sleep_stress_notes?.toLowerCase().includes(keyword) ||
+        adventure.diet_hydration_notes?.toLowerCase().includes(keyword) ||
+        adventure.beta_notes?.toLowerCase().includes(keyword)
+      ) {
+        return adventure;
+      } else {
+        return undefined;
+      }
+    });
+
+    return searchedLogs;
+  };
+
   useEffect(() => {
     localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
   }, [isLoggedIn]);
 
-  console.log('is logged in?',isLoggedIn)
-
-  const retrieveUserInformation = async (id: string) => {
+  const retrieveUserInformation = async (id: string | null) => {
     try {
-      const data = await fetchUserLogs(id);
-      console.log('user id', id);
-      setLoading(false)
+      const data = await fetchUserAdventures(id);
+      setLoading(false);
       setAdventures(data.data.attributes as Adventure[]);
       setError({ error: false, message: '' });
     } catch (error) {
       setIsLoggedIn(false);
-      setLoading(false)
+      setLoading(false);
       setError({
         error: true,
         message: 'Oops, something went wrong, please try again later',
@@ -57,41 +73,23 @@ function App(): React.ReactElement {
       navigate('/error');
     }
   };
-  
+
   useEffect(() => {
-    setLoading(true)
-      userLogin('me@gmail.com', "hi").then((response) => {
-      console.log('response',response)
+    setLoading(true);
+    userLogin('me@gmail.com', 'hi').then((response) => {
       const userId = response.data.attributes.user_id;
       setUserId(userId);
       localStorage.setItem('UserId', JSON.stringify(userId));
-      console.log('userId', userId);
-      retrieveUserInformation(userId);
     });
   }, [userId]);
 
-
-  //   fetchUserLogs(userId)
-  //     .then((data) => {
-  //       setAdventures(data.data.attributes as Adventure[]);
-  //       setLoading(false)
-  //       setError({ error: false, message: '' });
-  //     })
-  //     .catch((error) => {
-  //       setError({ error: true, message: error });
-  //       setLoading(false)
-  //       navigate('/error');
-  //     });
-  // }, []);
-
-
-
-
-
+  if (loading) {
+    retrieveUserInformation(userId);
+  }
 
   return (
     <div className='App'>
-      <NavBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
+      <NavBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <main className='main'>
         <div className='inner-main'>
           {loading && <Loading />}
@@ -102,17 +100,30 @@ function App(): React.ReactElement {
                 <LoginPage
                   setIsLoggedIn={setIsLoggedIn}
                   isLoggedIn={isLoggedIn}
+                  loading={loading}
+                  setLoading={setLoading}
+                  setUserId={setUserId}
+                  retrieveUserInformation={retrieveUserInformation}
                 />
               }
             />
             <Route
               path='/home'
-              element={!loading && <Homepage adventures={adventures} />}
+              element={
+                !loading && (
+                  <Homepage
+                    filteredAdventures={filteredAdventures}
+                    adventures={adventures}
+                  />
+                )
+              }
             />
             <Route
               path='/logAdventure'
               element={
                 <LogAdventureForm
+                  userId={userId}
+                  loading={loading}
                   logNewAdventure={logNewAdventure}
                   adventures={adventures}
                   setAdventures={setAdventures}
@@ -121,7 +132,6 @@ function App(): React.ReactElement {
                 />
               }
             />
-          
             <Route
               path='/error'
               element={<ErrorPage message={error.message} />}
