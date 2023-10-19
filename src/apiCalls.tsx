@@ -110,3 +110,32 @@ export async function userLogin(email: string, password: string) {
     return response.json();
   });
 }
+
+export async function deleteAdventure(id: string | undefined) {
+  return fetch(
+    'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/adventure',
+    {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        data: {
+          type: 'adventure',
+          attributes: {
+            adventure_id: id
+          },
+        },
+      }),
+    }
+  ).then((response) => {
+    console.log('res', response)
+    if (response.status === 404) {
+      throw new Error('404 page not found');
+    }
+    if (!response.ok) {
+      throw new Error('error');
+    }
+    return response.json();
+  });
+}

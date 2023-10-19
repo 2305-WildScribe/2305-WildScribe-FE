@@ -12,7 +12,6 @@ interface LogAdventureFormProps {
   setError: React.Dispatch<React.SetStateAction<Error>>;
   loading: boolean;
   userId: string | null;
-  deleteAdventure: (adventureId: string) => void
 }
 
 
@@ -23,7 +22,6 @@ function LogAdventureForm({
   setError,
   loading,
   userId,
-  deleteAdventure 
 }: LogAdventureFormProps): React.ReactElement {
   const [activity, setActivity] = useState<string>('');
   const [date, setDate] = useState<string | null>(null);

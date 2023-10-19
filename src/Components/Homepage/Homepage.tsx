@@ -8,11 +8,13 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 interface HomepageProps {
   adventures: Adventure[];
   filteredAdventures: (keyword: any) => (Adventure | undefined)[];
+  // deleteAdventureOnDom: (adventure_id: string | undefined) => void
 }
 
 function Homepage({
   adventures,
   filteredAdventures,
+  // deleteAdventureOnDom
 }: HomepageProps): React.ReactElement {
   const [keyword, setKeyword] = useState<string>('');
   const [searchedAdventures, setSearchedAdventures] = useState<

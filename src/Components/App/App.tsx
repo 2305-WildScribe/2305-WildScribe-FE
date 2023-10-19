@@ -31,22 +31,27 @@ function App(): React.ReactElement {
     return parsedId || null;
   });
 
-    const deleteAdventure = async (adventureId: string) => {
-    try {
-      const response = await fetch(`https://117105e4-6093-4d95-8632-31f93d58b35a.mock.pstmn.io/api/v0/adventures/${adventureId}`, {
-        method: 'DELETE'
-      });
+  const deleteAdventureOnDom = (adventure_id: string | undefined) => {
+    const filterAdventures = adventures.filter(adventure => adventure.adventure_id !== adventure_id)
+    setAdventures(filterAdventures)
+  }
+
+  //   const deleteAdventure = async (adventureId: string) => {
+  //   try {
+  //     const response = await fetch(`https://117105e4-6093-4d95-8632-31f93d58b35a.mock.pstmn.io/api/v0/adventures/${adventureId}`, {
+  //       method: 'DELETE'
+  //     });
   
-      if (response.ok) {
-        const updatedAdventures = adventures.filter(adventure => adventure.adventure_id !== adventureId);
-        setAdventures(updatedAdventures);
-      } else {
-        console.log('Delete adventure failed. Status:', response.status);
-      }
-    } catch (error) {
-      // setError(`Request failed - ${error.message}`);
-    }
-  };
+  //     if (response.ok) {
+  //       const updatedAdventures = adventures.filter(adventure => adventure.adventure_id !== adventureId);
+  //       setAdventures(updatedAdventures);
+  //     } else {
+  //       console.log('Delete adventure failed. Status:', response.status);
+  //     }
+  //   } catch (error) {
+  //     // setError(`Request failed - ${error.message}`);
+  //   }
+  // };
   // const deleteAdventure = (adventureId: string) => {
   //     const filterAdventures = adventures.filter(adventure => adventure.adventure_id !== adventureId)
   //     setAdventures(filterAdventures)
@@ -138,6 +143,7 @@ function App(): React.ReactElement {
                   <Homepage
                     filteredAdventures={filteredAdventures}
                     adventures={adventures}
+                    // deleteAdventureOnDom={deleteAdventureOnDom}
                   />
                 )
               }
@@ -153,7 +159,6 @@ function App(): React.ReactElement {
                   setAdventures={setAdventures}
                   error={error}
                   setError={setError}
-                  deleteAdventure={deleteAdventure}
                 />
               }
             />
