@@ -21,9 +21,9 @@ function Homepage({
   const [filter, setFilter] = useState<boolean>(false);
 
 
-  useEffect(() => {
-    handleSearch();
-  }, [keyword]);
+  // useEffect(() => {
+  //   handleSearch();
+  // }, [keyword]);
 
   const handleSearch = () => {
     console.log('search btn hit');

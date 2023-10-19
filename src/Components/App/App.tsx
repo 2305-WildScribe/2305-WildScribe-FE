@@ -45,7 +45,9 @@ function App(): React.ReactElement {
         adventure.beta_notes?.toLowerCase().includes(keyword)
       ) {
         return adventure;
-      } 
+      } else {
+        return undefined;
+      }
     });
 
     return searchedLogs;
@@ -55,7 +57,7 @@ function App(): React.ReactElement {
     localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
   }, [isLoggedIn]);
 
-  const retrieveUserInformation = async (id: string|null) => {
+  const retrieveUserInformation = async (id: string | null) => {
     try {
       const data = await fetchUserAdventures(id);
       setLoading(false);
@@ -80,8 +82,8 @@ function App(): React.ReactElement {
       localStorage.setItem('UserId', JSON.stringify(userId));
     });
   }, [userId]);
-  
-  if(loading){
+
+  if (loading) {
     retrieveUserInformation(userId);
   }
 
