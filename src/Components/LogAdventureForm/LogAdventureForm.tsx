@@ -70,12 +70,16 @@ function LogAdventureForm({
       };
       postNewAdventure(newAdventureData, userId)
         .then((response) => {
-          console.log('response --->', response);
+          console.log('response with user id --->', response.data.attributes.adventure_id);
+          let adventureId = response.data.attributes.adventure_id
+          console.log('new Adventure ID to be posted',newAdventureData.adventure_id)
+          newAdventureData.adventure_id = adventureId
+          console.log(newAdventureData)
           setAdventures([...adventures, newAdventureData]);
           setError({ error: false, message: '' });
           navigate('/home');
         })
-        .then((data) => console.log('the data is here', data))
+        // .then((data) => console.log('the data is here', data))
         .catch((error) => {
           setError({
             error: true,
