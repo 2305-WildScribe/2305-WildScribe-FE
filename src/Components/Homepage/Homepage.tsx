@@ -1,7 +1,7 @@
 import './Homepage.scss';
 import AdventureContainer from '../AdventureContainer/AdventureContainer';
 import { Adventure } from '../../types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
@@ -22,9 +22,9 @@ function Homepage({
   >([]);
   const [filter, setFilter] = useState<boolean>(false);
 
-  // useEffect(() => {
-  //   handleSearch();
-  // }, [keyword]);
+  useEffect(() => {
+    handleSearch();
+  }, [adventures]);
 
   const handleSearch = () => {
     console.log('search btn hit');
@@ -33,7 +33,6 @@ function Homepage({
     setSearchedAdventures(() =>
       results.filter((result): result is Adventure => result !== undefined)
     );
-    console.log('searched Adventures: ', searchedAdventures);
     setFilter(true);
   };
 

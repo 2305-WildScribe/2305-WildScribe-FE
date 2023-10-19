@@ -1,5 +1,6 @@
 import { AdventureCard } from '../AdventureCard/AdventureCard';
 import { Adventure } from '../../types';
+import { useEffect } from 'react';
 
 interface AdventureContainerProps {
   adventures: Adventure[];
@@ -10,17 +11,22 @@ function AdventureContainer({
   adventures,
   deleteAdventureOnDom
 }: AdventureContainerProps): React.ReactElement {
+
+  
   const adventureCards = adventures.map((adventure) => {
+    
+    
     return (
       <div key={adventure.adventure_id}>
         <AdventureCard
           adventure={adventure}  
           deleteAdventureOnDom={deleteAdventureOnDom}
-        />
+          />
       </div>
     );
   });
-
+  
+ 
   return <div className='adventure-card-container'>{adventureCards}</div>;
 }
 

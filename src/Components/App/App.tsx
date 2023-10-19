@@ -11,6 +11,7 @@ import Loading from '../Loading/Loading';
 import ErrorPage from '../ErrorPage/ErrorPage';
 
 function App(): React.ReactElement {
+  const navigate = useNavigate();
   const [adventures, setAdventures] = useState<Adventure[]>([]);
   const [error, setError] = useState<Error>({ error: false, message: '' });
   const [loading, setLoading] = useState(false);
@@ -38,8 +39,6 @@ function App(): React.ReactElement {
     setAdventures(filterAdventures);
   };
 
-  const navigate = useNavigate();
-
   const filteredAdventures = (keyword: any) => {
     console.log('keyword', keyword);
 
@@ -60,10 +59,6 @@ function App(): React.ReactElement {
     return searchedLogs;
   };
 
-  useEffect(() => {
-    localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
-  }, [isLoggedIn]);
-
   const retrieveUserInformation = async (id: string | null) => {
     try {
       const data = await fetchUserAdventures(id);
@@ -83,7 +78,16 @@ function App(): React.ReactElement {
   };
 
   useEffect(() => {
-    setLoading(false);
+    console.log('length',adventures.length)
+    setAdventures(adventures);
+  }, [adventures]);
+
+  useEffect(() => {
+    localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
+  }, [isLoggedIn]);
+
+  useEffect(() => {
+    setLoading(true);
     userLogin('me@gmail.com', 'hi').then((response) => {
       const userId = response.data.attributes.user_id;
       setUserId(userId);

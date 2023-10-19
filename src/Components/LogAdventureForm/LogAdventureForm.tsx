@@ -79,7 +79,6 @@ function LogAdventureForm({
           setError({ error: false, message: '' });
           navigate('/home');
         })
-        // .then((data) => console.log('the data is here', data))
         .catch((error) => {
           setError({
             error: true,
