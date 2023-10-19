@@ -17,6 +17,12 @@ function AdventureCard({
   sleep_stress_notes,
   adventure_id,
 }: Adventure): React.ReactElement {
+
+  const editAdventure = () => {
+    console.log('edit button was clicked', adventure_id)
+
+  }
+
   return (
     <div key={adventure_id} id={`${adventure_id}`} className='adventure-card'>
       <div className='inner-card'>
@@ -38,7 +44,7 @@ function AdventureCard({
               )}
             </div>
             <div className='card-button-wrapper'>
-              <button className='fa-btn'>
+              <button className='fa-btn' onClick={()=>editAdventure()}>
                 {' '}
                 <FontAwesomeIcon icon={faPencil} className='fa-icon' />
               </button>

@@ -20,10 +20,6 @@ function Homepage({
   >([]);
   const [filter, setFilter] = useState<boolean>(false);
 
-  // useEffect(() => {
-  //   handleSearch();
-  // }, [keyword]);
-
   const handleSearch = () => {
     console.log('search btn hit');
     let editedKeyword = keyword.toLowerCase().trim();
