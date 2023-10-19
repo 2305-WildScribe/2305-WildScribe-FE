@@ -20,7 +20,6 @@ function Homepage({
   >([]);
   const [filter, setFilter] = useState<boolean>(false);
 
-  const [zeroResults, setZeroResults] = useState<boolean | null>(null);
 
   useEffect(() => {
     handleSearch();
@@ -41,7 +40,6 @@ function Homepage({
     setKeyword('');
     filteredAdventures('');
     setFilter(false);
-    setZeroResults(false);
   };
 
   return (
@@ -64,7 +62,9 @@ function Homepage({
               type='text'
               placeholder='Search logs here'
               value={keyword}
-              onChange={(e) => setKeyword(e.target.value)}
+              onChange={(e) => { setKeyword(e.target.value) 
+                handleSearch()}}
+  
             />
             <button className='search-btn' onClick={() => handleSearch()}>
               Search

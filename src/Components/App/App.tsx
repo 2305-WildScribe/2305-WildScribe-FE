@@ -13,7 +13,7 @@ import ErrorPage from '../ErrorPage/ErrorPage';
 function App(): React.ReactElement {
   const [adventures, setAdventures] = useState<Adventure[]>([]);
   const [error, setError] = useState<Error>({ error: false, message: '' });
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const logNewAdventure = (newAdventureData: Adventure) => {
     setAdventures([...adventures, newAdventureData]);
@@ -38,14 +38,14 @@ function App(): React.ReactElement {
 
     let searchedLogs = adventures.map((adventure) => {
       if (
-        adventure.activity?.toLowerCase().includes(keyword) ||
+        adventure.activity.toLowerCase().includes(keyword) ||
         adventure.date?.includes(keyword) ||
         adventure.sleep_stress_notes?.toLowerCase().includes(keyword) ||
         adventure.diet_hydration_notes?.toLowerCase().includes(keyword) ||
         adventure.beta_notes?.toLowerCase().includes(keyword)
       ) {
         return adventure;
-      }
+      } 
     });
 
     return searchedLogs;
@@ -55,7 +55,7 @@ function App(): React.ReactElement {
     localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
   }, [isLoggedIn]);
 
-  const retrieveUserInformation = async (id: string) => {
+  const retrieveUserInformation = async (id: string|null) => {
     try {
       const data = await fetchUserAdventures(id);
       setLoading(false);
@@ -78,9 +78,12 @@ function App(): React.ReactElement {
       const userId = response.data.attributes.user_id;
       setUserId(userId);
       localStorage.setItem('UserId', JSON.stringify(userId));
-      retrieveUserInformation(userId);
     });
   }, [userId]);
+  
+  if(loading){
+    retrieveUserInformation(userId);
+  }
 
   return (
     <div className='App'>
@@ -96,6 +99,9 @@ function App(): React.ReactElement {
                   setIsLoggedIn={setIsLoggedIn}
                   isLoggedIn={isLoggedIn}
                   loading={loading}
+                  setLoading={setLoading}
+                  setUserId={setUserId}
+                  retrieveUserInformation={retrieveUserInformation}
                 />
               }
             />
