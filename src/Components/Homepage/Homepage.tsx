@@ -1,7 +1,7 @@
 import './Homepage.scss';
 import AdventureContainer from '../AdventureContainer/AdventureContainer';
 import { Adventure } from '../../types';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
@@ -19,7 +19,6 @@ function Homepage({
     Adventure[] | []
   >([]);
   const [filter, setFilter] = useState<boolean>(false);
-
 
   // useEffect(() => {
   //   handleSearch();
@@ -62,9 +61,10 @@ function Homepage({
               type='text'
               placeholder='Search logs here'
               value={keyword}
-              onChange={(e) => { setKeyword(e.target.value) 
-                handleSearch()}}
-  
+              onChange={(e) => {
+                setKeyword(e.target.value);
+                handleSearch();
+              }}
             />
             <button className='search-btn' onClick={() => handleSearch()}>
               Search
