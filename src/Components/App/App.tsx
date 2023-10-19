@@ -3,20 +3,33 @@ import Homepage from '../Homepage/Homepage';
 import NavBar from '../NavBar/NavBar';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { fetchUserLogs } from '../../apiCalls';
+import { fetchUserAdventures, userLogin } from '../../apiCalls';
 import { Adventure, Error } from '../../types';
 import LogAdventureForm from '../LogAdventureForm/LogAdventureForm';
-import ErrorPage from '../ErrorPage/ErrorPage';
+import LoginPage from '../LoginPage/LoginPage';
 import Loading from '../Loading/Loading';
+import ErrorPage from '../ErrorPage/ErrorPage';
 
 function App(): React.ReactElement {
   const [adventures, setAdventures] = useState<Adventure[]>([]);
   const [error, setError] = useState<Error>({ error: false, message: '' });
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const logNewAdventure = (newAdventureData: Adventure) => {
     setAdventures([...adventures, newAdventureData]);
   };
+
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(() => {
+    const savedIsLoggedIn = localStorage.getItem('isLoggedIn');
+    const parsedBoolean = savedIsLoggedIn ? JSON.parse(savedIsLoggedIn) : null;
+    return parsedBoolean || null;
+  });
+
+  const [userId, setUserId] = useState<string | null>(() => {
+    const savedUserId = localStorage.getItem('UserId');
+    const parsedId = savedUserId ? JSON.parse(savedUserId) : null;
+    return parsedId || null;
+  });
 
     const deleteAdventure = async (adventureId: string) => {
     try {
@@ -43,34 +56,98 @@ function App(): React.ReactElement {
     //   if (adventure.adventure_id )
     // })
     const navigate = useNavigate();
+
+  const filteredAdventures = (keyword: any) => {
+    console.log('keyword', keyword);
+
+    let searchedLogs = adventures.map((adventure) => {
+      if (
+        adventure.activity.toLowerCase().includes(keyword) ||
+        adventure.date?.includes(keyword) ||
+        adventure.sleep_stress_notes?.toLowerCase().includes(keyword) ||
+        adventure.diet_hydration_notes?.toLowerCase().includes(keyword) ||
+        adventure.beta_notes?.toLowerCase().includes(keyword)
+      ) {
+        return adventure;
+      } else {
+        return undefined;
+      }
+    });
+
+    return searchedLogs;
+  };
     
     useEffect(() => {
-      setLoading(true)
-      fetchUserLogs()
-      .then((data) => {
-        setAdventures(data.data.attributes as Adventure[]);
-        setLoading(false)
-        setError({ error: false, message: '' });
-      })
-      .catch((error) => {
-        setError({ error: true, message: error });
-        setLoading(false)
-        navigate('/error');
+      localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
+  }, [isLoggedIn]);
+
+  const retrieveUserInformation = async (id: string | null) => {
+    try {
+        const data = await fetchUserAdventures(id);
+      setLoading(false);
+      setAdventures(data.data.attributes as Adventure[]);
+      setError({ error: false, message: '' });
+    } catch (error) {
+      setIsLoggedIn(false);
+      setLoading(false);
+      setError({
+        error: true,
+        message: 'Oops, something went wrong, please try again later',
       });
-  }, []);
+      navigate('/error');
+    }
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    userLogin('me@gmail.com', 'hi').then((response) => {
+      const userId = response.data.attributes.user_id;
+      setUserId(userId);
+      localStorage.setItem('UserId', JSON.stringify(userId));
+    });
+  }, [userId]);
+
+  if (loading) {
+    retrieveUserInformation(userId);
+  }
 
   return (
     <div className='App'>
-      <NavBar />
+      <NavBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <main className='main'>
         <div className='inner-main'>
           {loading && <Loading />}
           <Routes>
-            <Route path='/' element={!loading && <Homepage adventures={adventures} />} />
+            <Route
+              path='/'
+              element={
+                <LoginPage
+                  setIsLoggedIn={setIsLoggedIn}
+                  isLoggedIn={isLoggedIn}
+                  loading={loading}
+                  setLoading={setLoading}
+                  setUserId={setUserId}
+                  retrieveUserInformation={retrieveUserInformation}
+                />
+              }
+            />
+            <Route
+              path='/home'
+              element={
+                !loading && (
+                  <Homepage
+                    filteredAdventures={filteredAdventures}
+                    adventures={adventures}
+                  />
+                )
+              }
+            />
             <Route
               path='/logAdventure'
               element={
                 <LogAdventureForm
+                  userId={userId}
+                  loading={loading}
                   logNewAdventure={logNewAdventure}
                   adventures={adventures}
                   setAdventures={setAdventures}

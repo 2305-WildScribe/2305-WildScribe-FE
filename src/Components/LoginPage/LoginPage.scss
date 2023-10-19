@@ -1,0 +1,22 @@
+@import '../../index.scss';
+
+.login-form {
+  height: 100%;
+  width: 100%;
+  @include center;
+  flex-direction: column;
+  input {
+    margin-bottom: 1rem;
+    margin-right: 0px;
+  }
+  button{
+    @include btn;
+  }
+}
+
+.form-wrapper {
+  @include center;
+  flex-direction: column;
+  border: 1px solid $brown;
+  padding: 2rem;
+}

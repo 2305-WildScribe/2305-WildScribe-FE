@@ -1,8 +1,9 @@
 import { Adventure } from './types';
 
-export async function fetchUserLogs() {
+export async function fetchUserAdventures(user_id: string|null) {
+  console.log('user_id in fetch adventure call', typeof user_id);
   return fetch(
-    'https://117105e4-6093-4d95-8632-31f93d58b35a.mock.pstmn.io/api/v0/user/adventures',
+    'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/user/adventures',
     {
       method: 'POST',
       headers: {
@@ -12,7 +13,7 @@ export async function fetchUserLogs() {
         data: {
           type: 'adventures',
           attributes: {
-            user_id: '12',
+            user_id,
           },
         },
       }),
@@ -28,9 +29,11 @@ export async function fetchUserLogs() {
   });
 }
 
-export async function postNewAdventure(newAdventureData: Adventure) {
+export async function postNewAdventure(
+  newAdventureData: Adventure,
+  id: string | null
+) {
   const {
-    user_id,
     activity,
     date,
     beta_notes,
@@ -43,23 +46,9 @@ export async function postNewAdventure(newAdventureData: Adventure) {
     sleep_stress_notes,
   } = newAdventureData;
 
-  let newAdventure = {
-    user_id,
-    activity,
-    date,
-    beta_notes,
-    image_url,
-    stress_level,
-    hydration,
-    diet,
-    hours_slept: sleep,
-    diet_hydration_notes,
-    sleep_stress_notes,
-  };
-
   try {
     const response = await fetch(
-      'https://117105e4-6093-4d95-8632-31f93d58b35a.mock.pstmn.io/api/v0/adventure',
+      'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/adventure',
       {
         method: 'POST',
         headers: {
@@ -67,18 +56,57 @@ export async function postNewAdventure(newAdventureData: Adventure) {
         },
         body: JSON.stringify({
           data: {
-            type: 'adventures',
-            user_id: 12,
+            type: 'adventure',
             attributes: {
-              newAdventure,
+              user_id: id,
+              activity,
+              date,
+              beta_notes,
+              image_url,
+              stress_level,
+              hydration,
+              diet,
+              hours_slept: sleep,
+              diet_hydration_notes,
+              sleep_stress_notes,
             },
           },
         }),
       }
     );
+    console.log('post response -->', response);
     if (!response.ok) {
       throw new Error('Oops, something went wrong. Please try again later.');
     }
     return await response.json();
   } catch (error) {}
+}
+
+export async function userLogin(email: string, password: string) {
+  return fetch(
+    'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/user',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        data: {
+          type: 'user',
+          attributes: {
+            email: email,
+            password: password,
+          },
+        },
+      }),
+    }
+  ).then((response) => {
+    if (response.status === 404) {
+      throw new Error('404 page not found');
+    }
+    if (!response.ok) {
+      throw new Error('error');
+    }
+    return response.json();
+  });
 }
