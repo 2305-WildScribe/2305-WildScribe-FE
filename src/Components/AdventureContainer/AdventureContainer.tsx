@@ -1,3 +1,4 @@
+import './AdventureContainer.scss'
 import { AdventureCard } from '../AdventureCard/AdventureCard';
 import { Adventure } from '../../types';
 
