@@ -1,6 +1,6 @@
 import { Adventure } from './types';
 
-export async function fetchUserLogs(user_id: string) {
+export async function fetchUserAdventures(user_id: string) {
   console.log('user_id in fetch adventure call', typeof user_id);
   return fetch(
     'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/user/adventures',
@@ -47,7 +47,7 @@ export async function postNewAdventure(
     sleep_stress_notes,
   } = newAdventureData;
 
-    try {
+  try {
     const response = await fetch(
       'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/adventure',
       {
@@ -58,7 +58,7 @@ export async function postNewAdventure(
         body: JSON.stringify({
           data: {
             type: 'adventure',
-              attributes: {
+            attributes: {
               user_id: id,
               activity,
               date,

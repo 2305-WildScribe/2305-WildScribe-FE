@@ -3,7 +3,7 @@ import Homepage from '../Homepage/Homepage';
 import NavBar from '../NavBar/NavBar';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { fetchUserLogs, userLogin } from '../../apiCalls';
+import { fetchUserAdventures, userLogin } from '../../apiCalls';
 import { Adventure, Error } from '../../types';
 import LogAdventureForm from '../LogAdventureForm/LogAdventureForm';
 import LoginPage from '../LoginPage/LoginPage';
@@ -57,7 +57,7 @@ function App(): React.ReactElement {
 
   const retrieveUserInformation = async (id: string) => {
     try {
-      const data = await fetchUserLogs(id);
+      const data = await fetchUserAdventures(id);
       setLoading(false);
       setAdventures(data.data.attributes as Adventure[]);
       setError({ error: false, message: '' });
