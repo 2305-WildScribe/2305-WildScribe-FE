@@ -1,36 +1,36 @@
 import './AdventureCard.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faPencil } from '@fortawesome/free-solid-svg-icons';
-
-import { Adventure } from '../../types';
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 import { deleteAdventure } from '../../apiCalls';
+import { Adventure } from '../../types';
 
-interface AdventureDelete {
-  adventures: Adventure[];
-  // deleteAdventureOnDom: (adventure_id: string | undefined) => void
+interface AdventureCardProps {
+  adventure: Adventure;  
+  deleteAdventureOnDom: (adventure_id: string | undefined) => void;
 }
 
 function AdventureCard({
-  activity,
-  date,
-  beta_notes,
-  image_url,
-  stress_level,
-  hydration,
-  diet,
-  hours_slept,
-  diet_hydration_notes,
-  sleep_stress_notes,
-  adventure_id,
-}: Adventure, ): React.ReactElement {
+  adventure,
+  deleteAdventureOnDom
+}: AdventureCardProps): React.ReactElement {
+  const {
+    activity,
+    date,
+    beta_notes,
+    image_url,
+    stress_level,
+    hydration,
+    diet,
+    hours_slept,
+    diet_hydration_notes,
+    sleep_stress_notes,
+    adventure_id,
+  } = adventure;
 
   const handleDelete = () => {
-    console.log('delete button was clicked', typeof( adventure_id))
+    console.log('delete button was clicked', typeof adventure_id);
     deleteAdventure(adventure_id)
-    // deleteAdventureOnDom(adventure_id)
-
+    deleteAdventureOnDom(adventure_id);
   }
 
   return (

@@ -8,13 +8,13 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 interface HomepageProps {
   adventures: Adventure[];
   filteredAdventures: (keyword: any) => (Adventure | undefined)[];
-  // deleteAdventureOnDom: (adventure_id: string | undefined) => void
+  deleteAdventureOnDom: (adventure_id: string | undefined) => void
 }
 
 function Homepage({
   adventures,
   filteredAdventures,
-  // deleteAdventureOnDom
+  deleteAdventureOnDom,
 }: HomepageProps): React.ReactElement {
   const [keyword, setKeyword] = useState<string>('');
   const [searchedAdventures, setSearchedAdventures] = useState<
@@ -78,9 +78,14 @@ function Homepage({
             </p>
           )}
           {filter ? (
-            <AdventureContainer adventures={searchedAdventures} />
+            <AdventureContainer adventures={searchedAdventures} 
+            deleteAdventureOnDom={deleteAdventureOnDom}
+
+            />
           ) : (
-            <AdventureContainer adventures={adventures} />
+            <AdventureContainer adventures={adventures} 
+            deleteAdventureOnDom={deleteAdventureOnDom}
+            />
           )}
         </>
       ) : (

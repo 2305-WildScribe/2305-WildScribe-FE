@@ -32,35 +32,13 @@ function App(): React.ReactElement {
   });
 
   const deleteAdventureOnDom = (adventure_id: string | undefined) => {
-    const filterAdventures = adventures.filter(adventure => adventure.adventure_id !== adventure_id)
-    setAdventures(filterAdventures)
-  }
+    const filterAdventures = adventures.filter(
+      (adventure) => adventure.adventure_id !== adventure_id
+    );
+    setAdventures(filterAdventures);
+  };
 
-  //   const deleteAdventure = async (adventureId: string) => {
-  //   try {
-  //     const response = await fetch(`https://117105e4-6093-4d95-8632-31f93d58b35a.mock.pstmn.io/api/v0/adventures/${adventureId}`, {
-  //       method: 'DELETE'
-  //     });
-  
-  //     if (response.ok) {
-  //       const updatedAdventures = adventures.filter(adventure => adventure.adventure_id !== adventureId);
-  //       setAdventures(updatedAdventures);
-  //     } else {
-  //       console.log('Delete adventure failed. Status:', response.status);
-  //     }
-  //   } catch (error) {
-  //     // setError(`Request failed - ${error.message}`);
-  //   }
-  // };
-  // const deleteAdventure = (adventureId: string) => {
-  //     const filterAdventures = adventures.filter(adventure => adventure.adventure_id !== adventureId)
-  //     setAdventures(filterAdventures)
-  //   }
-    // const allAdventures = adventures.filter(adventure => {
-    //   console.log(adventure.adventure_id)
-    //   if (adventure.adventure_id )
-    // })
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const filteredAdventures = (keyword: any) => {
     console.log('keyword', keyword);
@@ -81,15 +59,16 @@ function App(): React.ReactElement {
 
     return searchedLogs;
   };
-    
-    useEffect(() => {
-      localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
+
+  useEffect(() => {
+    localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
   }, [isLoggedIn]);
 
   const retrieveUserInformation = async (id: string | null) => {
     try {
-        const data = await fetchUserAdventures(id);
+      const data = await fetchUserAdventures(id);
       setLoading(false);
+      console.log(data);
       setAdventures(data.data.attributes as Adventure[]);
       setError({ error: false, message: '' });
     } catch (error) {
@@ -104,7 +83,7 @@ function App(): React.ReactElement {
   };
 
   useEffect(() => {
-    setLoading(true);
+    setLoading(false);
     userLogin('me@gmail.com', 'hi').then((response) => {
       const userId = response.data.attributes.user_id;
       setUserId(userId);
@@ -143,7 +122,7 @@ function App(): React.ReactElement {
                   <Homepage
                     filteredAdventures={filteredAdventures}
                     adventures={adventures}
-                    // deleteAdventureOnDom={deleteAdventureOnDom}
+                    deleteAdventureOnDom={deleteAdventureOnDom}
                   />
                 )
               }
