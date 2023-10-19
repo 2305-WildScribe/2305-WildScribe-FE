@@ -22,12 +22,9 @@ function Homepage({
 
   const [zeroResults, setZeroResults] = useState<boolean | null>(null);
 
-  // useEffect(() => {
-    // console.log('in useEffect', searchedAdventures.length);
-    // console.log('filter', filter);
-    // console.log('results?', zeroResults);
-    // console.log('searched Adventures in useEffect', searchedAdventures);
-  // }, [keyword, filter]);
+  useEffect(() => {
+    handleSearch();
+  }, [keyword]);
 
   const handleSearch = () => {
     console.log('search btn hit');

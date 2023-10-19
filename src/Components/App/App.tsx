@@ -38,11 +38,11 @@ function App(): React.ReactElement {
 
     let searchedLogs = adventures.map((adventure) => {
       if (
-        adventure.activity.toLowerCase().includes(keyword) ||
-        adventure.date.includes(keyword) ||
-        adventure.sleep_stress_notes.toLowerCase().includes(keyword) ||
-        adventure.diet_hydration_notes.toLowerCase().includes(keyword) ||
-        adventure.beta_notes.toLowerCase().includes(keyword)
+        adventure.activity?.toLowerCase().includes(keyword) ||
+        adventure.date?.includes(keyword) ||
+        adventure.sleep_stress_notes?.toLowerCase().includes(keyword) ||
+        adventure.diet_hydration_notes?.toLowerCase().includes(keyword) ||
+        adventure.beta_notes?.toLowerCase().includes(keyword)
       ) {
         return adventure;
       }
