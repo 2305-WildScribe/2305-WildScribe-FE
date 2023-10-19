@@ -38,11 +38,11 @@ function App(): React.ReactElement {
 
     let searchedLogs = adventures.map((adventure) => {
       if (
-        adventure.activity.includes(keyword) ||
+        adventure.activity.toLowerCase().includes(keyword) ||
         adventure.date.includes(keyword) ||
-        adventure.sleep_stress_notes.includes(keyword) ||
-        adventure.diet_hydration_notes.includes(keyword) ||
-        adventure.beta_notes.includes(keyword)
+        adventure.sleep_stress_notes.toLowerCase().includes(keyword) ||
+        adventure.diet_hydration_notes.toLowerCase().includes(keyword) ||
+        adventure.beta_notes.toLowerCase().includes(keyword)
       ) {
         return adventure;
       }
@@ -104,7 +104,7 @@ function App(): React.ReactElement {
               element={
                 !loading && (
                   <Homepage
-                  filteredAdventures={filteredAdventures}
+                    filteredAdventures={filteredAdventures}
                     adventures={adventures}
                   />
                 )
@@ -124,7 +124,6 @@ function App(): React.ReactElement {
                 />
               }
             />
-
             <Route
               path='/error'
               element={<ErrorPage message={error.message} />}

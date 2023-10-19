@@ -47,7 +47,7 @@ export async function postNewAdventure(newAdventureData: Adventure, id:string | 
   } = newAdventureData;
 
   let newAdventure = {
-    user_id,
+    user_id: id,
     activity,
     date,
     beta_notes,
@@ -71,7 +71,7 @@ export async function postNewAdventure(newAdventureData: Adventure, id:string | 
         body: JSON.stringify({
           data: {
             type: 'adventures',
-            user_id: id,
+            // user_id: id,
             attributes: {
               newAdventure,
             },

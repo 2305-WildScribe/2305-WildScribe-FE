@@ -52,6 +52,7 @@ function LogAdventureForm({
       setUserMsg('Please specify a date for your adventure!');
       return;
     } else {
+  
       const newAdventureData: Adventure = {
         user_id: 12,
         activity,
@@ -73,7 +74,7 @@ function LogAdventureForm({
           setError({ error: false, message: '' });
           navigate('/home');
         })
-        .then(data=> console.log('data',data))
+        .then(data=> console.log('',data))
         .catch((error) => {
           setError({
             error: true,

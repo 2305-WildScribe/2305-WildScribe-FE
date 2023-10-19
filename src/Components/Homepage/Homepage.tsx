@@ -20,18 +20,23 @@ function Homepage({
   >([]);
   const [filter, setFilter] = useState<boolean>(false);
 
+  const [zeroResults, setZeroResults] = useState<boolean | null>(null);
+
   useEffect(() => {
-    console.log('in useEffect', searchedAdventures);
-  });
+    console.log('in useEffect', searchedAdventures.length);
+    console.log('filter', filter);
+    console.log('results?', zeroResults);
+    console.log('searched Adventures in useEffect', searchedAdventures);
+  }, [keyword, filter]);
 
   const handleSearch = () => {
     console.log('search btn hit');
-    let editedKeyword = keyword.trim();
+    let editedKeyword = keyword.toLowerCase().trim();
     let results = filteredAdventures(editedKeyword) || [];
     setSearchedAdventures(() =>
       results.filter((result): result is Adventure => result !== undefined)
     );
-    console.log('here', searchedAdventures);
+    console.log('searched Adventures: ', searchedAdventures);
     setFilter(true);
   };
 
@@ -39,6 +44,7 @@ function Homepage({
     setKeyword('');
     filteredAdventures('');
     setFilter(false);
+    setZeroResults(false);
   };
 
   return (
@@ -67,6 +73,11 @@ function Homepage({
               Search
             </button>
           </div>
+          {searchedAdventures.length === 0 && filter === true && (
+            <p>
+              Sorry, we couldn't find anything that matched. Please try again.
+            </p>
+          )}
           {filter ? (
             <AdventureContainer adventures={searchedAdventures} />
           ) : (
