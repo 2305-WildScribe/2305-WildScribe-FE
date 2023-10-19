@@ -42,7 +42,7 @@ function LogAdventureForm({
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    console.log()
+    console.log();
     setUserMsg('');
     if (activity === '') {
       setUserMsg("Please specify the activity you're logging");
@@ -52,9 +52,8 @@ function LogAdventureForm({
       setUserMsg('Please specify a date for your adventure!');
       return;
     } else {
-  
       const newAdventureData: Adventure = {
-        user_id: 12,
+        user_id: null,
         activity,
         date: date || '',
         beta_notes: betaNotes,
@@ -69,12 +68,12 @@ function LogAdventureForm({
       };
       postNewAdventure(newAdventureData, userId)
         .then((response) => {
-          console.log('response --->',response);
+          console.log('response --->', response);
           setAdventures([...adventures, newAdventureData]);
           setError({ error: false, message: '' });
           navigate('/home');
         })
-        .then(data=> console.log('',data))
+        .then((data) => console.log('', data))
         .catch((error) => {
           setError({
             error: true,
