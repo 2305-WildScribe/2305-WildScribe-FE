@@ -15,6 +15,7 @@ function App(): React.ReactElement {
   const [adventures, setAdventures] = useState<Adventure[]>([]);
   const [error, setError] = useState<Error>({ error: false, message: '' });
   const [loading, setLoading] = useState(false);
+  const [singleAdventure, setSingleAdventure]= useState<Adventure | undefined>(undefined);
 
   const logNewAdventure = (newAdventureData: Adventure) => {
     setAdventures([...adventures, newAdventureData]);
@@ -40,7 +41,7 @@ function App(): React.ReactElement {
   };
 
   const filteredAdventures = (keyword: any) => {
-    console.log('keyword', keyword);
+    // console.log('keyword', keyword);
 
     let searchedLogs = adventures.map((adventure) => {
       if (
@@ -63,7 +64,7 @@ function App(): React.ReactElement {
     try {
       const data = await fetchUserAdventures(id);
       setLoading(false);
-      console.log(data);
+      // console.log(data);
       setAdventures(data.data.attributes as Adventure[]);
       setError({ error: false, message: '' });
     } catch (error) {
@@ -77,10 +78,10 @@ function App(): React.ReactElement {
     }
   };
 
-  useEffect(() => {
-    console.log('length',adventures.length)
-    setAdventures(adventures);
-  }, [adventures]);
+  // useEffect(() => {
+  //   // console.log('length',adventures.length)
+  //   setAdventures(adventures);
+  // }, [adventures]);
 
   useEffect(() => {
     localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
@@ -127,6 +128,7 @@ function App(): React.ReactElement {
                     filteredAdventures={filteredAdventures}
                     adventures={adventures}
                     deleteAdventureOnDom={deleteAdventureOnDom}
+                    setSingleAdventure={setSingleAdventure}
                   />
                 )
               }
@@ -142,6 +144,7 @@ function App(): React.ReactElement {
                   setAdventures={setAdventures}
                   error={error}
                   setError={setError}
+                  singleAdventure={singleAdventure}
                 />
               }
             />

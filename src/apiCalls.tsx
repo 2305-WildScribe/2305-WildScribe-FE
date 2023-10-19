@@ -1,7 +1,7 @@
 import { Adventure } from './types';
 
 export async function fetchUserAdventures(user_id: string|null) {
-  console.log('user_id in fetch adventure call', typeof user_id);
+  // console.log('user_id in fetch adventure call', typeof user_id);
   return fetch(
     'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/user/adventures',
     {
@@ -74,7 +74,7 @@ export async function postNewAdventure(
         }),
       }
     );
-    console.log('post response -->', response);
+    // console.log('post response -->', response);
     if (!response.ok) {
       throw new Error('Oops, something went wrong. Please try again later.');
     }

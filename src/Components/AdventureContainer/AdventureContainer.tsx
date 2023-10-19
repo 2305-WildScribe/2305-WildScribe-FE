@@ -5,11 +5,13 @@ import { Adventure } from '../../types';
 interface AdventureContainerProps {
   adventures: Adventure[];
   deleteAdventureOnDom: (adventure_id: string | undefined) => void;
+  setSingleAdventure: React.Dispatch<React.SetStateAction<Adventure | undefined>>;
 }
 
 function AdventureContainer({
   adventures,
   deleteAdventureOnDom,
+  setSingleAdventure
 }: AdventureContainerProps): React.ReactElement {
 
   
@@ -21,6 +23,8 @@ function AdventureContainer({
         <AdventureCard
           adventure={adventure}  
           deleteAdventureOnDom={deleteAdventureOnDom}
+          adventures={adventures}
+          setSingleAdventure={setSingleAdventure}
           />
       </div>
     );
