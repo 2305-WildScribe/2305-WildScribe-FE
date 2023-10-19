@@ -11,6 +11,7 @@ import Loading from '../Loading/Loading';
 import ErrorPage from '../ErrorPage/ErrorPage';
 
 function App(): React.ReactElement {
+  const navigate = useNavigate();
   const [adventures, setAdventures] = useState<Adventure[]>([]);
   const [error, setError] = useState<Error>({ error: false, message: '' });
   const [loading, setLoading] = useState(false);
@@ -31,7 +32,12 @@ function App(): React.ReactElement {
     return parsedId || null;
   });
 
-  const navigate = useNavigate();
+  const deleteAdventureOnDom = (adventure_id: string | undefined) => {
+    const filterAdventures = adventures.filter(
+      (adventure) => adventure.adventure_id !== adventure_id
+    );
+    setAdventures(filterAdventures);
+  };
 
   const filteredAdventures = (keyword: any) => {
     console.log('keyword', keyword);
@@ -53,14 +59,11 @@ function App(): React.ReactElement {
     return searchedLogs;
   };
 
-  useEffect(() => {
-    localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
-  }, [isLoggedIn]);
-
   const retrieveUserInformation = async (id: string | null) => {
     try {
       const data = await fetchUserAdventures(id);
       setLoading(false);
+      console.log(data);
       setAdventures(data.data.attributes as Adventure[]);
       setError({ error: false, message: '' });
     } catch (error) {
@@ -73,6 +76,15 @@ function App(): React.ReactElement {
       navigate('/error');
     }
   };
+
+  useEffect(() => {
+    console.log('length',adventures.length)
+    setAdventures(adventures);
+  }, [adventures]);
+
+  useEffect(() => {
+    localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
+  }, [isLoggedIn]);
 
   useEffect(() => {
     setLoading(true);
@@ -114,6 +126,7 @@ function App(): React.ReactElement {
                   <Homepage
                     filteredAdventures={filteredAdventures}
                     adventures={adventures}
+                    deleteAdventureOnDom={deleteAdventureOnDom}
                   />
                 )
               }

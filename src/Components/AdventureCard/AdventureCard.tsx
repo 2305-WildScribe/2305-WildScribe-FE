@@ -1,22 +1,37 @@
 import './AdventureCard.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faPencil } from '@fortawesome/free-solid-svg-icons';
-
+import { deleteAdventure } from '../../apiCalls';
 import { Adventure } from '../../types';
 
+interface AdventureCardProps {
+  adventure: Adventure;  
+  deleteAdventureOnDom: (adventure_id: string | undefined) => void;
+}
+
 function AdventureCard({
-  activity,
-  date,
-  beta_notes,
-  image_url,
-  stress_level,
-  hydration,
-  diet,
-  hours_slept,
-  diet_hydration_notes,
-  sleep_stress_notes,
-  adventure_id,
-}: Adventure): React.ReactElement {
+  adventure,
+  deleteAdventureOnDom,
+}: AdventureCardProps): React.ReactElement {
+  const {
+    activity,
+    date,
+    beta_notes,
+    image_url,
+    stress_level,
+    hydration,
+    diet,
+    hours_slept,
+    diet_hydration_notes,
+    sleep_stress_notes,
+    adventure_id,
+  } = adventure;
+
+  const handleDelete = () => {
+    deleteAdventure(adventure_id)
+    deleteAdventureOnDom(adventure_id);
+  }
+
   return (
     <div key={adventure_id} id={`${adventure_id}`} className='adventure-card'>
       <div className='inner-card'>
@@ -38,13 +53,13 @@ function AdventureCard({
               )}
             </div>
             <div className='card-button-wrapper'>
-              <button className='fa-btn'>
+              <button className='fa-btn' >
                 {' '}
                 <FontAwesomeIcon icon={faPencil} className='fa-icon' />
               </button>
-              <button className='fa-btn'>
+              <button className='fa-btn' onClick={() => handleDelete()}>
                 {' '}
-                <FontAwesomeIcon icon={faTrash} className='fa-icon' />
+                <FontAwesomeIcon icon={faTrash} className='fa-icon'/>
               </button>
             </div>
           </div>
