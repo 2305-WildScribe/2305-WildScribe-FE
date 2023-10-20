@@ -33,7 +33,8 @@ function LoginPage({
       const userId = response.data.attributes.user_id;
       setUserId(userId);
       localStorage.setItem('UserId', JSON.stringify(userId));
-      retrieveUserInformation(userId);
+      console.log('is',userId)
+      retrieveUserInformation(userId)
       localStorage.setItem('UserId', JSON.stringify(true));
       console.log('isLoggedIn', isLoggedIn);
       navigate('/home');
@@ -66,7 +67,7 @@ function LoginPage({
             required
           />
 
-          <button type='submit' onClick={(e) => handleLogin(e)}>
+          <button className='login-btn' type='submit' onClick={(e) => handleLogin(e)}>
             Login
           </button>
         </div>
