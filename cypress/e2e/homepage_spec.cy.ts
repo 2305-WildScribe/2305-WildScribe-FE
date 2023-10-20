@@ -143,10 +143,10 @@ describe('Homepage', () => {
     cy.wait('@addNewAdventure');
 
     cy.get('.adventure-card').should('have.length', 8);
-    cy.get('.adventure-card').first().should('have.id', 11);
-    cy.get('.adventure-card').last().should('have.id', 21);
+    cy.get('.adventure-card').first().should('have.id', 21);
+    cy.get('.adventure-card').last().should('have.id', 17);
     cy.get('.adventure-card')
-      .last()
+      .first()
       .should('have.id', 21)
       .should('contain', 'Kayaking')
       .should('contain', '10/20/2023')
@@ -157,7 +157,7 @@ describe('Homepage', () => {
       .should('contain', 'Got pitted and it was freakin sick')
       .should('contain', 'I should remember to drink more water');
     cy.get('.adventure-card')
-      .last()
+      .first()
       .should('have.id', 21)
       .get('.card-button-wrapper')
       .get('.pencil-btn').should('exist')
