@@ -41,6 +41,11 @@ function App(): React.ReactElement {
 
   const filteredAdventures = (keyword: any) => {
     console.log('keyword', keyword);
+    console.log('key', adventures);
+
+    if (!adventures) {
+      return [];
+    }
 
     let searchedLogs = adventures.map((adventure) => {
       if (
@@ -63,7 +68,6 @@ function App(): React.ReactElement {
     try {
       const data = await fetchUserAdventures(id);
       setLoading(false);
-      console.log(data);
       setAdventures(data.data.attributes as Adventure[]);
       setError({ error: false, message: '' });
     } catch (error) {
@@ -77,8 +81,8 @@ function App(): React.ReactElement {
     }
   };
 
+
   useEffect(() => {
-    console.log('length',adventures.length)
     setAdventures(adventures);
   }, [adventures]);
 
