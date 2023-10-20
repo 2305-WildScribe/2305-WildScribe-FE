@@ -90,7 +90,7 @@ function App(): React.ReactElement {
   }, [isLoggedIn]);
 
   useEffect(() => {
-    setLoading(false);
+    setLoading(true);
     userLogin('me@gmail.com', 'hi').then((response) => {
       console.log('useEffect Response',response)
       const userId = response.data.attributes.user_id;

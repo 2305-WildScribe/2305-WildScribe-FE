@@ -21,8 +21,8 @@ function LoginPage({
   setUserId,
   retrieveUserInformation,
 }: LoginPageProps): React.ReactElement {
-  const [userEmail, setUserEmail] = useState<string>('');
-  const [userPassword, setUserPassword] = useState<string>('');
+  const [userEmail, setUserEmail] = useState<string>('me@gmail.com');
+  const [userPassword, setUserPassword] = useState<string>('hi');
   const navigate = useNavigate();
 
   function handleLogin(event: React.FormEvent): null {
