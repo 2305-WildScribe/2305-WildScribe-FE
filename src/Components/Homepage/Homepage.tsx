@@ -30,6 +30,8 @@ function Homepage({
     console.log('search btn hit');
     let editedKeyword = keyword.toLowerCase().trim();
     let results = filteredAdventures(editedKeyword) || [];
+
+    console.log('res', filteredAdventures(editedKeyword))
     setSearchedAdventures(() =>
       results.filter((result): result is Adventure => result !== undefined)
     );
@@ -44,7 +46,7 @@ function Homepage({
 
   return (
     <div id='home-main'>
-      {adventures.length ? (
+      {adventures && adventures.length ? (
         <>
           <div className='search-bar'>
             {keyword !== '' && (
