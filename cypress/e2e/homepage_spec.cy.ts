@@ -25,14 +25,23 @@ describe('Homepage', () => {
     cy.visit('http://localhost:3000/');
   });
 
-  it('should contain the homepage components', () => {
+  it('should allow a user to login and see the adventure cards', () => {
     cy.url().should('contain', 'localhost:3000');
     cy.get('.login-form').should('exist');
+    cy.get('p').should(
+      'contain',
+      'Welcome to WildScribe! Please login to continue.'
+    );
+    cy.get("input[name='email']")
+      .should('exist')
+      .should('have.value', 'me@gmail.com');
+    cy.get("input[name='password']").should('exist').should('have.value', 'hi');
     cy.get('.login-btn').should('exist');
     cy.get('.login-btn').click();
-    
+
     cy.wait('@login');
     cy.wait('@getUserData');
+    cy.url().should('contain', 'localhost:3000/home');
 
     cy.get('h1').should('contain', 'WildScribe');
     cy.get('.nav-button-container').should('exist');
@@ -43,7 +52,52 @@ describe('Homepage', () => {
     cy.get('.nav-bar').should('exist');
 
     cy.get('.adventure-card').should('have.length', 7);
-    // cy.get('.adventure-card').first().should('have.id', 1)
-    // cy.get('.adventure-card').last().should('have.id', 5)
+    cy.get('.adventure-card').first().should('have.id', 11);
+    cy.get('.adventure-card').last().should('have.id', 17);
+  });
+
+  it('should allow a user to add, edit, delete, and search adventure cards', () => {
+    cy.url().should('contain', 'localhost:3000');
+    cy.get('.login-btn').click();
+    cy.wait('@login');
+    cy.wait('@getUserData');
+
+    cy.get('.new-adventure-btn').click();
+    cy.url().should('contain', 'localhost:3000/logAdventure');
+    cy.get('.form').should('exist');
+    cy.get('.form').get("input[name='activity']").should('exist').type('Kayaking');
+    cy.get("input[name='activity']").should('have.value', 'Kayaking');
+
+    cy.get("input[name='date']").should('exist').type('2023-10-20');
+    // cy.get("input[name='date']").should('have.value', '2023-10-20');
+
+    cy.get("input[name='image']").should('exist').type('https://paddlingmagazine-images.s3.amazonaws.com/2021/09/pg13-2021_06_19-Bill-on-Red-Deer-River-Paddling-Magazine_MG_3599.jpg');
+    cy.get("input[name='image']").should('have.value', 'https://paddlingmagazine-images.s3.amazonaws.com/2021/09/pg13-2021_06_19-Bill-on-Red-Deer-River-Paddling-Magazine_MG_3599.jpg')
+    cy.get('.submit-button').should('exist');
+    cy.get("select[name='stressLevel']").should('exist').select('Low');
+    cy.get("select[name='stressLevel']").should('have.value', 'Low')
+
+    cy.get("select[name='hydration']").should('exist').select('Hydrated');
+    cy.get("select[name='hydration']").should('have.value', 'Hydrated')
+
+    cy.get("select[name='diet']").should('exist').select('Good');
+    cy.get("select[name='diet']").should('have.value', 'Good')
+
+    cy.get("input[name='sleep']").should('exist').type('{uparrow}').type('{uparrow}').type('{uparrow}').type('{uparrow}');
+    cy.get("input[name='sleep']").should('have.value', '4')
+
+    cy.get('.sleep-notes-input').should('exist').type('I wish I could sleep in one of these days');
+    cy.get('.sleep-notes-input').should('have.value', 'I wish I could sleep in one of these days')
+
+    cy.get('.hydro-notes-input').should('exist').type('I should remember to drink more water');
+    cy.get('.hydro-notes-input').should('have.value', 'I should remember to drink more water')
+
+    cy.get('.notes-input').should('exist').type('Got pitted and it was freakin sick');
+    cy.get('.notes-input').should('have.value', 'Got pitted and it was freakin sick')
+
+    cy.get('.submit-button').should('exist').click();
+
+   
+
   });
 });
