@@ -45,7 +45,7 @@ function LogAdventureForm({
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    console.log();
+    console.log('date in editing post',date);
     setUserMsg('');
     if (activity === '') {
       setUserMsg("Please specify the activity you're logging");

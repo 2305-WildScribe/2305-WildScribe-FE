@@ -1,6 +1,6 @@
 import './EditLogForm.scss';
 import { Adventure, Error } from '../../types';
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react';
 import { editLog } from '../../apiCalls';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
@@ -66,11 +66,17 @@ function EditLogForm({
     setUpdatedDate(originalDate);
   };
 
+  useEffect(() => {
+    console.log('date in edit log', updatedDate);
+    const parsedDate = dayjs(updatedDate);
+    const formattedDate = parsedDate.format('YYYY-MM-DD');
+    setUpdatedDate(formattedDate);
+  }, []);
+
   const navigate = useNavigate();
 
   const handleSaveChanges = (event: React.FormEvent) => {
     event.preventDefault();
-
     const parsedDate = dayjs(updatedDate);
     const formattedDate = parsedDate.format('MM/DD/YYYY');
 
