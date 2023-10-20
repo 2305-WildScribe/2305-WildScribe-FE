@@ -9,13 +9,16 @@ import LogAdventureForm from '../LogAdventureForm/LogAdventureForm';
 import LoginPage from '../LoginPage/LoginPage';
 import Loading from '../Loading/Loading';
 import ErrorPage from '../ErrorPage/ErrorPage';
+import EditLogForm from '../EditLogForm/EditLogForm';
 
 function App(): React.ReactElement {
   const navigate = useNavigate();
   const [adventures, setAdventures] = useState<Adventure[]>([]);
   const [error, setError] = useState<Error>({ error: false, message: '' });
   const [loading, setLoading] = useState(false);
-  const [singleAdventure, setSingleAdventure]= useState<Adventure | undefined>(undefined);
+  const [singleAdventure, setSingleAdventure] = useState<Adventure | undefined>(
+    undefined
+  );
 
   const logNewAdventure = (newAdventureData: Adventure) => {
     setAdventures([...adventures, newAdventureData]);
@@ -41,7 +44,6 @@ function App(): React.ReactElement {
   };
 
   const filteredAdventures = (keyword: any) => {
-    // console.log('keyword', keyword);
 
     let searchedLogs = adventures.map((adventure) => {
       if (
@@ -144,7 +146,20 @@ function App(): React.ReactElement {
                   setAdventures={setAdventures}
                   error={error}
                   setError={setError}
-                  singleAdventure={singleAdventure}
+                />
+              }
+            />
+            <Route
+              path={'/edit'}
+              element={
+                <EditLogForm  
+                error={error}
+                singleAdventure={singleAdventure}
+                setSingleAdventure={setSingleAdventure}
+                adventures={adventures}
+                setAdventures={setAdventures}
+                setError={setError}
+                loading={loading}
                 />
               }
             />

@@ -9,7 +9,9 @@ interface AdventureCardProps {
   adventure: Adventure;
   deleteAdventureOnDom: (adventure_id: string | undefined) => void;
   adventures: Adventure[];
-  setSingleAdventure: React.Dispatch<React.SetStateAction<Adventure | undefined>>;
+  setSingleAdventure: React.Dispatch<
+    React.SetStateAction<Adventure | undefined>
+  >;
 }
 
 function AdventureCard({
@@ -39,18 +41,12 @@ function AdventureCard({
     deleteAdventureOnDom(adventure_id);
   };
 
-  const getSingleAdventure = () => {
+  const handleEdit = () => {
     const logToBeEdited = adventures.find((adventure) => {
       return adventure.adventure_id === adventure_id;
     });
-    return logToBeEdited;
-  };
-
-  const handleEdit = () => {
-    let log = getSingleAdventure();
-    setSingleAdventure(log)
-    navigate('/logAdventure');
-    // console.log('log', log);
+    setSingleAdventure(logToBeEdited);
+    navigate('/edit');
   };
 
   return (

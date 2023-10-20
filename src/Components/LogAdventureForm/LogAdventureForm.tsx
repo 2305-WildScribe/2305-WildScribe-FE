@@ -12,8 +12,9 @@ interface LogAdventureFormProps {
   setError: React.Dispatch<React.SetStateAction<Error>>;
   loading: boolean;
   userId: string | null;
-  singleAdventure: Adventure | undefined;
 }
+
+
 
 function LogAdventureForm({
   adventures,
@@ -21,7 +22,6 @@ function LogAdventureForm({
   setError,
   loading,
   userId,
-  singleAdventure,
 }: LogAdventureFormProps): React.ReactElement {
   const [activity, setActivity] = useState<string>('');
   const [date, setDate] = useState<string | null>(null);
@@ -88,8 +88,6 @@ function LogAdventureForm({
         });
     }
   };
-
-  console.log('single adventure:',singleAdventure)
 
   return (
     <>
