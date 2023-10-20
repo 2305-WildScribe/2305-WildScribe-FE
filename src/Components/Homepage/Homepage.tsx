@@ -50,11 +50,11 @@ function Homepage({
         <>
           <div className='search-bar'>
             {keyword !== '' && (
-              <button>
+              <button >
                 {keyword}{' '}
                 <FontAwesomeIcon
                   icon={faXmark}
-                  className='fa-icon'
+                  className='fa-icon delete-keyword'
                   onClick={clearSearch}
                 />
               </button>
