@@ -9,12 +9,16 @@ import LogAdventureForm from '../LogAdventureForm/LogAdventureForm';
 import LoginPage from '../LoginPage/LoginPage';
 import Loading from '../Loading/Loading';
 import ErrorPage from '../ErrorPage/ErrorPage';
+import EditLogForm from '../EditLogForm/EditLogForm';
 
 function App(): React.ReactElement {
   const navigate = useNavigate();
   const [adventures, setAdventures] = useState<Adventure[]>([]);
   const [error, setError] = useState<Error>({ error: false, message: '' });
   const [loading, setLoading] = useState(false);
+  const [singleAdventure, setSingleAdventure] = useState<Adventure | undefined>(
+    undefined
+  );
 
   const logNewAdventure = (newAdventureData: Adventure) => {
     setAdventures([...adventures, newAdventureData]);
@@ -40,7 +44,6 @@ function App(): React.ReactElement {
   };
 
   const filteredAdventures = (keyword: any) => {
-    console.log('keyword', keyword);
     console.log('key', adventures);
 
     if (!adventures) {
@@ -68,6 +71,7 @@ function App(): React.ReactElement {
     try {
       const data = await fetchUserAdventures(id);
       setLoading(false);
+      // console.log(data);
       setAdventures(data.data.attributes as Adventure[]);
       setError({ error: false, message: '' });
     } catch (error) {
@@ -85,6 +89,10 @@ function App(): React.ReactElement {
   useEffect(() => {
     setAdventures(adventures);
   }, [adventures]);
+  // useEffect(() => {
+  //   // console.log('length',adventures.length)
+  //   setAdventures(adventures);
+  // }, [adventures]);
 
   useEffect(() => {
     localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
@@ -131,6 +139,7 @@ function App(): React.ReactElement {
                     filteredAdventures={filteredAdventures}
                     adventures={adventures}
                     deleteAdventureOnDom={deleteAdventureOnDom}
+                    setSingleAdventure={setSingleAdventure}
                   />
                 )
               }
@@ -146,6 +155,21 @@ function App(): React.ReactElement {
                   setAdventures={setAdventures}
                   error={error}
                   setError={setError}
+                />
+              }
+            />
+            <Route
+              path={'/edit'}
+              element={
+                <EditLogForm  
+                error={error}
+                singleAdventure={singleAdventure}
+                setSingleAdventure={setSingleAdventure}
+                adventures={adventures}
+                setAdventures={setAdventures}
+                setError={setError}
+                loading={loading}
+                userId={userId}
                 />
               }
             />

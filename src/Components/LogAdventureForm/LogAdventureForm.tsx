@@ -3,6 +3,7 @@ import './LogAdventureForm.scss';
 import { postNewAdventure } from '../../apiCalls';
 import { Adventure, Error } from '../../types';
 import { useNavigate } from 'react-router-dom';
+import dayjs from 'dayjs';
 
 interface LogAdventureFormProps {
   logNewAdventure: (newAdventureData: Adventure) => void;
@@ -38,8 +39,10 @@ function LogAdventureForm({
   const navigate = useNavigate();
 
   const handleDateChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const selectedDateValue: string = event.target.value;
-    setDate(selectedDateValue);
+    const originalDate: string = event.target.value;
+    const parsedDate = dayjs(originalDate);
+    const formattedDate = parsedDate.format('MM/DD/YYYY');
+    setDate(formattedDate);
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
