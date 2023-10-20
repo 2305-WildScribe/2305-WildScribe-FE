@@ -40,9 +40,7 @@ function LogAdventureForm({
 
   const handleDateChange = (event: ChangeEvent<HTMLInputElement>) => {
     const originalDate: string = event.target.value;
-    const parsedDate = dayjs(originalDate);
-    const formattedDate = parsedDate.format('MM/DD/YYYY');
-    setDate(formattedDate);
+    setDate(originalDate);
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -57,10 +55,13 @@ function LogAdventureForm({
       setUserMsg('Please specify a date for your adventure!');
       return;
     } else {
+      const parsedDate = dayjs(date);
+      const formattedDate = parsedDate.format('MM/DD/YYYY');
+
       const newAdventureData: Adventure = {
         user_id: null,
         activity,
-        date: date || '',
+        date: formattedDate || '',
         beta_notes: betaNotes,
         image_url,
         stress_level,
