@@ -63,10 +63,10 @@ describe('Homepage', () => {
     cy.get('.new-adventure-btn').should('exist');
     cy.get('.log-out-btn').should('exist');
     cy.get('.nav-bar').should('exist');
-
     cy.get('.adventure-card').should('have.length', 7);
     cy.get('.adventure-card').first().should('have.id', 11);
     cy.get('.adventure-card').last().should('have.id', 17);
+    // come back and add more teting about the content on the cards 
   });
 
   it('should allow a user to add an adventure cards', () => {
