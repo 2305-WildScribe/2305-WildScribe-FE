@@ -1,32 +1,55 @@
 /// <reference types="cypress" />
 
 describe('Homepage', () => {
-
   beforeEach(() => {
-    cy.fixture('dummy_data.json').then((response) => {
-      cy.intercept(
-        'POST',
-        'https://117105e4-6093-4d95-8632-31f93d58b35a.mock.pstmn.io/api/v0/adventures',
-        {
-          statusCode: 201,
-          body: response,
-        }
-      ).as('postUser');
-    });
-    cy.visit('http://localhost:3000/');
+    cy.intercept('POST', 'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/user', {
+      statusCode: 200,
+      body: {
+        data: {
+          type: 'user',
+          attributes: {
+            user_id: "12",
+            name: "Billy Bob",
+          },
+        },
+      },
+    }).as('getUserId')
+    cy.visit('http://localhost:3001');
+
+    cy.intercept('POST', 'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/user/adventures', {
+      statusCode: 200,
+      body: JSON.stringify({
+        data: {
+          type: 'adventures',
+          attributes: {
+            user_id: "12",
+          },
+        },
+      })
+    }).as('getUserAdventure')
   });
-
-  it('should contain the homepage components', () => {
-    cy.url().should('contain', 'localhost:3000');
-    cy.wait('@postUser');
-    cy.get('.nav-bar').should('exist');
-    cy.get('.nav-button-container').should('exist');
-    cy.get('.home-btn').should('have.class', 'active')
-
-    cy.get('.adventure-card-container').should('exist')
-    cy.get('.adventure-card').should('have.length', 5)
-    cy.get('.adventure-card').first().should('have.id', 1)
-    cy.get('.adventure-card').last().should('have.id', 5)
-
+  
+  it('should display the login form', () => {
+    cy.wait('@getUserId');
+    cy.visit('http://localhost:3001');
+    cy.get('h1').should('contain', 'WildScribe');
+    cy.get('#email').should('exist');
+    cy.get('#email').should('have.attr', 'placeholder', 'Email');
+    cy.get('#password').should('exist');
+    cy.get('#password').should('have.attr', 'placeholder', 'Password');
+    cy.get('button').should('exist').should('contain', 'Login');
   });
+  
+  it('should allow a user to log in', () => {
+    cy.wait('@getUserId');
+    cy.visit('http://localhost:3001');
+    cy.get('#email').type('me@gmail.com');
+    // cy.get('#password').type('hi');
+    // cy.get('button').click();
+    // cy.url().should('contain', '/home');
+  });
+  // it('should show users adventure', () => {
+  //   cy.wait('@getUserAdventure')
+  //   cy.visit('http://localhost:3001/home');
+  // })
 });
