@@ -1,70 +1,64 @@
-# Getting Started with Create React App
+<div align="center">
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# WildScribe 
+### Created by 
 
-## Available Scripts
+**FrontEnd Team [Alice Abarca](https://github.com/aliceabarca)**
+**and [Jocelyn Wensloff](https://github.com/Jwensloff)**
 
-In the project directory, you can run:
+**BackEnd Team [Derek Chavez](https://github.com/DChavez18)**,
+**[Ian Lyell](https://github.com/ILyell)** **and [Parker Boeing](https://github.com/ParkerBoeing)**
+  
+</div>
 
-### `npm start`
+## 📝 Description
+Introducing the ultimate outdoor adventure chronicling / reflection app! Our intuitive interface makes it a breeze to add, edit, and view your recent adventure' details. Need to add a new or recent outdoor adventure? WildScribe allows you to log all the details of your outdoor adventure!
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🧑‍💻 How To View This Front End Code In Action
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```bash
+# Clone this repo to your local machine by running:
+git clone git@github.com:2305-WildScribe/2305-WildScribe_FE.git
 
-### `npm test`
+# Cd into the root directory 
+cd 2305-WildScribe_FE.git
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# Install dependencies 
+npm install
 
-### `npm run build`
+# Run the start script
+npm start
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Follow installation instructions for the [backend repo](https://github.com/2305-WildScribe/2305-WildScribe_gin_mongodb_api)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 📚 Learning Goals
 
-### `npm run eject`
+- Solidify knowledge and understanding of React and TypeScript fundamentals.
+- Improving communication and collaboration skills by working with a dedicated Back-End team.
+- SCSS extension language.
+- Understanding continuous deployment principles and incorporating GitHub Actions into our project.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 📸 Screenshots
+<details open>
+  <summary> ⚙️ Functionality </summary>
+  
+  | Description | Screenshot |
+  |------------ | -----------|
+  | <h3 align="center">Log-In Page | <img width="1432" alt="Screenshot 2023-10-20 at 2 02 23 PM" src="https://user-images.githubusercontent.com/123991375/277041641-838b3f6e-22a4-4adc-b7b2-6068856cdde2.png">
+  | <h3 align="center">Adventures Logged | <img width="722" alt="Screenshot 2023-10-20 at 2 02 37 PM" src="https://user-images.githubusercontent.com/123991375/277041734-8ec1f332-c31d-4bbc-a18f-38a931b1884e.png">
+   | <h3 align="center">Log New Adventure Form | <img width="720" alt="Screenshot 2023-10-20 at 2 02 48 PM" src="https://user-images.githubusercontent.com/123991375/277041812-edaa0105-4f36-4cd8-b544-414306e3448b.png">
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+</details>
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# 💻 Technologies Used
+  
+![TypeScript](https://img.shields.io/badge/-TypeScript-05122A?style=flat&logo=typescript) 
+![HTML5](https://img.shields.io/badge/-HTML5-05122A?style=flat&logo=html5)
+![Github](https://img.shields.io/badge/-GitHub-05122A?style=flat&logo=github)
+![VSCode](https://img.shields.io/badge/-VS_Code-05122A?style=flat&logo=visualstudio)
+![Cypress](https://img.shields.io/badge/-Cypress-05122A?style=flat&logo=cypress)
+![React Router](https://img.shields.io/badge/-React_Router-05122A?style=flat&logo=reactrouter)
