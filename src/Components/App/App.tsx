@@ -160,6 +160,7 @@ function App(): React.ReactElement {
                 setAdventures={setAdventures}
                 setError={setError}
                 loading={loading}
+                userId={userId}
                 />
               }
             />

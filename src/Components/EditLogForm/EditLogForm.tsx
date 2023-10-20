@@ -3,6 +3,7 @@ import { Adventure, Error } from '../../types';
 import { useState, ChangeEvent } from 'react';
 import { editLog } from '../../apiCalls';
 import { useNavigate } from 'react-router-dom';
+import dayjs from 'dayjs';
 
 interface EditLogFormProps {
   singleAdventure: Adventure | undefined;
@@ -14,6 +15,7 @@ interface EditLogFormProps {
   error: Error;
   setError: React.Dispatch<React.SetStateAction<Error>>;
   loading: boolean;
+  userId: string | null;
 }
 
 function EditLogForm({
@@ -22,6 +24,7 @@ function EditLogForm({
   setError,
   setSingleAdventure,
   singleAdventure,
+  userId,
 }: EditLogFormProps): React.ReactElement {
   const [updatedActivity, setUpdatedActivity] = useState<string>(
     singleAdventure ? singleAdventure.activity : ''
@@ -57,8 +60,10 @@ function EditLogForm({
   const [userMsg, setUserMsg] = useState<string>('');
 
   const handleDateChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const selectedDateValue: string = event.target.value;
-    setUpdatedDate(selectedDateValue);
+    const originalDate: string = event.target.value;
+    const parsedDate = dayjs(originalDate);
+    const formattedDate = parsedDate.format('MM/DD/YYYY');
+    setUpdatedDate(formattedDate);
   };
 
   const navigate = useNavigate();
@@ -67,7 +72,7 @@ function EditLogForm({
     event.preventDefault();
 
     const updatedLog: Adventure = {
-      user_id: singleAdventure?.user_id || null,
+      user_id: singleAdventure ? singleAdventure.user_id : userId,
       adventure_id: singleAdventure?.adventure_id || undefined,
       activity: updatedActivity || '',
       date: updatedDate || '',
@@ -87,7 +92,6 @@ function EditLogForm({
         const filterAdventures = adventures.filter(
           (adventure) => adventure.adventure_id !== updatedLog.adventure_id
         );
-        // setAdventures(filterAdventures);
         setAdventures([...filterAdventures, updatedLog]);
         setError({ error: false, message: '' });
         navigate('/home');
@@ -95,7 +99,7 @@ function EditLogForm({
       .catch((error) => {
         setError({
           error: true,
-          message: 'Oops, something went wront, please try again later',
+          message: 'Oops, something went wrong, please try again later',
         });
         navigate('/error');
       });
