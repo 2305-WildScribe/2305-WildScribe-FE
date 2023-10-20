@@ -74,7 +74,7 @@ function LogAdventureForm({
       };
       postNewAdventure(newAdventureData, userId)
         .then((response) => {
-          console.log('response with user id --->', response.data.attributes.adventure_id);
+          console.log('response with user id --->', response);
           let adventureId = response.data.attributes.adventure_id
           console.log('new Adventure ID to be posted',newAdventureData.adventure_id)
           newAdventureData.adventure_id = adventureId

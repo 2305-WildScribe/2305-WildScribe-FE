@@ -70,11 +70,11 @@ function AdventureCard({
               )}
             </div>
             <div className='card-button-wrapper'>
-              <button className='fa-btn' onClick={() => handleEdit()}>
+              <button className='fa-btn pencil-btn' onClick={() => handleEdit()}>
                 {' '}
                 <FontAwesomeIcon icon={faPencil} className='fa-icon' />
               </button>
-              <button className='fa-btn' onClick={() => handleDelete()}>
+              <button className='fa-btn trash-btn' onClick={() => handleDelete()}>
                 {' '}
                 <FontAwesomeIcon icon={faTrash} className='fa-icon' />
               </button>
