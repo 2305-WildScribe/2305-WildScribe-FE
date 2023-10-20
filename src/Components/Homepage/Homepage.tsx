@@ -8,13 +8,15 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 interface HomepageProps {
   adventures: Adventure[];
   filteredAdventures: (keyword: any) => (Adventure | undefined)[];
-  deleteAdventureOnDom: (adventure_id: string | undefined) => void
+  deleteAdventureOnDom: (adventure_id: string | undefined) => void;
+  setSingleAdventure: React.Dispatch<React.SetStateAction<Adventure | undefined>>;
 }
 
 function Homepage({
   adventures,
   filteredAdventures,
   deleteAdventureOnDom,
+  setSingleAdventure,
 }: HomepageProps): React.ReactElement {
   const [keyword, setKeyword] = useState<string>('');
   const [searchedAdventures, setSearchedAdventures] = useState<
@@ -27,7 +29,7 @@ function Homepage({
   }, [adventures]);
 
   const handleSearch = () => {
-    console.log('search btn hit');
+    // console.log('search btn hit');
     let editedKeyword = keyword.toLowerCase().trim();
     let results = filteredAdventures(editedKeyword) || [];
     setSearchedAdventures(() =>
@@ -48,11 +50,11 @@ function Homepage({
         <>
           <div className='search-bar'>
             {keyword !== '' && (
-              <button>
+              <button >
                 {keyword}{' '}
                 <FontAwesomeIcon
                   icon={faXmark}
-                  className='fa-icon'
+                  className='fa-icon delete-keyword'
                   onClick={clearSearch}
                 />
               </button>
@@ -77,12 +79,17 @@ function Homepage({
             </p>
           )}
           {filter ? (
-            <AdventureContainer adventures={searchedAdventures} 
-            deleteAdventureOnDom={deleteAdventureOnDom}
+            <AdventureContainer
+              adventures={searchedAdventures}
+              deleteAdventureOnDom={deleteAdventureOnDom}
+              setSingleAdventure={setSingleAdventure}
             />
           ) : (
-            <AdventureContainer adventures={adventures} 
-            deleteAdventureOnDom={deleteAdventureOnDom}
+            <AdventureContainer
+              adventures={adventures}
+              deleteAdventureOnDom={deleteAdventureOnDom}
+              setSingleAdventure={setSingleAdventure}
+
             />
           )}
         </>
