@@ -155,4 +155,12 @@ describe('Homepage', () => {
     cy.wait('@deleteRequest')
     cy.get('.adventure-card').should('have.length', 6);
   })
+
+  it('should be able to edit card', () => {
+    cy.wait('@login');
+    cy.get('.login-btn').click();
+
+    cy.wait('@getUserData');
+    cy.url().should('contain', 'localhost:3000/home');
+  })
 });
