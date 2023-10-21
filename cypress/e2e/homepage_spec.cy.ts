@@ -35,6 +35,18 @@ describe('Homepage', () => {
       console.log('response --->', response);
     });
 
+    cy.fixture('example.json').then((response) => {
+    cy.intercept(
+      'DELETE',
+      'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/adventure',
+      {
+        statusCode: 201,
+        body: response,
+      }
+    ).as('deleteRequest');
+  console.log('response --->', response);
+});
+
     cy.visit('http://localhost:3000/');
   });
 
@@ -138,7 +150,9 @@ describe('Homepage', () => {
 
     cy.wait('@getUserData');
     cy.url().should('contain', 'localhost:3000/home');
-
-    cy.get('#\\31 1 > .inner-card > .card-text-wrapper > .top-line-info > .card-button-wrapper > .trash-btn > .svg-inline--fa > path').should('exist').click()
+    cy.get('.adventure-card').should('have.length', 7);
+    cy.get('#\\31 1 > .inner-card > .card-text-wrapper > .top-line-info > .card-button-wrapper > .trash-btn').click()
+    cy.wait('@deleteRequest')
+    cy.get('.adventure-card').should('have.length', 6);
   })
 });
