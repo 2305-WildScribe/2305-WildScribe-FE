@@ -59,6 +59,8 @@ describe('log adventure form', () => {
     cy.get('.submit-button').should('exist');
     cy.get("select[name='stressLevel']").should('exist').select('Low');
     cy.get("select[name='stressLevel']").should('have.value', 'Low');
+    cy.get("select[name='hydration']").should('exist').select('Hydrated');
+    cy.get("select[name='hydration']").should('have.value', 'Hydrated');
     // cy.get('p').should('contain', 'Over the last 48 hours, how would you describe the following')
     // cy.get('[name="stressLevel"]').select('Moderate')
     // cy.get('[name="hydration"]').select('Hydrated')
