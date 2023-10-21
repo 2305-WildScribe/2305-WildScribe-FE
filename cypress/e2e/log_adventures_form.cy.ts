@@ -45,14 +45,16 @@ describe('log adventure form', () => {
     cy.url().should('contain', 'localhost:3000/home');
     cy.get('.new-adventure-btn').click();
     cy.url().should('contain', 'localhost:3000/logAdventure');
-    // cy.url().should('contain', 'localhost:3001/logAdventure')
-    // cy.get('[for="activity-input"]').contains('Activity')
-    // cy.get('[name="activity"]').type('White Water Rafting')
-    //   .should('have.value', 'White Water Rafting')
-    // cy.get('[for="date-input"]')
-    //   .should('be.visible')
-    // cy.get('[type="date"]').click()
-    //   .type('2023-10-14')
+    cy.get('[for="activity-input"]').contains('Activity')
+    cy.get('[name="activity"]').type('White Water Rafting')
+      .should('have.value', 'White Water Rafting')
+    cy.get('[for="date-input"]')
+      .should('be.visible')
+    cy.get("input[name='date']").should('exist').type('2023-10-20');
+    cy.get("input[name='date']").should('have.value', '2023-10-20');
+
+    
+
     // cy.get('[for="image"]').contains('Add Image')
     // cy.get('[name="image"]').should('have.attr', 'placeholder', 'Enter the image URL')
     //   .type('https://www.rei.com/adventures/assets/adventures/images/trip/gallery/northamerica/crh_12')
