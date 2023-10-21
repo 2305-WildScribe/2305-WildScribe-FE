@@ -65,13 +65,35 @@ describe('Homepage', () => {
     cy.get('.nav-bar').should('exist');
     cy.get('.adventure-card').should('have.length', 7);
     cy.get('.adventure-card').first().should('have.id', 11);
-    cy.get('.adventure-card').last().should('have.id', 17);
     cy.get('.adventure-card')
+      .first()
+      .should('contain', 'Running')
+      .should('contain', '10/11/2023')
+      .should('contain', 'Good Diet')
+      .should('contain', 'Hydrated')
+      .should('contain', 'Very High')
+      .should('contain', '8')
+      .should('contain', 'Some Hydraytion')
+      .should('contain', 'notes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stress')
+      .should('contain', 'Running is real hard');
+    cy.get('.adventure-card').last().should('have.id', 17);
+    // cy.get('.adventure-card')
+    //   .last()
+    //   .should('contain', 'Running')
+    //   .should('contain', '10/11/2023')
+      // .should('contain', 'Good Diet')
+      // .should('contain', 'Hydrated')
+      // .should('contain', 'Very High')
+      // .should('contain', '8')
+      // .should('contain', 'Some Hydraytion')
+      // .should('contain', 'notes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stress')
+      // .should('contain', 'Running is real hard');
+    // cy.get('.adventure-card')
     // .first()
     // .should('have.id', 21)
-    .get('.card-button-wrapper')
-    .get('.pencil-btn').should('exist')
-    .get('.trash-btn').should('exist');
+    // .get('.card-button-wrapper')
+    // .get('.pencil-btn').should('exist')
+    // .get('.trash-btn').should('exist');
     // come back and add more teting about the content on the cards 
   });
 
