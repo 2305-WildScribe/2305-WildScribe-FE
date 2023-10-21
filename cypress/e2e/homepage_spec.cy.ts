@@ -129,5 +129,8 @@ describe('Homepage', () => {
       .should('contain', 'notes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stress')
       .should('contain', 'Some HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome Hydraytion')
       .should('contain', 'Running is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hard');
+    cy.get('.search-bar > :nth-child(1) > .svg-inline--fa').should('exist').click()
   })
+
+  // it('should delete card')
 });
