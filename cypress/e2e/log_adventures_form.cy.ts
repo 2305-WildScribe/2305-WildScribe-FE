@@ -57,6 +57,7 @@ describe('log adventure form', () => {
       .type('https://www.rei.com/adventures/assets/adventures/images/trip/gallery/northamerica/crh_12')
     cy.get("input[name='image']").should('have.value','https://www.rei.com/adventures/assets/adventures/images/trip/gallery/northamerica/crh_12');
     cy.get('.submit-button').should('exist');
+    cy.get('p').should('contain', 'Over the last 48 hours, how would you describe the following')
     cy.get("select[name='stressLevel']").should('exist').select('Low');
     cy.get("select[name='stressLevel']").should('have.value', 'Low');
     cy.get("select[name='hydration']").should('exist').select('Hydrated');
@@ -70,13 +71,7 @@ describe('log adventure form', () => {
     .type('{uparrow}')
     .type('{uparrow}');
   cy.get("input[name='sleep']").should('have.value', '4');
-  cy.get('p').should('contain', 'Over the last 48 hours, how would you describe the following')
-    // cy.get('[name="stressLevel"]').select('Moderate')
-    // cy.get('[name="hydration"]').select('Hydrated')
-    // cy.get('[name="diet"]').select('Average')
-    // cy.get('.second-line-components > div > label').contains('Hours slept')
-    // cy.get('.second-line-components > div > input').type('{upArrow}0')
-    // cy.get('.sleep-notes-input').should('have.attr', 'placeholder', 'Add any extra notes on sleep or stress')
+  // cy.get('.sleep-notes-input').should('have.attr', 'placeholder', 'Add any extra notes on sleep or stress')
     //   .type('At least 8 hours instead of 6 hours next time')
     // cy.get('.hydro-notes-input').should('have.attr', 'placeholder', 'Add any extra notes on diet or hydration')
     //   .type('More Water')
