@@ -77,5 +77,7 @@ describe('log adventure form', () => {
     .type('More Water')
   cy.get('.notes-input').should('have.attr', 'placeholder', 'Add any extra notes on any beta ')
     .type('great place')
+  cy.get('.submit-button').should('exist').click();
+  cy.wait('@addNewAdventure');
   })
 })
