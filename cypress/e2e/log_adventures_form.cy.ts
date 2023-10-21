@@ -69,7 +69,7 @@ describe('log adventure form', () => {
       .type('{uparrow}')
       .type('{uparrow}')
       .type('{uparrow}')
-      .type('{uparrow}');
+      .type('{uparrow}')
   cy.get("input[name='sleep']").should('have.value', '4');
   cy.get('.sleep-notes-input').should('have.attr', 'placeholder', 'Add any extra notes on sleep or stress')
     .type('At least 8 hours instead of 6 hours next time')
