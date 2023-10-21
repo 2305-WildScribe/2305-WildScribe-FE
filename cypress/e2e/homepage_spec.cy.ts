@@ -132,5 +132,13 @@ describe('Homepage', () => {
     cy.get('.search-bar > :nth-child(1) > .svg-inline--fa').should('exist').click()
   })
 
-  // it('should delete card')
+  it('should delete a card', () => {
+    cy.wait('@login');
+    cy.get('.login-btn').click();
+
+    cy.wait('@getUserData');
+    cy.url().should('contain', 'localhost:3000/home');
+
+    cy.get('#\\31 1 > .inner-card > .card-text-wrapper > .top-line-info > .card-button-wrapper > .trash-btn > .svg-inline--fa > path').should('exist').click()
+  })
 });
