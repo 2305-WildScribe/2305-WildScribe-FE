@@ -63,6 +63,13 @@ describe('log adventure form', () => {
     cy.get("select[name='hydration']").should('have.value', 'Hydrated');
     cy.get("select[name='diet']").should('exist').select('Good');
     cy.get("select[name='diet']").should('have.value', 'Good');
+    cy.get("input[name='sleep']")
+    .should('exist')
+    .type('{uparrow}')
+    .type('{uparrow}')
+    .type('{uparrow}')
+    .type('{uparrow}');
+  cy.get("input[name='sleep']").should('have.value', '4');
     // cy.get('p').should('contain', 'Over the last 48 hours, how would you describe the following')
     // cy.get('[name="stressLevel"]').select('Moderate')
     // cy.get('[name="hydration"]').select('Hydrated')
