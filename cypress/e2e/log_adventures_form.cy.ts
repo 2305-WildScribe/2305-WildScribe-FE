@@ -70,7 +70,7 @@ describe('log adventure form', () => {
     .type('{uparrow}')
     .type('{uparrow}');
   cy.get("input[name='sleep']").should('have.value', '4');
-    // cy.get('p').should('contain', 'Over the last 48 hours, how would you describe the following')
+  cy.get('p').should('contain', 'Over the last 48 hours, how would you describe the following')
     // cy.get('[name="stressLevel"]').select('Moderate')
     // cy.get('[name="hydration"]').select('Hydrated')
     // cy.get('[name="diet"]').select('Average')
