@@ -52,12 +52,10 @@ describe('log adventure form', () => {
       .should('be.visible')
     cy.get("input[name='date']").should('exist').type('2023-10-20');
     cy.get("input[name='date']").should('have.value', '2023-10-20');
-
+    cy.get('[for="image"]').contains('Add Image')
+    cy.get('[name="image"]').should('have.attr', 'placeholder', 'Enter the image URL')
+      .type('https://www.rei.com/adventures/assets/adventures/images/trip/gallery/northamerica/crh_12')
     
-
-    // cy.get('[for="image"]').contains('Add Image')
-    // cy.get('[name="image"]').should('have.attr', 'placeholder', 'Enter the image URL')
-    //   .type('https://www.rei.com/adventures/assets/adventures/images/trip/gallery/northamerica/crh_12')
     // cy.get('p').should('contain', 'Over the last 48 hours, how would you describe the following')
     // cy.get('[name="stressLevel"]').select('Moderate')
     // cy.get('[name="hydration"]').select('Hydrated')
