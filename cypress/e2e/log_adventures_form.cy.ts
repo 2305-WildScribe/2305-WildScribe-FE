@@ -65,11 +65,11 @@ describe('log adventure form', () => {
     cy.get("select[name='diet']").should('exist').select('Good');
     cy.get("select[name='diet']").should('have.value', 'Good');
     cy.get("input[name='sleep']")
-    .should('exist')
-    .type('{uparrow}')
-    .type('{uparrow}')
-    .type('{uparrow}')
-    .type('{uparrow}');
+      .should('exist')
+      .type('{uparrow}')
+      .type('{uparrow}')
+      .type('{uparrow}')
+      .type('{uparrow}');
   cy.get("input[name='sleep']").should('have.value', '4');
   cy.get('.sleep-notes-input').should('have.attr', 'placeholder', 'Add any extra notes on sleep or stress')
     .type('At least 8 hours instead of 6 hours next time')
@@ -79,5 +79,19 @@ describe('log adventure form', () => {
     .type('great place')
   cy.get('.submit-button').should('exist').click();
   cy.wait('@addNewAdventure');
+  cy.get('.adventure-card').should('have.length', 8);
+  cy.get('.adventure-card').first().should('have.id', 21);
+    // cy.get('.adventure-card').last().should('have.id', 17);
+    // cy.get('.adventure-card')
+    //   .first()
+    //   .should('have.id', 21)
+    //   .should('contain', 'Kayaking')
+    //   .should('contain', '10/20/2023')
+    //   .should('contain', 'Good')
+    //   .should('contain', 'Hydrated')
+    //   .should('contain', 'Low')
+    //   .should('contain', 'I wish I could sleep in one of these days')
+    //   .should('contain', 'Got pitted and it was freakin sick')
+    //   .should('contain', 'I should remember to drink more water');
   })
 })
