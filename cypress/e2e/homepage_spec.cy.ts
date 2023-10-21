@@ -44,8 +44,20 @@ describe('Homepage', () => {
         body: response,
       }
     ).as('deleteRequest');
-  console.log('response --->', response);
-});
+      console.log('response --->', response);
+    });
+
+    cy.fixture('edit_card.json').then((response) => {
+      cy.intercept(
+        'PUT',
+        'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/adventure',
+        {
+          statusCode: 201,
+          body: response,
+        }
+      ).as('editRequest');
+    console.log('response --->', response);
+  });
 
     cy.visit('http://localhost:3000/');
   });
@@ -162,5 +174,14 @@ describe('Homepage', () => {
 
     cy.wait('@getUserData');
     cy.url().should('contain', 'localhost:3000/home');
+    cy.get('.adventure-card').first().should('have.id', 11);
+    cy.get('#\\31 1 > .inner-card > .card-text-wrapper > .top-line-info > .card-button-wrapper > .pencil-btn').click()
+    cy.get('[name="activity"]').should('have.value', 'Running').clear()
+      .type('Hiking')
+    cy.get("select[name='stressLevel']").should('exist').select('High');
+    cy.get("select[name='diet']").should('exist').select('Good');
+    cy.get('.sleep-notes-input').clear().type('Perfect amount of sleep before my hike')
+    cy.get('.notes-input').clear().type('Take picture of trail map, got lost.')
+    cy.get('.submit-button').should('exist').click();
   })
 });

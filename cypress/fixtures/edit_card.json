@@ -2,19 +2,7 @@
   "data": {
       "type": "adventure",
       "attributes": {
-          "user_id": "user_id",
-          "adventure_id": "adventure_id",
-          "activity": "activity",
-          "date": "date",
-          "notes": "notes",
-          "image_url": "image_url",
-          "stress_level": "stress_level",
-          "hours_slept": "hours_slept",
-          "sleep_stress_notes": "sleep_stress_notes",
-          "hydration": "hydration",
-          "diet": "diet",
-          "diet_hydration_notes": "diet_hydration_notes",
-          "beta_notes": "beta_notes"
+          "adventure_id": "11"
       }
   }
 }
