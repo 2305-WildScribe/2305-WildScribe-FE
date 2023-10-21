@@ -101,6 +101,11 @@ describe('Homepage', () => {
 
     cy.wait('@getUserData');
     cy.url().should('contain', 'localhost:3000/home');
+    cy.get('.search-input').should('have.attr', 'placeholder', 'Search logs here')
+      .type('HydraytionSome')
+    cy.get('.search-btn').should('exist').click();
+    cy.get('.adventure-card').should('have.length', 2);
+    cy.get('.adventure-card').first().should('have.id', 12);
     
   })
 });
