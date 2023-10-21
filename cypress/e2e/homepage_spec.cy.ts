@@ -77,17 +77,17 @@ describe('Homepage', () => {
       .should('contain', 'notes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stress')
       .should('contain', 'Running is real hard');
     cy.get('.adventure-card').last().should('have.id', 17);
-    // cy.get('.adventure-card')
-    //   .last()
-    //   .should('contain', 'Running')
-    //   .should('contain', '10/11/2023')
-      // .should('contain', 'Good Diet')
-      // .should('contain', 'Hydrated')
-      // .should('contain', 'Very High')
-      // .should('contain', '8')
-      // .should('contain', 'Some Hydraytion')
-      // .should('contain', 'notes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stress')
-      // .should('contain', 'Running is real hard');
+    cy.get('.adventure-card')
+      .last()
+      .should('contain', 'Running')
+      .should('contain', '10/11/2023')
+      .should('contain', 'Good Diet')
+      .should('contain', 'Hydrated')
+      .should('contain', 'Very High')
+      .should('contain', '8')
+      .should('contain', 'Some Hydraytion')
+      .should('contain', 'notes about sleep and stress')
+      .should('contain', 'Running is real hard');
     // cy.get('.adventure-card')
     // .first()
     // .should('have.id', 21)
