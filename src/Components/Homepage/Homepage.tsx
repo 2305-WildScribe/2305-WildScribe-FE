@@ -46,7 +46,7 @@ function Homepage({
 
   return (
     <div id='home-main'>
-      {adventures.length ? (
+      {adventures && adventures.length ? (
         <>
           <div className='search-bar'>
             {keyword !== '' && (

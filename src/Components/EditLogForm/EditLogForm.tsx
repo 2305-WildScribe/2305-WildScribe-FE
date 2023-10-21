@@ -1,6 +1,6 @@
 import './EditLogForm.scss';
 import { Adventure, Error } from '../../types';
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react';
 import { editLog } from '../../apiCalls';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
@@ -61,21 +61,30 @@ function EditLogForm({
 
   const handleDateChange = (event: ChangeEvent<HTMLInputElement>) => {
     const originalDate: string = event.target.value;
-    const parsedDate = dayjs(originalDate);
-    const formattedDate = parsedDate.format('MM/DD/YYYY');
-    setUpdatedDate(formattedDate);
+    // const parsedDate = dayjs(originalDate);
+    // const formattedDate = parsedDate.format('MM/DD/YYYY');
+    setUpdatedDate(originalDate);
   };
+
+  useEffect(() => {
+    console.log('date in edit log', updatedDate);
+    const parsedDate = dayjs(updatedDate);
+    const formattedDate = parsedDate.format('YYYY-MM-DD');
+    setUpdatedDate(formattedDate);
+  }, []);
 
   const navigate = useNavigate();
 
   const handleSaveChanges = (event: React.FormEvent) => {
     event.preventDefault();
+    const parsedDate = dayjs(updatedDate);
+    const formattedDate = parsedDate.format('MM/DD/YYYY');
 
     const updatedLog: Adventure = {
       user_id: singleAdventure ? singleAdventure.user_id : userId,
       adventure_id: singleAdventure?.adventure_id || undefined,
       activity: updatedActivity || '',
-      date: updatedDate || '',
+      date: formattedDate || '',
       image_url: updatedImage_url || '',
       stress_level: updatedStress_level || '',
       hours_slept: updatedSleep || 0,

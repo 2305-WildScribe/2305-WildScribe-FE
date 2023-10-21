@@ -19,7 +19,7 @@ function App(): React.ReactElement {
   const [singleAdventure, setSingleAdventure] = useState<Adventure | undefined>(
     undefined
   );
-
+    console.log(adventures)
   const logNewAdventure = (newAdventureData: Adventure) => {
     setAdventures([...adventures, newAdventureData]);
   };
@@ -45,7 +45,7 @@ function App(): React.ReactElement {
 
   const filteredAdventures = (keyword: any) => {
 
-    let searchedLogs = adventures.map((adventure) => {
+    let searchedLogs = adventures && adventures.map((adventure) => {
       if (
         adventure.activity.toLowerCase().includes(keyword) ||
         adventure.date?.includes(keyword) ||
@@ -92,15 +92,18 @@ function App(): React.ReactElement {
   useEffect(() => {
     setLoading(true);
     userLogin('me@gmail.com', 'hi').then((response) => {
+      console.log('useEffect Response',response)
       const userId = response.data.attributes.user_id;
       setUserId(userId);
       localStorage.setItem('UserId', JSON.stringify(userId));
+      console.log('user id in useEffect', userId)
+      retrieveUserInformation(userId)
     });
-  }, [userId]);
+  }, []);
 
-  if (loading) {
-    retrieveUserInformation(userId);
-  }
+  // if (loading) {
+  //   .then(res=> console.log('response in conditional',res));
+  // }
 
   return (
     <div className='App'>
