@@ -74,24 +74,24 @@ describe('log adventure form', () => {
   cy.get('.sleep-notes-input').should('have.attr', 'placeholder', 'Add any extra notes on sleep or stress')
     .type('At least 8 hours instead of 6 hours next time')
   cy.get('.hydro-notes-input').should('have.attr', 'placeholder', 'Add any extra notes on diet or hydration')
-    .type('More Water')
+    .type('Have a lighter lunch next time')
   cy.get('.notes-input').should('have.attr', 'placeholder', 'Add any extra notes on any beta ')
-    .type('great place')
+    .type('I should remember to drink more water')
   cy.get('.submit-button').should('exist').click();
   cy.wait('@addNewAdventure');
   cy.get('.adventure-card').should('have.length', 8);
   cy.get('.adventure-card').first().should('have.id', 21);
-    // cy.get('.adventure-card').last().should('have.id', 17);
-    // cy.get('.adventure-card')
-    //   .first()
-    //   .should('have.id', 21)
-    //   .should('contain', 'Kayaking')
-    //   .should('contain', '10/20/2023')
-    //   .should('contain', 'Good')
-    //   .should('contain', 'Hydrated')
-    //   .should('contain', 'Low')
-    //   .should('contain', 'I wish I could sleep in one of these days')
-    //   .should('contain', 'Got pitted and it was freakin sick')
-    //   .should('contain', 'I should remember to drink more water');
+  cy.get('.adventure-card').last().should('have.id', 17);
+  cy.get('.adventure-card')
+    .first()
+    .should('have.id', 21)
+    .should('contain', 'White Water Rafting')
+    .should('contain', '10/20/2023')
+    .should('contain', 'Good')
+    .should('contain', 'Hydrated')
+    .should('contain', 'Low')
+    .should('contain', 'At least 8 hours instead of 6 hours next time')
+    .should('contain', 'Have a lighter lunch next time')
+    .should('contain', 'I should remember to drink more water');
   })
 })

@@ -66,15 +66,21 @@ describe('Homepage', () => {
     cy.get('.adventure-card').should('have.length', 7);
     cy.get('.adventure-card').first().should('have.id', 11);
     cy.get('.adventure-card').last().should('have.id', 17);
+    cy.get('.adventure-card')
+    // .first()
+    // .should('have.id', 21)
+    .get('.card-button-wrapper')
+    .get('.pencil-btn').should('exist')
+    .get('.trash-btn').should('exist');
     // come back and add more teting about the content on the cards 
   });
 
-  it('should allow a user to add an adventure cards', () => {
-    cy.visit('http://localhost:3000/');
-    cy.url().should('contain', 'localhost:3000');
-    cy.get('.login-btn').click();
-    cy.wait('@login');
-    cy.wait('@getUserData');
+  // it('should allow a user to add an adventure cards', () => {
+  //   cy.visit('http://localhost:3000/');
+  //   cy.url().should('contain', 'localhost:3000');
+  //   cy.get('.login-btn').click();
+  //   cy.wait('@login');
+  //   cy.wait('@getUserData');
 
     // cy.get('.new-adventure-btn').click();
     // cy.url().should('contain', 'localhost:3000/logAdventure');
@@ -156,11 +162,11 @@ describe('Homepage', () => {
     //   .should('contain', 'I wish I could sleep in one of these days')
     //   .should('contain', 'Got pitted and it was freakin sick')
     //   .should('contain', 'I should remember to drink more water');
-    cy.get('.adventure-card')
-      // .first()
-      // .should('have.id', 21)
-      .get('.card-button-wrapper')
-      .get('.pencil-btn').should('exist')
-      .get('.trash-btn').should('exist');
-  });
+  //   cy.get('.adventure-card')
+  //     // .first()
+  //     // .should('have.id', 21)
+  //     .get('.card-button-wrapper')
+  //     .get('.pencil-btn').should('exist')
+  //     .get('.trash-btn').should('exist');
+  // });
 });
