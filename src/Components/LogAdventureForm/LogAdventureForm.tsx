@@ -134,7 +134,7 @@ function LogAdventureForm({
               </button>
             </div>
           </div>
-          <p>Over the last 48 hours, how would you describe the following:</p>
+          <p className='user-prompt'>Over the last 48 hours, how would you describe the following:</p>
           <div className='second-line-components'>
             <select
               name='stressLevel'

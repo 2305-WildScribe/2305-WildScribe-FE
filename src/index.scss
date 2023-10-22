@@ -49,6 +49,8 @@ $yellow: #d2a24c;
 }
 
 @mixin btn {
+  @include pepperoni;
+  border-radius: 10px;
   &:hover {
     cursor: pointer;
     box-shadow: 5px 5px 5px $brown;
