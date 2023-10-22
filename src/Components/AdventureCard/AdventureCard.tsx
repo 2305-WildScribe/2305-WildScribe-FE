@@ -108,19 +108,19 @@ function AdventureCard({
           </div>
           {diet_hydration_notes && (
             <p>
-              <span>Extra Diet Notes: </span>
+              <span>Diet Notes: </span>
               {diet_hydration_notes}
             </p>
           )}
           {sleep_stress_notes && (
             <p>
-              <span>Extra Stress Notes: </span>
+              <span>Stress Notes: </span>
               {sleep_stress_notes}
             </p>
           )}
           {beta_notes && (
             <p>
-              <span>Beta Notes: </span>
+              <span>Activity Notes: </span>
               {beta_notes}
             </p>
           )}

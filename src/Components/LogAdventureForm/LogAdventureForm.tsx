@@ -4,6 +4,7 @@ import { postNewAdventure } from '../../apiCalls';
 import { Adventure, Error } from '../../types';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
+import logo from '../../Assets/logo.png'
 
 interface LogAdventureFormProps {
   logNewAdventure: (newAdventureData: Adventure) => void;
@@ -63,7 +64,7 @@ function LogAdventureForm({
         activity,
         date: formattedDate || '',
         beta_notes: betaNotes,
-        image_url,
+        image_url: image_url ? image_url : logo,
         stress_level,
         hydration,
         diet,
