@@ -1,13 +1,11 @@
 @font-face {
   font-family: 'pepperoni';
-  src: url('./Assets/Fonts/peperoni/Peperoni.ttf')
-    format('woff');
+  src: url('./Assets/Fonts/peperoni/Peperoni.ttf') format('woff');
 }
 
 @font-face {
   font-family: 'skinny';
-  src: url('./Assets/Fonts/skinny_notfon1234/Skinny-Regular.ttf')
-    format('woff');
+  src: url('./Assets/Fonts/skinny_notfon1234/Skinny-Regular.ttf') format('woff');
 }
 
 @font-face {
@@ -18,14 +16,12 @@
 
 @font-face {
   font-family: 'amatic';
-  src: url('./Assets/Fonts/amatic/AmaticSC-Regular.ttf')
-    format('woff');
+  src: url('./Assets/Fonts/amatic/AmaticSC-Regular.ttf') format('woff');
 }
 
 @font-face {
   font-family: 'amaticBold';
-  src: url('./Assets/Fonts/amatic/Amatic-Bold.ttf')
-    format('woff');
+  src: url('./Assets/Fonts/amatic/Amatic-Bold.ttf') format('woff');
 }
 
 @font-face {
@@ -55,8 +51,7 @@ $yellow: #d2a24c;
 @mixin btn {
   &:hover {
     cursor: pointer;
-    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
-      0 17px 50px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 5px 5px 5px $brown;
   }
 }
 
@@ -92,4 +87,3 @@ body {
   margin: 0;
   padding: 0;
 }
-

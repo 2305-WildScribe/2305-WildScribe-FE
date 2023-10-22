@@ -20,19 +20,29 @@
 
 .search-bar {
   position: relative;
-  display: inline-block;
+  // display: inline-block;
+  width: 90%;
+  height: 2rem;
+  display: flex;
+  justify-content: flex-end;
+  height: 3rem;
+  padding-bottom: 1rem;
 }
 
 .search-input {
+  border-radius: 10px;
   padding-right: 40px;
-  padding: 1rem;
+  align-self: flex-end;
+  height: 90%;
 }
 
 .search-btn {
+  border-radius: 10px;
+  height: 90%;
   position: absolute;
   top: 0;
   right: 0;
-  bottom: 0;
+  bottom: 1rem;
   &:hover {
     cursor: pointer;
   }
@@ -42,4 +52,9 @@
   &:hover {
     cursor: pointer;
   }
+}
+
+.keyword-btn{
+  margin-right: 1rem;
+  border-radius: 10px;
 }

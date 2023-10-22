@@ -11,9 +11,12 @@
   background-color: $blue-green;
   padding: 1rem;
   border-radius: 10px;
+  border: 1px solid $brown;
+  box-shadow: 5px 5px 5px $brown;
 }
 
 .card-text-wrapper {
+  border: 1px solid $brown;
   border-radius: 10px;
   background-color: $tan;
   margin-left: 1rem;
