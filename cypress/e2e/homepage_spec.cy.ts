@@ -185,6 +185,18 @@ describe('Homepage', () => {
     cy.get('.submit-button').should('exist').click();
   })
 
+  it('should display error when theres no searches found', () => {
+    cy.wait('@login');
+    cy.get('.login-btn').click();
+
+    cy.wait('@getUserData');
+    cy.url().should('contain', 'localhost:3000/home');
+    cy.get('.search-input').should('have.attr', 'placeholder', 'Search logs here')
+      .type('Mountain')
+    cy.get('.search-btn').should('exist').click();
+    cy.get('p').contains('Sorry, we couldn\'t find anything that matched. Please try again.')
+  })
+
   it('should display error', () => {
     cy.wait('@login');
     cy.intercept('GET', 'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/user', {
