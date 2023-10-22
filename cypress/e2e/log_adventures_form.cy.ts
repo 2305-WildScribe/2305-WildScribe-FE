@@ -94,4 +94,18 @@ describe('log adventure form', () => {
     .should('contain', 'Have a lighter lunch next time')
     .should('contain', 'I should remember to drink more water');
   })
+
+  it('should display error message when user doesnt fill out required fields', () => {
+    cy.wait('@login');
+    cy.wait('@getUserData');
+    cy.get('.login-btn').click();
+
+    cy.url().should('contain', 'localhost:3000/home');
+    cy.get('.new-adventure-btn').click();
+    cy.url().should('contain', 'localhost:3000/logAdventure');
+    cy.get("input[name='date']").should('exist').type('2023-10-20');
+    cy.get("input[name='date']").should('have.value', '2023-10-20');
+    cy.get('.submit-button').should('exist').click();
+    cy.get('.form-btn-wrapper > p').should('contain', 'Please specify the activity you\'re logging')
+  })
 })

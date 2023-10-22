@@ -188,7 +188,8 @@ describe('Homepage', () => {
   it('should display error', () => {
     cy.wait('@login');
     cy.intercept('GET', 'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/user', {
-      statusCode: 404})
+      statusCode: 404
+    })
     cy.visit('localhost:3000/nonsense')
     cy.url().should('eq', 'http://localhost:3000/nonsense')
     cy.get('p').contains('Error: 404 page not found')
