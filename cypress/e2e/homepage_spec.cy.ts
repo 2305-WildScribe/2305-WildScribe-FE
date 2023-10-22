@@ -118,7 +118,7 @@ describe('Homepage', () => {
       .get('.trash-btn').should('exist');
     // come back and add more teting about the content on the cards 
   });
-
+  
   it('should be able to search for a logged adventure', () => {
     cy.wait('@login');
     cy.get('.login-btn').click();
@@ -207,4 +207,13 @@ describe('Homepage', () => {
     cy.get('p').contains('Error: 404 page not found')
   })
 
+  it('should log user out', () => {
+    cy.wait('@login');
+    cy.get('.login-btn').click();
+
+    cy.wait('@getUserData');
+    cy.url().should('contain', 'localhost:3000/home');
+    cy.get('.log-out-btn').should('exist').click()
+    cy.url().should('eq', 'http://localhost:3000/')
+  })
 });
