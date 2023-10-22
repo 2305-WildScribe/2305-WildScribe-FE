@@ -19,12 +19,13 @@
 }
 
 .search-bar {
-  position: relative;
+  // position: relative;
   // display: inline-block;
   width: 90%;
   height: 2rem;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   height: 3rem;
   padding-bottom: 1rem;
 }
@@ -34,17 +35,18 @@
   padding-right: 40px;
   align-self: flex-end;
   height: 90%;
+  margin-right: 0px;
 }
 
 .search-btn {
-  border-radius: 10px;
-  height: 90%;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 1rem;
+  @include btn;
+  border-bottom-right-radius: 10px;
+  font-size: 1.5rem;
+  height: 100%;
+  margin-top: 0px;
+  margin-left: 0px;
   &:hover {
-    cursor: pointer;
+    background-color: $yellow;
   }
 }
 
@@ -57,4 +59,10 @@
 .keyword-btn{
   margin-right: 1rem;
   border-radius: 10px;
+  height: 100%
+}
+
+.no-results-msg{
+  @include sourceSans;
+  font-size: 2rem;
 }

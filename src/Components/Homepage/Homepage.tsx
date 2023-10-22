@@ -74,7 +74,7 @@ function Homepage({
             </button>
           </div>
           {searchedAdventures.length === 0 && filter === true && (
-            <p>
+            <p className='no-results-msg'>
               Sorry, we couldn't find anything that matched. Please try again.
             </p>
           )}
