@@ -16,6 +16,30 @@
     format('woff');
 }
 
+@font-face {
+  font-family: 'amatic';
+  src: url('./Assets/Fonts/amatic/AmaticSC-Regular.ttf')
+    format('woff');
+}
+
+@font-face {
+  font-family: 'amaticBold';
+  src: url('./Assets/Fonts/amatic/Amatic-Bold.ttf')
+    format('woff');
+}
+
+@font-face {
+  font-family: 'sourceSans';
+  src: url('./Assets/Fonts/source-sans-pro/SourceSansPro-Regular.otf')
+    format('woff');
+}
+
+@font-face {
+  font-family: 'sourceSansBold';
+  src: url('./Assets/Fonts/source-sans-pro/SourceSansPro-Bold.otf')
+    format('woff');
+}
+
 $blue-green: #73bda8;
 $brown: #6f5643;
 $tan: #fbf3e3;
@@ -46,6 +70,22 @@ $yellow: #d2a24c;
 
 @mixin boho {
   font-family: 'boho';
+}
+
+@mixin amatic {
+  font-family: 'amatic';
+}
+
+@mixin amaticBold {
+  font-family: 'amaticBold';
+}
+
+@mixin sourceSans {
+  font-family: 'sourceSans';
+}
+
+@mixin sourceSansBold {
+  font-family: 'sourceSansBold';
 }
 
 body {

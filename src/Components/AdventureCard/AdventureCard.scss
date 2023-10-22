@@ -4,19 +4,23 @@
   width: 15rem;
   object-fit: cover;
   border: 1px solid $brown;
+  border-radius: 10px;
 }
 
 .adventure-card {
   background-color: $blue-green;
   padding: 1rem;
+  border-radius: 10px;
 }
 
 .card-text-wrapper {
+  border-radius: 10px;
   background-color: $tan;
   margin-left: 1rem;
   width: 76%;
   p {
     margin-left: 1rem;
+    @include sourceSans;
   }
 }
 
@@ -35,15 +39,16 @@
   display: flex;
 }
 
-span{
-  font-weight: bold;
+span {
+  @include sourceSansBold;
+  font-weight: 600;
 }
 
-.top-line-text{
+.top-line-text {
   display: flex;
 }
 
-.fa-btn{
+.fa-btn {
   border: none;
   background: none;
   color: inherit;
@@ -51,13 +56,13 @@ span{
   cursor: pointer;
 }
 
-.fa-icon{
+.fa-icon {
   margin-left: 0.5rem;
-  &:hover{
+  &:hover {
     color: $red;
   }
 }
 
-.card-button-wrapper{
+.card-button-wrapper {
   margin-right: 1rem;
 }
