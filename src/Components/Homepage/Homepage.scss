@@ -4,7 +4,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  // justify-content: space-evenly;
   width: 100%;
   height: 100%;
   overflow-y: hidden;
@@ -12,29 +11,42 @@
 }
 
 .welcome-message {
-  font-size: 2rem;
+  font-size: 3rem;
   margin: 1rem;
   margin-top: 15rem;
   text-align: center;
+  @include amatic;
 }
 
 .search-bar {
-  position: relative;
-  display: inline-block;
+  // position: relative;
+  // display: inline-block;
+  width: 90%;
+  height: 2rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 3rem;
+  padding-bottom: 1rem;
 }
 
 .search-input {
+  border-radius: 10px;
   padding-right: 40px;
-  padding: 1rem;
+  align-self: flex-end;
+  height: 90%;
+  margin-right: 0px;
 }
 
 .search-btn {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
+  @include btn;
+  border-bottom-right-radius: 10px;
+  font-size: 1.5rem;
+  height: 100%;
+  margin-top: 0px;
+  margin-left: 0px;
   &:hover {
-    cursor: pointer;
+    background-color: $yellow;
   }
 }
 
@@ -42,4 +54,15 @@
   &:hover {
     cursor: pointer;
   }
+}
+
+.keyword-btn{
+  margin-right: 1rem;
+  border-radius: 10px;
+  height: 100%
+}
+
+.no-results-msg{
+  @include sourceSans;
+  font-size: 2rem;
 }

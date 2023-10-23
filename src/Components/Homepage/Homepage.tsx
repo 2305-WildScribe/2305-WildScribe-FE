@@ -50,7 +50,7 @@ function Homepage({
         <>
           <div className='search-bar'>
             {keyword !== '' && (
-              <button >
+              <button className='keyword-btn'>
                 {keyword}{' '}
                 <FontAwesomeIcon
                   icon={faXmark}
@@ -74,7 +74,7 @@ function Homepage({
             </button>
           </div>
           {searchedAdventures.length === 0 && filter === true && (
-            <p>
+            <p className='no-results-msg'>
               Sorry, we couldn't find anything that matched. Please try again.
             </p>
           )}
@@ -95,8 +95,8 @@ function Homepage({
         </>
       ) : (
         <p className='welcome-message'>
-          Welcome to WildScribe, an app that lets track your adventures,
-          training, beta, etc. in order to improve in the activities you enjoy.
+          Welcome to WildScribe, an app that tracks your adventures,
+          training, beta, etc. so you don't have to.
           To get started, log your first adventure!
         </p>
       )}

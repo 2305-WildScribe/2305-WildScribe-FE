@@ -4,3 +4,8 @@
   height: 100%;
   @include center
 }
+
+.error-msg{
+  @include sourceSans;
+  font-size: 2rem;
+}

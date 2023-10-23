@@ -15,6 +15,11 @@ input {
 
 label {
   margin-right: 0.25rem;
+  @include sourceSans;
+}
+
+.user-prompt{
+  @include sourceSans;
 }
 
 textarea {
@@ -50,8 +55,12 @@ textarea {
 
 .submit-button {
   @include btn;
+  font-size: 1.5rem;
   width: 7rem;
   height: 3rem;
+  &:hover{
+    background-color: $yellow;
+  } 
 }
 
 .form-btn-wrapper {

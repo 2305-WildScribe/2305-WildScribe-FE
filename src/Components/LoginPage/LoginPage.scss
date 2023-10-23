@@ -11,6 +11,12 @@
   }
   button{
     @include btn;
+    font-size: 1.5rem;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    &:hover{
+      background-color: $yellow
+    }
   }
 }
 
@@ -19,4 +25,8 @@
   flex-direction: column;
   border: 1px solid $brown;
   padding: 2rem;
+  p{
+    @include amaticBold;
+    font-size: 2rem;
+  }
 }

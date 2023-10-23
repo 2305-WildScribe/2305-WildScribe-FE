@@ -4,6 +4,7 @@ import { postNewAdventure } from '../../apiCalls';
 import { Adventure, Error } from '../../types';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
+import logo from '../../Assets/logo.png'
 
 interface LogAdventureFormProps {
   logNewAdventure: (newAdventureData: Adventure) => void;
@@ -63,7 +64,7 @@ function LogAdventureForm({
         activity,
         date: formattedDate || '',
         beta_notes: betaNotes,
-        image_url,
+        image_url: image_url ? image_url : logo,
         stress_level,
         hydration,
         diet,
@@ -133,7 +134,7 @@ function LogAdventureForm({
               </button>
             </div>
           </div>
-          <p>Over the last 48 hours, how would you describe the following:</p>
+          <p className='user-prompt'>Over the last 48 hours, how would you describe the following:</p>
           <div className='second-line-components'>
             <select
               name='stressLevel'
