@@ -173,7 +173,7 @@ function EditLogForm({
           value={updatedHydration}
           onChange={(event) => setUpdatedHydration(event.target.value)}
         >
-          <option value=''>updatedHydration Level:</option>
+          <option value=''>Hydration Level:</option>
           <option value='Dehydrated'>Dehydrated</option>
           <option value='Somewhat Hydrated'>Somewhat Hydrated</option>
           <option value='Hydrated'>Hydrated</option>
