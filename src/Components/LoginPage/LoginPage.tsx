@@ -46,7 +46,7 @@ function LoginPage({
     <form className='login-form'>
       {!loading && (
         <div className='form-wrapper'>
-          <p>Welcome to WildScribe! Please login to continue.</p>
+          <p>Welcome to WildScribe! Please log in to continue.</p>
           <input
             type='email'
             id='email'
