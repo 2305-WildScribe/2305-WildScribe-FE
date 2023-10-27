@@ -26,17 +26,18 @@ export function AdventureContextProvider({ children }: any) {
     return parsedBoolean || null;
   });
 
-  const [userId, setUserId] = useState<string | null>(() => {
+  const [userId, setUserId] = useState<string | undefined>(() => {
     const savedUserId = localStorage.getItem('UserId');
-    const parsedId = savedUserId ? JSON.parse(savedUserId) : null;
-    return parsedId || null;
+    const parsedId = savedUserId ? JSON.parse(savedUserId) : undefined;
+    return parsedId || undefined;
   });
 
   useEffect(() => {
     localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
   }, [isLoggedIn]);
 
-  const retrieveUserInformation = async (id: string | null) => {
+  const retrieveUserInformation = async (id: string | undefined) => {
+    console.log('id in function',id)
     try {
       const data = await fetchUserAdventures(id);
       setLoading(false);

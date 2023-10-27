@@ -1,12 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './LoginPage.scss';
 import { useNavigate } from 'react-router-dom';
-import { userLogin,  } from '../../apiCalls';
-import { useAdventures } from '../../Context/AdventureContext'
+import { userLogin } from '../../apiCalls';
+import { useAdventures } from '../../Context/AdventureContext';
 import Loading from '../Loading/Loading';
 
 function LoginPage(): React.ReactElement {
-  
   const {
     adventures,
     retrieveUserInformation,
@@ -18,9 +17,9 @@ function LoginPage(): React.ReactElement {
     setLoading,
     setUserId,
     isLoggedIn,
-    loading
+    loading,
   } = useAdventures();
-  
+
   const [userEmail, setUserEmail] = useState<string>('me@gmail.com');
   const [userPassword, setUserPassword] = useState<string>('hi');
   const navigate = useNavigate();
@@ -33,9 +32,9 @@ function LoginPage(): React.ReactElement {
       const userId = response.data.attributes.user_id;
       setUserId(userId);
       localStorage.setItem('UserId', JSON.stringify(userId));
-      console.log('user id: ',userId)
-      retrieveUserInformation(userId)
-      localStorage.setItem('UserId', JSON.stringify(true));
+      console.log('user id: ', userId);
+      retrieveUserInformation(userId);
+      localStorage.setItem('isLoggedIn', JSON.stringify(true));
       console.log('isLoggedIn', isLoggedIn);
       navigate('/home');
     });
@@ -44,32 +43,36 @@ function LoginPage(): React.ReactElement {
 
   return (
     <form className='login-form'>
-        <div className='form-wrapper'>
-          <p>Welcome to WildScribe! Please log in to continue.</p>
-          <input
-            type='email'
-            id='email'
-            name='email'
-            value={userEmail}
-            placeholder='Email'
-            onChange={(event) => setUserEmail(event.target.value)}
-            required
-          />
+      <div className='form-wrapper'>
+        <p>Welcome to WildScribe! Please log in to continue.</p>
+        <input
+          type='email'
+          id='email'
+          name='email'
+          value={userEmail}
+          placeholder='Email'
+          onChange={(event) => setUserEmail(event.target.value)}
+          required
+        />
 
-          <input
-            type='password'
-            id='password'
-            name='password'
-            value={userPassword}
-            placeholder='Password'
-            onChange={(event) => setUserPassword(event.target.value)}
-            required
-          />
+        <input
+          type='password'
+          id='password'
+          name='password'
+          value={userPassword}
+          placeholder='Password'
+          onChange={(event) => setUserPassword(event.target.value)}
+          required
+        />
 
-          <button className='login-btn' type='submit' onClick={(e) => handleLogin(e)}>
-            Login
-          </button>
-        </div>
+        <button
+          className='login-btn'
+          type='submit'
+          onClick={(e) => handleLogin(e)}
+        >
+          Login
+        </button>
+      </div>
     </form>
   );
 }

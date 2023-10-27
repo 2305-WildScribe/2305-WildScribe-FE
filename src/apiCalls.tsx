@@ -1,6 +1,6 @@
 import { Adventure } from './types';
 
-export async function fetchUserAdventures(user_id: string | null) {
+export async function fetchUserAdventures(user_id: string | undefined) {
   // console.log('user_id in fetch adventure call', typeof user_id);
   return fetch(
     'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/user/adventures',
