@@ -2,25 +2,25 @@ import { useState } from 'react';
 import './LoginPage.scss';
 import { useNavigate } from 'react-router-dom';
 import { userLogin,  } from '../../apiCalls';
+import { useAdventures } from '../../Context/AdventureContext'
+import Loading from '../Loading/Loading';
 
-interface LoginPageProps {
-  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean | null>>;
-  isLoggedIn: boolean | null;
-  loading: boolean;
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>
-  setUserId: React.Dispatch<React.SetStateAction<string | null>>
-  retrieveUserInformation: (id: string) => Promise<void>
-
-}
-
-function LoginPage({
-  setIsLoggedIn,
-  isLoggedIn,
-  loading,
-  setLoading,
-  setUserId,
-  retrieveUserInformation,
-}: LoginPageProps): React.ReactElement {
+function LoginPage(): React.ReactElement {
+  
+  const {
+    adventures,
+    retrieveUserInformation,
+    logNewAdventure,
+    deleteAdventureOnDom,
+    setAdventures,
+    filteredAdventures,
+    setIsLoggedIn,
+    setLoading,
+    setUserId,
+    isLoggedIn,
+    loading
+  } = useAdventures();
+  
   const [userEmail, setUserEmail] = useState<string>('me@gmail.com');
   const [userPassword, setUserPassword] = useState<string>('hi');
   const navigate = useNavigate();
@@ -29,11 +29,11 @@ function LoginPage({
     event.preventDefault();
     setIsLoggedIn(true);
     setLoading(true);
-    userLogin('me@gmail.com', 'hi').then((response) => {
+    userLogin(userEmail, userPassword).then((response) => {
       const userId = response.data.attributes.user_id;
       setUserId(userId);
       localStorage.setItem('UserId', JSON.stringify(userId));
-      console.log('is',userId)
+      console.log('user id: ',userId)
       retrieveUserInformation(userId)
       localStorage.setItem('UserId', JSON.stringify(true));
       console.log('isLoggedIn', isLoggedIn);
@@ -44,7 +44,6 @@ function LoginPage({
 
   return (
     <form className='login-form'>
-      {!loading && (
         <div className='form-wrapper'>
           <p>Welcome to WildScribe! Please log in to continue.</p>
           <input
@@ -71,7 +70,6 @@ function LoginPage({
             Login
           </button>
         </div>
-      )}
     </form>
   );
 }

@@ -4,103 +4,104 @@ import { Adventure } from '../../types';
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { useAdventures } from '../../Context/AdventureContext'
+import Loading from '../Loading/Loading';
 
-interface HomepageProps {
-  adventures: Adventure[];
-  filteredAdventures: (keyword: any) => (Adventure | undefined)[];
-  deleteAdventureOnDom: (adventure_id: string | undefined) => void;
-  setSingleAdventure: React.Dispatch<React.SetStateAction<Adventure | undefined>>;
-}
+function Homepage(): React.ReactElement {
+  const {
+    adventures,
+    retrieveUserInformation,
+    filteredAdventures,
+    userId,
+    loading,
+    // keyword,
+    // setKeyword,
+    // setSearchedAdventures,
+  } = useAdventures();
 
-function Homepage({
-  adventures,
-  filteredAdventures,
-  deleteAdventureOnDom,
-  setSingleAdventure,
-}: HomepageProps): React.ReactElement {
   const [keyword, setKeyword] = useState<string>('');
   const [searchedAdventures, setSearchedAdventures] = useState<
     Adventure[] | []
   >([]);
+
   const [filter, setFilter] = useState<boolean>(false);
 
   useEffect(() => {
-    handleSearch();
-  }, [adventures]);
+    console.log('userid', userId);
+    // retrieveUserInformation(userId);
+    console.log('adventurs', adventures);
+    console.log('keyword', keyword);
+    // handleSearch();
+  }, []);
 
   const handleSearch = () => {
-    // console.log('search btn hit');
     let editedKeyword = keyword.toLowerCase().trim();
     let results = filteredAdventures(editedKeyword) || [];
     setSearchedAdventures(() =>
-      results.filter((result): result is Adventure => result !== undefined)
+      results.filter(
+        (result: Adventure): result is Adventure => result !== undefined
+      )
     );
     setFilter(true);
   };
 
   const clearSearch = () => {
     setKeyword('');
-    filteredAdventures('');
+    filteredAdventures([]);
     setFilter(false);
   };
 
   return (
-    <div id='home-main'>
-      {adventures && adventures.length ? (
-        <>
-          <div className='search-bar'>
-            {keyword !== '' && (
-              <button className='keyword-btn'>
-                {keyword}{' '}
-                <FontAwesomeIcon
-                  icon={faXmark}
-                  className='fa-icon delete-keyword'
-                  onClick={clearSearch}
-                />
+    <>
+      {loading && <Loading />}
+      <div id='home-main'>
+        {adventures && adventures.length ? (
+          <>
+            <div className='search-bar'>
+              {keyword !== '' && (
+                <button className='keyword-btn'>
+                  {keyword}{' '}
+                  <FontAwesomeIcon
+                    icon={faXmark}
+                    className='fa-icon delete-keyword'
+                    onClick={clearSearch}
+                  />
+                </button>
+              )}
+              <input
+                className='search-input'
+                type='text'
+                placeholder='Search logs here'
+                value={keyword}
+                onChange={(e) => {
+                  setKeyword(e.target.value);
+                  handleSearch();
+                }}
+              />
+              <button className='search-btn' onClick={() => handleSearch()}>
+                Search
               </button>
+            </div>
+            {searchedAdventures.length === 0 && filter === true && (
+              <p className='no-results-msg'>
+                Sorry, we couldn't find anything that matched. Please try again.
+              </p>
             )}
-            <input
-              className='search-input'
-              type='text'
-              placeholder='Search logs here'
-              value={keyword}
-              onChange={(e) => {
-                setKeyword(e.target.value);
-                handleSearch();
-              }}
-            />
-            <button className='search-btn' onClick={() => handleSearch()}>
-              Search
-            </button>
-          </div>
-          {searchedAdventures.length === 0 && filter === true && (
-            <p className='no-results-msg'>
-              Sorry, we couldn't find anything that matched. Please try again.
-            </p>
-          )}
-          {filter ? (
-            <AdventureContainer
-              adventures={searchedAdventures}
-              deleteAdventureOnDom={deleteAdventureOnDom}
-              setSingleAdventure={setSingleAdventure}
-            />
-          ) : (
-            <AdventureContainer
-              adventures={adventures}
-              deleteAdventureOnDom={deleteAdventureOnDom}
-              setSingleAdventure={setSingleAdventure}
-
-            />
-          )}
-        </>
-      ) : (
-        <p className='welcome-message'>
-          Welcome to WildScribe, an app that tracks your adventures,
-          training, beta, etc. so you don't have to.
-          To get started, log your first adventure!
-        </p>
-      )}
-    </div>
+            {filter ? (
+              <AdventureContainer adventures={searchedAdventures} />
+            ) : (
+              <AdventureContainer adventures={adventures} />
+            )}
+          </>
+        ) : (
+          <p className='welcome-message'>
+            Welcome to WildScribe, an app that tracks your adventures, training,
+            beta, etc. so you don't have to. To get started, log your first
+            adventure!
+          </p>
+        )}
+      </div>
+    </>
   );
 }
 

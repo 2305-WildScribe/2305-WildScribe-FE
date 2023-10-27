@@ -1,22 +1,20 @@
 import './AdventureContainer.scss';
 import { AdventureCard } from '../AdventureCard/AdventureCard';
 import { Adventure } from '../../types';
+import { useAdventures } from '../../Context/AdventureContext'
 
 interface AdventureContainerProps {
   adventures: Adventure[];
-  deleteAdventureOnDom: (adventure_id: string | undefined) => void;
-  setSingleAdventure: React.Dispatch<
-    React.SetStateAction<Adventure | undefined>
-  >;
 }
 
 function AdventureContainer({
   adventures,
-  deleteAdventureOnDom,
-  setSingleAdventure,
 }: AdventureContainerProps): React.ReactElement {
 
-  
+  // const {adventures} = useAdventures();
+
+  console.log("adventures",adventures)
+
   function sortByDateAscending(adventures: Adventure[]) {
     return adventures.slice().sort((a, b) => {
       const dateA = new Date(a.date);
@@ -25,17 +23,15 @@ function AdventureContainer({
     });
   }
 
-  const sortedAdventures = sortByDateAscending(adventures)
+  const sortedAdventures = sortByDateAscending(adventures);
 
   const adventureCards = sortedAdventures.map((adventure) => {
-    console.log('date -->',typeof(adventure.date))
+    console.log('date -->', typeof adventure.date);
     return (
       <div key={adventure.adventure_id}>
         <AdventureCard
           adventure={adventure}
-          deleteAdventureOnDom={deleteAdventureOnDom}
           adventures={adventures}
-          setSingleAdventure={setSingleAdventure}
         />
       </div>
     );

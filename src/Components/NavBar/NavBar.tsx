@@ -2,12 +2,15 @@ import './NavBar.scss';
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import logo from '../../Assets/logo.png';
+import { useAdventures } from '../../Context/AdventureContext'
 
-interface NavBarProps {
-  isLoggedIn: boolean|null;
-  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean | null>>
-}
-function NavBar({ isLoggedIn,setIsLoggedIn }: NavBarProps): React.ReactElement {
+// interface NavBarProps {
+//   isLoggedIn: boolean|null;
+//   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean | null>>
+// }
+function NavBar(): React.ReactElement {
+const {isLoggedIn, setIsLoggedIn} = useAdventures()
+
   const navigate = useNavigate()
   const handleLogOut = () => {
     setIsLoggedIn(false)

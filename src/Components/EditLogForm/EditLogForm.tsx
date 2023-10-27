@@ -1,31 +1,23 @@
 import './EditLogForm.scss';
-import { Adventure, Error } from '../../types';
+import { Adventure } from '../../types';
 import { useState, ChangeEvent, useEffect } from 'react';
 import { editLog } from '../../apiCalls';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
+import { useAdventures } from '../../Context/AdventureContext'
 
-interface EditLogFormProps {
-  singleAdventure: Adventure | undefined;
-  setSingleAdventure: React.Dispatch<
-    React.SetStateAction<Adventure | undefined>
-  >;
-  adventures: Adventure[];
-  setAdventures: React.Dispatch<React.SetStateAction<Adventure[]>>;
-  error: Error;
-  setError: React.Dispatch<React.SetStateAction<Error>>;
-  loading: boolean;
-  userId: string | null;
-}
 
-function EditLogForm({
-  adventures,
-  setAdventures,
-  setError,
-  setSingleAdventure,
-  singleAdventure,
-  userId,
-}: EditLogFormProps): React.ReactElement {
+function EditLogForm(): React.ReactElement {
+  const {
+    adventures,
+    setAdventures,
+    setError,
+    setSingleAdventure,
+    singleAdventure,
+    userId,
+    setUserId,
+  } = useAdventures();
+
   const [updatedActivity, setUpdatedActivity] = useState<string>(
     singleAdventure ? singleAdventure.activity : ''
   );
@@ -61,8 +53,6 @@ function EditLogForm({
 
   const handleDateChange = (event: ChangeEvent<HTMLInputElement>) => {
     const originalDate: string = event.target.value;
-    // const parsedDate = dayjs(originalDate);
-    // const formattedDate = parsedDate.format('MM/DD/YYYY');
     setUpdatedDate(originalDate);
   };
 
@@ -72,6 +62,14 @@ function EditLogForm({
     const formattedDate = parsedDate.format('YYYY-MM-DD');
     setUpdatedDate(formattedDate);
   }, []);
+
+  useEffect(()=>{
+    if(!userId){
+      const savedUserId = localStorage.getItem('UserId');
+      const parsedId = savedUserId ? JSON.parse(savedUserId): null
+      setUserId(parsedId)
+    }
+  },[userId])
 
   const navigate = useNavigate();
 
@@ -91,7 +89,7 @@ function EditLogForm({
       sleep_stress_notes: updatedExtraSleepNotes || '',
       hydration: updatedHydration || '',
       diet: updatedDiet || '',
-      diet_hydration_notes: updatedHydration || '',
+      diet_hydration_notes: updatedExtraDietNotes || '',
       beta_notes: updatedBetaNotes || '',
     };
 
@@ -99,7 +97,7 @@ function EditLogForm({
       .then((response) => {
         console.log('resposne', response);
         const filterAdventures = adventures.filter(
-          (adventure) => adventure.adventure_id !== updatedLog.adventure_id
+          (adventure: Adventure) => adventure.adventure_id !== updatedLog.adventure_id
         );
         setAdventures([...filterAdventures, updatedLog]);
         setError({ error: false, message: '' });
@@ -154,7 +152,9 @@ function EditLogForm({
           </button>
         </div>
       </div>
-      <p className='user-prompt'>Over the last 48 hours, how would you describe the following:</p>
+      <p className='user-prompt'>
+        Over the last 48 hours, how would you describe the following:
+      </p>
       <div className='second-line-components'>
         <select
           name='stressLevel'
@@ -214,7 +214,7 @@ function EditLogForm({
       />
       <textarea
         className='hydro-notes-input'
-        placeholder='Add any extra notes on diet or updatedHydration'
+        placeholder='Add any extra notes on diet or Hydration'
         name='notes'
         value={updatedExtraDietNotes}
         onChange={(event) => setUpdatedExtraDietNotes(event.target.value)}

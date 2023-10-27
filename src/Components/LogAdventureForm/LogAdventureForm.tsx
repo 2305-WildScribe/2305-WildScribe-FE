@@ -4,27 +4,27 @@ import { postNewAdventure } from '../../apiCalls';
 import { Adventure, Error } from '../../types';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
-import logo from '../../Assets/logo.png'
+import logo from '../../Assets/logo.png';
+import { useAdventures } from '../../Context/AdventureContext'
 
-interface LogAdventureFormProps {
-  logNewAdventure: (newAdventureData: Adventure) => void;
-  adventures: Adventure[];
-  setAdventures: React.Dispatch<React.SetStateAction<Adventure[]>>;
-  error: Error;
-  setError: React.Dispatch<React.SetStateAction<Error>>;
-  loading: boolean;
-  userId: string | null;
-}
+// interface LogAdventureFormProps {
+//   logNewAdventure: (newAdventureData: Adventure) => void;
+//   adventures: Adventure[];
+//   setAdventures: React.Dispatch<React.SetStateAction<Adventure[]>>;
+//   error: Error;
+//   setError: React.Dispatch<React.SetStateAction<Error>>;
+//   loading: boolean;
+//   userId: string | null;
+// }
 
+function LogAdventureForm(): React.ReactElement {
 
+  const {  adventures,
+    setAdventures,
+    setError,
+    loading,
+    userId,} = useAdventures();
 
-function LogAdventureForm({
-  adventures,
-  setAdventures,
-  setError,
-  loading,
-  userId,
-}: LogAdventureFormProps): React.ReactElement {
   const [activity, setActivity] = useState<string>('');
   const [date, setDate] = useState<string | null>(null);
   const [betaNotes, setBetaNotes] = useState<string>('');
@@ -46,7 +46,7 @@ function LogAdventureForm({
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    console.log('date in editing post',date);
+    console.log('date in editing post', date);
     setUserMsg('');
     if (activity === '') {
       setUserMsg("Please specify the activity you're logging");
@@ -76,10 +76,13 @@ function LogAdventureForm({
       postNewAdventure(newAdventureData, userId)
         .then((response) => {
           console.log('response with user id --->', response);
-          let adventureId = response.data.attributes.adventure_id
-          console.log('new Adventure ID to be posted',newAdventureData.adventure_id)
-          newAdventureData.adventure_id = adventureId
-          console.log(newAdventureData)
+          let adventureId = response.data.attributes.adventure_id;
+          console.log(
+            'new Adventure ID to be posted',
+            newAdventureData.adventure_id
+          );
+          newAdventureData.adventure_id = adventureId;
+          console.log(newAdventureData);
           setAdventures([...adventures, newAdventureData]);
           setError({ error: false, message: '' });
           navigate('/home');
@@ -134,7 +137,9 @@ function LogAdventureForm({
               </button>
             </div>
           </div>
-          <p className='user-prompt'>Over the last 48 hours, how would you describe the following:</p>
+          <p className='user-prompt'>
+            Over the last 48 hours, how would you describe the following:
+          </p>
           <div className='second-line-components'>
             <select
               name='stressLevel'
