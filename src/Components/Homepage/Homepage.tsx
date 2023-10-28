@@ -14,37 +14,21 @@ function Homepage(): React.ReactElement {
     filteredAdventures,
     userId,
     loading,
-    // keyword,
-    // setKeyword,
+    keyword,
+    setKeyword,
+    setFilter,
+    handleSearch,
+    filter,
+    searchedAdventures,
     // setSearchedAdventures,
   } = useAdventures();
 
-  const [keyword, setKeyword] = useState<string>('');
-  const [searchedAdventures, setSearchedAdventures] = useState<
-    Adventure[] | []
-  >([]);
-
-  const [filter, setFilter] = useState<boolean>(false);
-
   useEffect(() => {
-    console.log('userid', userId);
     retrieveUserInformation(userId);
-    console.log('adventurs', adventures);
-    console.log('keyword', keyword);
-    // handleSearch();
-  }, []);
-
-  const handleSearch = () => {
-    let editedKeyword = keyword.toLowerCase().trim();
-    let results = filteredAdventures(editedKeyword) || [];
-    setSearchedAdventures(() =>
-      results.filter(
-        (result: Adventure): result is Adventure => result !== undefined
-      )
-    );
-    setFilter(true);
-  };
-
+    console.log('keyword in useEffect', keyword);
+    handleSearch();
+  }, [keyword]);
+ 
   const clearSearch = () => {
     setKeyword('');
     filteredAdventures([]);
@@ -60,7 +44,7 @@ function Homepage(): React.ReactElement {
           {adventures && adventures.length ? (
             <>
               <div className='search-bar'>
-                {keyword !== '' && (
+                {keyword !== '' && keyword !== ' ' &&(
                   <button className='keyword-btn'>
                     {keyword}{' '}
                     <FontAwesomeIcon
@@ -90,11 +74,11 @@ function Homepage(): React.ReactElement {
                   again.
                 </p>
               )}
-              {filter ? (
-                <AdventureContainer adventures={searchedAdventures} />
-              ) : (
-                <AdventureContainer adventures={adventures} />
-              )}
+              {/* {filter ? ( */}
+                <AdventureContainer />
+              {/*  // ) : (*/}
+                {/* <AdventureContainer adventures={adventures} /> */}
+             {/*   // )}*/}
             </>
           ) : (
             <p className='welcome-message'>

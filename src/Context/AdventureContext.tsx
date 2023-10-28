@@ -9,6 +9,7 @@ export function AdventureContextProvider({ children }: any) {
   const navigate = useNavigate();
 
   const [adventures, setAdventures] = useState<Adventure[]>([]);
+
   const [error, setError] = useState<{ error: boolean; message: string }>({
     error: false,
     message: '',
@@ -37,11 +38,11 @@ export function AdventureContextProvider({ children }: any) {
   }, [isLoggedIn]);
 
   const retrieveUserInformation = async (id: string | undefined) => {
-    console.log('id in function',id)
+    console.log('id in function', id);
     try {
       const data = await fetchUserAdventures(id);
       setLoading(false);
-      console.log('data', data);
+      // console.log('data', data);
       setAdventures(data.data.attributes as Adventure[]);
       setError({ error: false, message: '' });
     } catch (error) {
@@ -67,9 +68,10 @@ export function AdventureContextProvider({ children }: any) {
   };
 
   const filteredAdventures = (keyword: any) => {
+    console.log('keyword in filtered funciton', keyword);
     let searchedLogs =
       adventures &&
-      adventures.map((adventure) => {
+      adventures.filter((adventure) => {
         if (
           adventure.activity.toLowerCase().includes(keyword) ||
           adventure.date?.includes(keyword) ||
@@ -79,26 +81,32 @@ export function AdventureContextProvider({ children }: any) {
         ) {
           return adventure;
         } else {
-          return undefined;
+          return;
         }
       });
-
+    console.log('searchedLogs', searchedLogs);
     return searchedLogs;
   };
+
   const [keyword, setKeyword] = useState<string>('');
 
   const [searchedAdventures, setSearchedAdventures] = useState<
-    Adventure[] | []
+    Adventure[] | undefined
   >([]);
 
-  // useEffect(() => {
-  //   if (keyword !== '') {
-  //     setAdventures(searchedAdventures);
-  //   } else {
-  //     setAdventures(adventures); 
-  //   }
-  // }, [keyword]);
+  const [filter, setFilter] = useState<boolean>(false);
 
+  const handleSearch = () => {
+    if (!keyword) {
+      setSearchedAdventures(adventures);
+    } else {
+      let results = filteredAdventures(keyword) || [];
+      let filteredResults: (Adventure | undefined)[];
+      filteredResults = results.filter((adventure) => adventure !== undefined);
+      setSearchedAdventures([...filteredResults] as Adventure[]);
+      setFilter(true);
+    }
+  };
 
   const value = {
     keyword,
@@ -121,6 +129,9 @@ export function AdventureContextProvider({ children }: any) {
     setUserId,
     setError,
     error,
+    setFilter,
+    filter,
+    handleSearch,
   };
 
   return (
