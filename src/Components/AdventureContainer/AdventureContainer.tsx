@@ -15,7 +15,7 @@ function AdventureContainer(
 
   const {searchedAdventures} = useAdventures();
 
-  // console.log("adventures",adventures)
+  console.log("searched adventures", searchedAdventures)
 
   function sortByDateAscending(searchedAdventures: Adventure[]) {
     return searchedAdventures.slice().sort((a, b) => {

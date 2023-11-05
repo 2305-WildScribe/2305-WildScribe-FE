@@ -46,13 +46,13 @@ export function AdventureContextProvider({ children }: any) {
   }, [isLoggedIn]);
 
   const retrieveUserInformation = async (id: string | undefined) => {
-    // console.log('id in function', id);
+    console.log('id in function', id);
     try {
       const data = await fetchUserAdventures(id);
       setLoading(false);
-      // console.log('data', data);
+      console.log('data', data);
       setAdventures(data.data.attributes as Adventure[]);
-      setSearchedAdventures(adventures);
+      setSearchedAdventures(data.data.attributes as Adventure[]);
 
       setError({ error: false, message: '' });
     } catch (error) {
@@ -108,13 +108,9 @@ export function AdventureContextProvider({ children }: any) {
   };
 
   useEffect(() => {
-    retrieveUserInformation(userId);
+    retrieveUserInformation(userId)
   }, []);
 
-  useEffect(() => {
-    console.log('keyword', keyword);
-    // setSearchedAdventures(searchedAdventures);
-  }, [keyword]);
 
   const value = {
     keyword,
