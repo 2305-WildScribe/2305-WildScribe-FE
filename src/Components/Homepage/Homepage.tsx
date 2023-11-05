@@ -20,7 +20,7 @@ function Homepage(): React.ReactElement {
     handleSearch,
     filter,
     searchedAdventures,
-    // setSearchedAdventures,
+    setSearchedAdventures,
   } = useAdventures();
 
  
@@ -35,7 +35,8 @@ function Homepage(): React.ReactElement {
 
   const clearSearch = () => {
     setKeyword('');
-    filteredAdventures([]);
+    // filteredAdventures(adventures);
+    setSearchedAdventures(adventures)
     setFilter(false);
   };
 

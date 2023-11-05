@@ -8,15 +8,20 @@ import { useAdventures } from '../../Context/AdventureContext';
 
 interface AdventureCardProps {
   adventure: Adventure;
-  adventures: Adventure[];
+  // adventures: Adventure[];
 }
 
 function AdventureCard({
   adventure,
-  adventures,
-}: AdventureCardProps): React.ReactElement {
-  const { deleteAdventureOnDom, setSingleAdventure, error, setError } =
-    useAdventures();
+}: // adventures,
+AdventureCardProps): React.ReactElement {
+  const {
+    searchedAdventures,
+    deleteAdventureOnDom,
+    setSingleAdventure,
+    error,
+    setError,
+  } = useAdventures();
 
   const {
     activity,
@@ -46,7 +51,7 @@ function AdventureCard({
   };
 
   const handleEdit = () => {
-    const logToBeEdited = adventures.find((adventure) => {
+    const logToBeEdited = searchedAdventures.find((adventure: Adventure) => {
       return adventure.adventure_id === adventure_id;
     });
     setSingleAdventure(logToBeEdited);

@@ -33,7 +33,7 @@ function AdventureContainer(
       <div key={adventure.adventure_id}>
         <AdventureCard
           adventure={adventure}
-          adventures={searchedAdventures}
+          // adventures={searchedAdventures}
         />
       </div>
     );
