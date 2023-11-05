@@ -23,12 +23,16 @@ function Homepage(): React.ReactElement {
     // setSearchedAdventures,
   } = useAdventures();
 
-  useEffect(() => {
-    retrieveUserInformation(userId);
-    console.log('keyword in useEffect', keyword);
-    handleSearch();
-  }, [keyword]);
  
+
+  useEffect(() => {
+    console.log('keyword in useEffect', keyword);
+    // console.log('searchedLogs', searchedAdventures);
+    // console.log(adventures)
+    // handleSearch();
+    setKeyword(keyword)
+  }, [keyword]);
+
   const clearSearch = () => {
     setKeyword('');
     filteredAdventures([]);
@@ -44,13 +48,13 @@ function Homepage(): React.ReactElement {
           {adventures && adventures.length ? (
             <>
               <div className='search-bar'>
-                {keyword !== '' && keyword !== ' ' &&(
+                {keyword !== '' && keyword !== ' ' && (
                   <button className='keyword-btn'>
                     {keyword}{' '}
                     <FontAwesomeIcon
                       icon={faXmark}
                       className='fa-icon delete-keyword'
-                      onClick={clearSearch}
+                      onClick={() =>clearSearch()}
                     />
                   </button>
                 )}
@@ -61,7 +65,7 @@ function Homepage(): React.ReactElement {
                   value={keyword}
                   onChange={(e) => {
                     setKeyword(e.target.value);
-                    handleSearch();
+                    handleSearch(e.target.value);
                   }}
                 />
                 <button className='search-btn' onClick={() => handleSearch()}>
@@ -74,11 +78,7 @@ function Homepage(): React.ReactElement {
                   again.
                 </p>
               )}
-              {/* {filter ? ( */}
-                <AdventureContainer />
-              {/*  // ) : (*/}
-                {/* <AdventureContainer adventures={adventures} /> */}
-             {/*   // )}*/}
+              <AdventureContainer />
             </>
           ) : (
             <p className='welcome-message'>

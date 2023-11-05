@@ -4,7 +4,7 @@ import { faTrash, faPencil } from '@fortawesome/free-solid-svg-icons';
 import { deleteAdventure } from '../../apiCalls';
 import { Adventure } from '../../types';
 import { useNavigate } from 'react-router-dom';
-import { useAdventures } from '../../Context/AdventureContext'
+import { useAdventures } from '../../Context/AdventureContext';
 
 interface AdventureCardProps {
   adventure: Adventure;
@@ -15,7 +15,8 @@ function AdventureCard({
   adventure,
   adventures,
 }: AdventureCardProps): React.ReactElement {
-  const { deleteAdventureOnDom, setSingleAdventure } = useAdventures();
+  const { deleteAdventureOnDom, setSingleAdventure, error, setError } =
+    useAdventures();
 
   const {
     activity,
@@ -34,8 +35,14 @@ function AdventureCard({
   const navigate = useNavigate();
 
   const handleDelete = () => {
-    deleteAdventure(adventure_id);
-    deleteAdventureOnDom(adventure_id);
+    deleteAdventure(adventure_id)
+      .then(() => deleteAdventureOnDom(adventure_id))
+      .catch((error) =>
+        setError({
+          error: true,
+          message: 'Oops, something went wrong, please try again later',
+        })
+      );
   };
 
   const handleEdit = () => {

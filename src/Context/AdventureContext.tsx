@@ -33,17 +33,27 @@ export function AdventureContextProvider({ children }: any) {
     return parsedId || undefined;
   });
 
+  const [keyword, setKeyword] = useState<string>('');
+
+  const [searchedAdventures, setSearchedAdventures] = useState<
+    Adventure[] | undefined
+  >([]);
+
+  const [filter, setFilter] = useState<boolean>(false);
+
   useEffect(() => {
     localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
   }, [isLoggedIn]);
 
   const retrieveUserInformation = async (id: string | undefined) => {
-    console.log('id in function', id);
+    // console.log('id in function', id);
     try {
       const data = await fetchUserAdventures(id);
       setLoading(false);
       // console.log('data', data);
       setAdventures(data.data.attributes as Adventure[]);
+      setSearchedAdventures(adventures);
+
       setError({ error: false, message: '' });
     } catch (error) {
       setIsLoggedIn(false);
@@ -64,6 +74,7 @@ export function AdventureContextProvider({ children }: any) {
     const filterAdventures = adventures.filter(
       (adventure) => adventure.adventure_id !== adventure_id
     );
+    setSearchedAdventures(filterAdventures);
     setAdventures(filterAdventures);
   };
 
@@ -84,29 +95,26 @@ export function AdventureContextProvider({ children }: any) {
           return;
         }
       });
-    console.log('searchedLogs', searchedLogs);
     return searchedLogs;
   };
 
-  const [keyword, setKeyword] = useState<string>('');
-
-  const [searchedAdventures, setSearchedAdventures] = useState<
-    Adventure[] | undefined
-  >([]);
-
-  const [filter, setFilter] = useState<boolean>(false);
-
-  const handleSearch = () => {
-    if (!keyword) {
-      setSearchedAdventures(adventures);
-    } else {
-      let results = filteredAdventures(keyword) || [];
-      let filteredResults: (Adventure | undefined)[];
-      filteredResults = results.filter((adventure) => adventure !== undefined);
-      setSearchedAdventures([...filteredResults] as Adventure[]);
-      setFilter(true);
-    }
+  const handleSearch = (keyword: string) => {
+    console.log('keyword in handleSearch', keyword);
+    let results = filteredAdventures(keyword) || [];
+    // let filteredResults: (Adventure | undefined)[];
+    // filteredResults = results.filter((adventure) => adventure !== undefined);
+    setSearchedAdventures([...results] as Adventure[]);
+    setFilter(true);
   };
+
+  useEffect(() => {
+    retrieveUserInformation(userId);
+  }, []);
+
+  useEffect(() => {
+    console.log('keyword', keyword);
+    // setSearchedAdventures(searchedAdventures);
+  }, [keyword]);
 
   const value = {
     keyword,
