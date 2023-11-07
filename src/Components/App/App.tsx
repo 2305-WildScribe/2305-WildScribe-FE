@@ -7,8 +7,11 @@ import LogAdventureForm from '../LogAdventureForm/LogAdventureForm';
 import LoginPage from '../LoginPage/LoginPage';
 import ErrorPage from '../ErrorPage/ErrorPage';
 import EditLogForm from '../EditLogForm/EditLogForm';
+import { useAppSelector, useAppDispatch } from '../../state/hooks';
+import { addAdventure, selectAdventures } from '../../state/slices/adventuresSlice';
 
 function App(): React.ReactElement {
+  console.log('here',useAppSelector(selectAdventures))
   return (
     <AdventureContextProvider>
       <div className='App'>
