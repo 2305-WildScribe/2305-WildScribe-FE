@@ -31,21 +31,14 @@ function Homepage(): React.ReactElement {
   let adventures = useAppSelector(selectAdventures).adventures;
   let loading = useAppSelector(selectAdventures).loading
 
-  console.log('adventures on homepage', adventures);
 
-// console.log('adventures', adventures)
 
   useEffect(() => {
-    console.log('keyword in useEffect', keyword);
-    // console.log('searchedLogs', searchedAdventures);
-    // console.log(adventures)
-    // handleSearch();
     setKeyword(keyword)
   }, [keyword]);
 
   const clearSearch = () => {
     setKeyword('');
-    // filteredAdventures(adventures);
     setSearchedAdventures(adventures)
     setFilter(false);
   };

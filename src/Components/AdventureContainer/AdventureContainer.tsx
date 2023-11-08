@@ -1,25 +1,12 @@
 import './AdventureContainer.scss';
 import { AdventureCard } from '../AdventureCard/AdventureCard';
 import { Adventure } from '../../types';
-import { useAdventures } from '../../Context/AdventureContext'
 import { useAppSelector } from '../../Redux/hooks';
 import { selectAdventures } from '../../Redux/slices/adventuresSlice';
 
-// interface AdventureContainerProps {
-//   adventures: Adventure[];
-// }
-
-function AdventureContainer(
-  // {
-  // adventures,
-// }: AdventureContainerProps
-): React.ReactElement {
-
+function AdventureContainer(): React.ReactElement {
   let adventures = useAppSelector(selectAdventures).adventures;
 
-  // const {searchedAdventures} = useAdventures();
-
-  console.log("adventures", adventures)
 
   function sortByDateAscending(adventures: Adventure[]) {
     return adventures.slice().sort((a, b) => {
@@ -32,13 +19,9 @@ function AdventureContainer(
   const sortedAdventures = sortByDateAscending(adventures);
 
   const adventureCards = sortedAdventures.map((adventure) => {
-    // console.log('date -->', typeof adventure.date);
     return (
       <div key={adventure.adventure_id}>
-        <AdventureCard
-          adventure={adventure}
-          // adventures={searchedAdventures}
-        />
+        <AdventureCard adventure={adventure} />
       </div>
     );
   });

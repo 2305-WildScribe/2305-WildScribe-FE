@@ -7,27 +7,8 @@ import LogAdventureForm from '../LogAdventureForm/LogAdventureForm';
 import LoginPage from '../LoginPage/LoginPage';
 import ErrorPage from '../ErrorPage/ErrorPage';
 import EditLogForm from '../EditLogForm/EditLogForm';
-import { useAppDispatch, useAppSelector } from '../../Redux/hooks';
-import {
-  addAdventure,
-  selectAdventures,
-} from '../../Redux/slices/adventuresSlice';
-
-// import { useEffect } from 'react';
-// import { selectUser, userLoginAsync } from '../../Redux/slices/userSlice';
 
 function App(): React.ReactElement {
-  // console.log('here', useAppSelector(selectAdventures));
-  // console.log('also here', useAppSelector(selectUserId).userID);
-
-  // const dispatch = useAppDispatch();
-
-
-  // useEffect(() => {
-  //   dispatch(userLoginAsync({ email: 'me@gmail.com', password: 'hi' }))
-
-  // }, []);
-
   return (
     <AdventureContextProvider>
       <div className='App'>
