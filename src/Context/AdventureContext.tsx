@@ -48,11 +48,11 @@ export function AdventureContextProvider({ children }: any) {
   const retrieveUserInformation = async (id: string | undefined) => {
     console.log('id in function', id);
     try {
-      const data = await fetchUserAdventures(id);
+      // const data = await fetchUserAdventures(id);
       setLoading(false);
-      console.log('data', data);
-      setAdventures(data.data.attributes as Adventure[]);
-      setSearchedAdventures(data.data.attributes as Adventure[]);
+      // console.log('data', data);
+      // setAdventures(data.data.attributes as Adventure[]);
+      // setSearchedAdventures(data.data.attributes as Adventure[]);
 
       setError({ error: false, message: '' });
     } catch (error) {

@@ -17,16 +17,16 @@ import { useEffect } from 'react';
 import { selectUserId, userLoginAsync } from '../../Redux/slices/userSlice';
 
 function App(): React.ReactElement {
-  console.log('here', useAppSelector(selectAdventures));
-  console.log('also here', useAppSelector(selectUserId).userID);
+  // console.log('here', useAppSelector(selectAdventures));
+  // console.log('also here', useAppSelector(selectUserId).userID);
 
   const dispatch = useAppDispatch();
 
 
-  useEffect(() => {
-    dispatch(userLoginAsync({ email: 'me@gmail.com', password: 'hi' }))
+  // useEffect(() => {
+  //   dispatch(userLoginAsync({ email: 'me@gmail.com', password: 'hi' }))
 
-  }, []);
+  // }, []);
 
   return (
     <AdventureContextProvider>

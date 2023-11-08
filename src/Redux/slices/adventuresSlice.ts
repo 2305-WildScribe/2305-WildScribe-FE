@@ -65,7 +65,7 @@ export const adventuresSlice = createSlice({
           state.loading = true;
       })
       .addCase(getAdventuresAsync.fulfilled, (state, action)=> {
-        state.adventures = action.payload
+        state.adventures = action.payload.data.attributes.adventures
         state.isSuccessful = true
         state.loading = false
       })

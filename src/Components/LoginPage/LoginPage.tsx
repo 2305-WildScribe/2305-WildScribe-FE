@@ -1,18 +1,17 @@
 import { useEffect, useState } from 'react';
 import './LoginPage.scss';
 import { useNavigate } from 'react-router-dom';
-import { userLogin } from '../../apiCalls';
+// import { userLogin } from '../../apiCalls';
 import { useAdventures } from '../../Context/AdventureContext';
 import Loading from '../Loading/Loading';
-import { useAppDispatch } from '../../Redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../Redux/hooks';
 import { getAdventuresAsync } from '../../Redux/slices/adventuresSlice';
-import { userLoginAsync } from '../../Redux/slices/userSlice';
-const dispatch = useAppDispatch();
+import { selectUserId, userLoginAsync } from '../../Redux/slices/userSlice';
 
 function LoginPage(): React.ReactElement {
   const {
     adventures,
-    retrieveUserInformation,
+    // retrieveUserInformation,
     logNewAdventure,
     deleteAdventureOnDom,
     setAdventures,
@@ -23,34 +22,45 @@ function LoginPage(): React.ReactElement {
     isLoggedIn,
     loading,
   } = useAdventures();
-  const dispatch = useAppDispatch();
   const [userEmail, setUserEmail] = useState<string>('me@gmail.com');
   const [userPassword, setUserPassword] = useState<string>('hi');
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  console.log(useAppSelector(selectUserId));
+
+  let id = useAppSelector(selectUserId).userID;
+
+  useEffect(() => {
+    console.log('I went off', id);
+    if (id !== '') {
+      dispatch(getAdventuresAsync(id));
+    }
+  }, [id]);
 
   function handleLogin(event: React.FormEvent): null {
     event.preventDefault();
     setIsLoggedIn(true);
     setLoading(true);
 
-    // dispatch(userLoginAsync({ email: userEmail, password: userPassword }))
+    dispatch(userLoginAsync({ email: userEmail, password: userPassword }));
+    setLoading(false);
 
-    userLogin(userEmail, userPassword).then((response) => {
-      const userId = response.data.attributes.user_id;
-      setUserId(userId);
-      localStorage.setItem('UserId', JSON.stringify(userId));
-      console.log('user id: ', userId);
-      retrieveUserInformation(userId);
-      localStorage.setItem('isLoggedIn', JSON.stringify(true));
-      console.log('isLoggedIn', isLoggedIn);
+    // userLogin(userEmail, userPassword).then((response) => {
+    //   const userId = response.data.attributes.user_id;
+    //   setUserId(userId);
+    //   localStorage.setItem('UserId', JSON.stringify(userId));
+    //   console.log('user id: ', userId);
+    //   retrieveUserInformation(userId);
+    //   localStorage.setItem('isLoggedIn', JSON.stringify(true));
+    //   console.log('isLoggedIn', isLoggedIn);
       navigate('/home');
-    });
+    // });
     return null;
   }
 
-  
   return (
-    <form className='login-form'>
+    <form className='login-form' onSubmit={(e) => handleLogin(e)}>
       <div className='form-wrapper'>
         <p>Welcome to WildScribe! Please log in to continue.</p>
         <input
@@ -73,11 +83,7 @@ function LoginPage(): React.ReactElement {
           required
         />
 
-        <button
-          className='login-btn'
-          type='submit'
-          onClick={(e) => handleLogin(e)}
-        >
+        <button className='login-btn' type='submit'>
           Login
         </button>
       </div>
