@@ -4,6 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { userLogin } from '../../apiCalls';
 import { useAdventures } from '../../Context/AdventureContext';
 import Loading from '../Loading/Loading';
+import { useAppDispatch } from '../../Redux/hooks';
+import { getAdventuresAsync } from '../../Redux/slices/adventuresSlice';
+import { userLoginAsync } from '../../Redux/slices/userSlice';
+const dispatch = useAppDispatch();
 
 function LoginPage(): React.ReactElement {
   const {
@@ -19,7 +23,7 @@ function LoginPage(): React.ReactElement {
     isLoggedIn,
     loading,
   } = useAdventures();
-
+  const dispatch = useAppDispatch();
   const [userEmail, setUserEmail] = useState<string>('me@gmail.com');
   const [userPassword, setUserPassword] = useState<string>('hi');
   const navigate = useNavigate();
@@ -28,6 +32,9 @@ function LoginPage(): React.ReactElement {
     event.preventDefault();
     setIsLoggedIn(true);
     setLoading(true);
+
+    // dispatch(userLoginAsync({ email: userEmail, password: userPassword }))
+
     userLogin(userEmail, userPassword).then((response) => {
       const userId = response.data.attributes.user_id;
       setUserId(userId);

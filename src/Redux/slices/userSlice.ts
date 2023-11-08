@@ -1,10 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { RootState } from '../store';
 // import { userLogin, fetchUserAdventures} from '../../apiCalls'
-import { useAppDispatch } from '../hooks';
-import { getAdventuresAsync } from './adventuresSlice';
 
-const dispatch = useAppDispatch();
 
 interface UserState {
   userID: string;
@@ -76,7 +73,6 @@ export const userSlice = createSlice({
         state.userID = action.payload.data.attributes.user_id;
         state.userName = action.payload.data.attributes.name;
         state.isSuccessful = true;
-
       })
       .addCase(userLoginAsync.rejected, (state, action) => {
         state.loading = false;
