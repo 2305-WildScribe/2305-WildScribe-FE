@@ -1,35 +1,28 @@
 import { useEffect, useState } from 'react';
 import './LoginPage.scss';
 import { useNavigate } from 'react-router-dom';
-import { useAdventures } from '../../Context/AdventureContext';
 import { useAppDispatch, useAppSelector } from '../../Redux/hooks';
 import { getAdventuresAsync } from '../../Redux/slices/adventuresSlice';
-import { selectUser, userLoginAsync } from '../../Redux/slices/userSlice';
+import { selectUser, toggleIsLoggedIn, userLoginAsync } from '../../Redux/slices/userSlice';
 
 function LoginPage(): React.ReactElement {
- 
-  const {
-    setIsLoggedIn,
-  } = useAdventures();
-
   const [userEmail, setUserEmail] = useState<string>('me@gmail.com');
   const [userPassword, setUserPassword] = useState<string>('hi');
+  const isLoggedIn = useAppSelector(selectUser).isLoggedIn
   const navigate = useNavigate();
+
   const dispatch = useAppDispatch();
-
-
   let userId = useAppSelector(selectUser).userID;
 
   useEffect(() => {
     if (userId !== '') {
-     dispatch(getAdventuresAsync(userId));
-      navigate('/home');
+      dispatch(getAdventuresAsync(userId));
     }
   }, [userId]);
 
   async function handleLogin(event: React.FormEvent): Promise<void> {
     event.preventDefault();
-    setIsLoggedIn(true);
+    dispatch(toggleIsLoggedIn(true))
 
     const action = await dispatch(
       userLoginAsync({ email: userEmail, password: userPassword })
@@ -38,7 +31,7 @@ function LoginPage(): React.ReactElement {
       localStorage.setItem('UserId', JSON.stringify(userId));
       localStorage.setItem('isLoggedIn', JSON.stringify(true));
     }
-
+    navigate('/home');
   }
 
   return (

@@ -1,9 +1,9 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { RootState } from '../store';
 // import { userLogin, fetchUserAdventures} from '../../apiCalls'
 
-
 interface UserState {
+  isLoggedIn: boolean;
   userID: string;
   userName: string;
   isSuccessful: boolean;
@@ -12,6 +12,7 @@ interface UserState {
 }
 
 const initialState: UserState = {
+  isLoggedIn: false,
   userID: '',
   userName: '',
   isSuccessful: false,
@@ -25,7 +26,7 @@ export const userLoginAsync = createAsyncThunk(
   'user/login',
   async (
     { email, password }: { email: string; password: string },
-    thunkAPI
+    thunkAPI,
   ) => {
     const response = await fetch(
       'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/user',
@@ -43,7 +44,7 @@ export const userLoginAsync = createAsyncThunk(
             },
           },
         }),
-      }
+      },
     );
 
     if (response.status === 404) {
@@ -56,16 +57,20 @@ export const userLoginAsync = createAsyncThunk(
 
     const data = await response.json();
     return data;
-  }
+  },
 );
 
 export const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
-  extraReducers: (builder) => {
+  reducers: {
+    toggleIsLoggedIn: (state, action: PayloadAction<boolean>) => {
+      state.isLoggedIn = action.payload;
+    },
+  },
+  extraReducers: builder => {
     builder
-      .addCase(userLoginAsync.pending, (state) => {
+      .addCase(userLoginAsync.pending, state => {
         state.loading = true;
       })
       .addCase(userLoginAsync.fulfilled, (state, action) => {
@@ -73,6 +78,7 @@ export const userSlice = createSlice({
         state.userID = action.payload.data.attributes.user_id;
         state.userName = action.payload.data.attributes.name;
         state.isSuccessful = true;
+        state.isLoggedIn = true;
       })
       .addCase(userLoginAsync.rejected, (state, action) => {
         state.loading = false;
@@ -82,5 +88,6 @@ export const userSlice = createSlice({
   },
 });
 
+export const { toggleIsLoggedIn } = userSlice.actions;
 export const selectUser = (state: RootState) => state.user;
 export default userSlice.reducer;

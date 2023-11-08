@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { Adventure } from '../../src/types';
-import { fetchUserAdventures } from '../../src/apiCalls';
 import { useNavigate } from 'react-router-dom';
 
 export const AdventureContext = createContext<Adventure[] | any | null>(null);
@@ -45,27 +44,6 @@ export function AdventureContextProvider({ children }: any) {
     localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
   }, [isLoggedIn]);
 
-  const retrieveUserInformation = async (id: string | undefined) => {
-    console.log('id in function', id);
-    try {
-      // const data = await fetchUserAdventures(id);
-      setLoading(false);
-      // console.log('data', data);
-      // setAdventures(data.data.attributes as Adventure[]);
-      // setSearchedAdventures(data.data.attributes as Adventure[]);
-
-      setError({ error: false, message: '' });
-    } catch (error) {
-      setIsLoggedIn(false);
-      setLoading(false);
-      setError({
-        error: true,
-        message: 'Oops, something went wrong, please try again later',
-      });
-      navigate('/error');
-    }
-  };
-
   const logNewAdventure = (newAdventureData: Adventure) => {
     setAdventures([...adventures, newAdventureData]);
   };
@@ -107,26 +85,18 @@ export function AdventureContextProvider({ children }: any) {
     setFilter(true);
   };
 
-  useEffect(() => {
-    retrieveUserInformation(userId)
-  }, []);
-
-
   const value = {
     keyword,
     setKeyword,
     searchedAdventures,
     setSearchedAdventures,
     adventures,
-    retrieveUserInformation,
     logNewAdventure,
     deleteAdventureOnDom,
     setAdventures,
     filteredAdventures,
     setSingleAdventure,
     singleAdventure,
-    isLoggedIn,
-    setIsLoggedIn,
     userId,
     setLoading,
     loading,

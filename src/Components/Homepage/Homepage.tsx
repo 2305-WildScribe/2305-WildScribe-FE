@@ -12,35 +12,45 @@ import { selectAdventures } from '../../Redux/slices/adventuresSlice';
 
 function Homepage(): React.ReactElement {
   const {
-    // adventures,
-    // retrieveUserInformation,
-    // filteredAdventures,
-    // userId,
-    // loading,
-    keyword,
-    setKeyword,
     setFilter,
-    handleSearch,
     filter,
-    searchedAdventures,
-    setSearchedAdventures,
   } = useAdventures();
 
   const dispatch = useAppDispatch();
-
+  const [searchedAdventures, setSearchedAdventures] = useState<Adventure[] | []>([])
+  const [keyword, setKeyword] = useState<string>('')
   let adventures = useAppSelector(selectAdventures).adventures;
   let loading = useAppSelector(selectAdventures).loading
 
 
-
   useEffect(() => {
-    setKeyword(keyword)
-  }, [keyword]);
+    setSearchedAdventures(adventures)
+  }, [adventures]);
 
   const clearSearch = () => {
     setKeyword('');
     setSearchedAdventures(adventures)
     setFilter(false);
+  };
+
+  const filteredAdventures = (keyword: string) => {
+    return adventures &&
+      adventures.filter((adventure) => {
+        if (
+          adventure.activity.toLowerCase().includes(keyword) ||
+          adventure.date?.includes(keyword) ||
+          adventure.sleep_stress_notes?.toLowerCase().includes(keyword) ||
+          adventure.diet_hydration_notes?.toLowerCase().includes(keyword) ||
+          adventure.beta_notes?.toLowerCase().includes(keyword)
+        ) 
+          return adventure;
+      });
+  };
+
+  const handleSearch = (keyword: string) => {
+    console.log(keyword)
+    let results = filteredAdventures(keyword) || [];
+    setSearchedAdventures([...results] as Adventure[]);
   };
 
   return (
@@ -72,9 +82,9 @@ function Homepage(): React.ReactElement {
                     handleSearch(e.target.value);
                   }}
                 />
-                <button className='search-btn' onClick={() => handleSearch()}>
+                {/* <button className='search-btn' onClick={() => handleSearch()}>
                   Search
-                </button>
+                </button> */}
               </div>
               {searchedAdventures.length === 0 && filter === true && (
                 <p className='no-results-msg'>
@@ -82,7 +92,7 @@ function Homepage(): React.ReactElement {
                   again.
                 </p>
               )}
-              <AdventureContainer />
+              <AdventureContainer searchedAdventures={searchedAdventures}/>
             </>
           ) : (
             <p className='welcome-message'>
