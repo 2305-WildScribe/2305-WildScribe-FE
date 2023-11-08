@@ -41,6 +41,7 @@ function LoginPage(): React.ReactElement {
     return null;
   }
 
+  
   return (
     <form className='login-form'>
       <div className='form-wrapper'>
