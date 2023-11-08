@@ -60,7 +60,7 @@ export const userLoginAsync = createAsyncThunk(
 );
 
 export const userSlice = createSlice({
-  name: 'userId',
+  name: 'user',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -82,5 +82,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const selectUserId = (state: RootState) => state.userId;
+export const selectUser = (state: RootState) => state.user;
 export default userSlice.reducer;

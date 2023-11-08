@@ -3,23 +3,23 @@ import './LoginPage.scss';
 import { useNavigate } from 'react-router-dom';
 // import { userLogin } from '../../apiCalls';
 import { useAdventures } from '../../Context/AdventureContext';
-import Loading from '../Loading/Loading';
+// import Loading from '../Loading/Loading';
 import { useAppDispatch, useAppSelector } from '../../Redux/hooks';
 import { getAdventuresAsync } from '../../Redux/slices/adventuresSlice';
-import { selectUserId, userLoginAsync } from '../../Redux/slices/userSlice';
+import { selectUser, userLoginAsync } from '../../Redux/slices/userSlice';
 
 function LoginPage(): React.ReactElement {
   const {
-    adventures,
+    // adventures,
     // retrieveUserInformation,
-    logNewAdventure,
-    deleteAdventureOnDom,
-    setAdventures,
-    filteredAdventures,
+    // logNewAdventure,
+    // deleteAdventureOnDom,
+    // setAdventures,
+    // filteredAdventures,
     setIsLoggedIn,
     setLoading,
-    setUserId,
-    isLoggedIn,
+    // setUserId,
+    // isLoggedIn,
     loading,
   } = useAdventures();
   const [userEmail, setUserEmail] = useState<string>('me@gmail.com');
@@ -27,36 +27,49 @@ function LoginPage(): React.ReactElement {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  console.log(useAppSelector(selectUserId));
+  console.log(useAppSelector(selectUser));
 
-  let id = useAppSelector(selectUserId).userID;
+  let userId = useAppSelector(selectUser).userID;
+  // let loading = useAppSelector(selectUserId).loading;
 
   useEffect(() => {
-    console.log('I went off', id);
-    if (id !== '') {
-      dispatch(getAdventuresAsync(id));
-    }
-  }, [id]);
+    if (userId !== '') {
+     dispatch(getAdventuresAsync(userId));
+      console.log('I went off', userId);
+      console.log(loading)
+      navigate('/home');
 
-  function handleLogin(event: React.FormEvent): null {
+    }
+  }, [userId]);
+
+  async function handleLogin(event: React.FormEvent): Promise<void> {
     event.preventDefault();
     setIsLoggedIn(true);
-    setLoading(true);
+    // setLoading(true);
 
-    dispatch(userLoginAsync({ email: userEmail, password: userPassword }));
+    const action = await dispatch(
+      userLoginAsync({ email: userEmail, password: userPassword })
+    );
+    if (userLoginAsync.fulfilled.match(action)) {
+      // const id = action.payload.data.attributes.user_id
+      console.log(userId);
+      // dispatch(getAdventuresAsync(id))
+      localStorage.setItem('UserId', JSON.stringify(userId));
+      localStorage.setItem('isLoggedIn', JSON.stringify(true));
+    }
+
+    
     setLoading(false);
 
     // userLogin(userEmail, userPassword).then((response) => {
     //   const userId = response.data.attributes.user_id;
     //   setUserId(userId);
-    //   localStorage.setItem('UserId', JSON.stringify(userId));
     //   console.log('user id: ', userId);
     //   retrieveUserInformation(userId);
-    //   localStorage.setItem('isLoggedIn', JSON.stringify(true));
     //   console.log('isLoggedIn', isLoggedIn);
-      navigate('/home');
+    // navigate('/home');
     // });
-    return null;
+    // return null;
   }
 
   return (

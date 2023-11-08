@@ -65,7 +65,7 @@ export const adventuresSlice = createSlice({
           state.loading = true;
       })
       .addCase(getAdventuresAsync.fulfilled, (state, action)=> {
-        state.adventures = action.payload.data.attributes.adventures
+        state.adventures = action.payload.data.attributes
         state.isSuccessful = true
         state.loading = false
       })
@@ -80,5 +80,5 @@ export const adventuresSlice = createSlice({
 
 export const { addAdventure } = adventuresSlice.actions;
 export const selectAdventures = (state: RootState) =>
-  state.adventures.adventures;
+  state.adventures;
 export default adventuresSlice.reducer;

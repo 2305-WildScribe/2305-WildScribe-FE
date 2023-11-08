@@ -6,14 +6,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useAdventures } from '../../Context/AdventureContext';
 import Loading from '../Loading/Loading';
+import { useAppDispatch, useAppSelector } from '../../Redux/hooks';
+import { selectAdventures } from '../../Redux/slices/adventuresSlice';
+
 
 function Homepage(): React.ReactElement {
   const {
-    adventures,
-    retrieveUserInformation,
-    filteredAdventures,
-    userId,
-    loading,
+    // adventures,
+    // retrieveUserInformation,
+    // filteredAdventures,
+    // userId,
+    // loading,
     keyword,
     setKeyword,
     setFilter,
@@ -23,7 +26,14 @@ function Homepage(): React.ReactElement {
     setSearchedAdventures,
   } = useAdventures();
 
- 
+  const dispatch = useAppDispatch();
+
+  let adventures = useAppSelector(selectAdventures).adventures;
+  let loading = useAppSelector(selectAdventures).loading
+
+  console.log('adventures on homepage', adventures);
+
+// console.log('adventures', adventures)
 
   useEffect(() => {
     console.log('keyword in useEffect', keyword);
