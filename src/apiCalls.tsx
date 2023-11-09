@@ -74,7 +74,6 @@ export async function postNewAdventure(
         }),
       }
     );
-    // console.log('post response -->', response);
     if (!response.ok) {
       throw new Error('Oops, something went wrong. Please try again later.');
     }

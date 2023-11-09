@@ -23,7 +23,6 @@ function LoginPage(): React.ReactElement {
   async function handleLogin(event: React.FormEvent): Promise<void> {
     event.preventDefault();
     dispatch(toggleIsLoggedIn(true))
-
     const action = await dispatch(
       userLoginAsync({ email: userEmail, password: userPassword })
     );

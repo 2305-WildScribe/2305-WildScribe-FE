@@ -1,22 +1,19 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../store';
 import { Adventure } from '../../types';
-import { get } from 'http';
 
 // import { userLogin, fetchUserAdventures} from '../../apiCalls'
 
 interface AdventureState {
   adventures: Adventure[];
-  isSuccessful: boolean;
   loading: boolean;
   error: string | undefined;
 }
 
 const initialState: AdventureState = {
   adventures: [],
-  isSuccessful: false,
   loading: false,
-  error: ''
+  error: '',
 };
 
 export const getAdventuresAsync = createAsyncThunk(
@@ -38,17 +35,49 @@ export const getAdventuresAsync = createAsyncThunk(
           },
         }),
       }
-    )
-      if (response.status === 404) {
-        throw new Error('404 page not found');
-      }
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-    
-      const data = await response.json()
-      return data
+    );
+    if (response.status === 404) {
+      throw new Error('404 page not found');
     }
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+
+    const data = await response.json();
+    return data;
+  }
+);
+
+export const postAdventureAsync = createAsyncThunk(
+  'post/addAdventure',
+  async (newAdventure: Adventure, thunkAPI) => {
+    const response = await fetch(
+      'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/adventure',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          data: {
+            type: 'adventure',
+            attributes: {
+              newAdventure,
+            },
+          },
+        }),
+      }
+    );
+    if (response.status === 404) {
+      throw new Error('404 page not found');
+    }
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+
+    const data = await response.json();
+    return data;
+  }
 );
 
 export const adventuresSlice = createSlice({
@@ -60,25 +89,27 @@ export const adventuresSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder 
+    builder
       .addCase(getAdventuresAsync.pending, (state) => {
-          state.loading = true;
+        state.loading = true;
       })
-      .addCase(getAdventuresAsync.fulfilled, (state, action)=> {
-        state.adventures = action.payload.data.attributes
-        state.isSuccessful = true
-        state.loading = false
+      .addCase(getAdventuresAsync.fulfilled, (state, action) => {
+        state.adventures = action.payload.data.attributes;
+        state.loading = false;
       })
       .addCase(getAdventuresAsync.rejected, (state, action) => {
-        state.loading = false
-        state.error = action.error.message
-        state.isSuccessful = false
-
+        state.loading = false;
+        state.error = action.error.message;
       })
+      .addCase(postAdventureAsync.fulfilled, (state, action) => {
+        state.adventures = [...state.adventures, action.payload];
+      })
+      .addCase(postAdventureAsync.rejected, (state, action) => {
+        state.error = action.error.message;
+      });
   },
 });
 
 export const { addAdventure } = adventuresSlice.actions;
-export const selectAdventures = (state: RootState) =>
-  state.adventures;
+export const selectAdventures = (state: RootState) => state.adventures;
 export default adventuresSlice.reducer;
