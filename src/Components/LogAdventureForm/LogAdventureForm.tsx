@@ -56,7 +56,7 @@ function LogAdventureForm(): React.ReactElement {
       const formattedDate = parsedDate.format('MM/DD/YYYY');
 
       const newAdventureData: Adventure = {
-        user_id: userID,
+        user_id: null,
         activity,
         date: formattedDate || '',
         beta_notes: betaNotes,
@@ -69,13 +69,15 @@ function LogAdventureForm(): React.ReactElement {
         sleep_stress_notes: extraSleepNotes,
         adventure_id: undefined,
       };
-      handlePostingNewAdventure(newAdventureData);
+      
+      handlePostingNewAdventure(newAdventureData, userID);
     }
   };
   async function handlePostingNewAdventure(
-    newAdventureData: Adventure
+    newAdventureData: Adventure,
+    userID: string
   ): Promise<void> {
-    const action = await dispatch(postAdventureAsync(newAdventureData));
+    const action = await dispatch(postAdventureAsync({newAdventure: newAdventureData, userID:userID}));
     if (postAdventureAsync.fulfilled.match(action)) {
       console.log(action);
     }

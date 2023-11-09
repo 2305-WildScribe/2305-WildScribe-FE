@@ -31,9 +31,9 @@ export async function fetchUserAdventures(user_id: string | undefined) {
 
 export async function postNewAdventure(
   newAdventureData: Adventure,
-  id: string | null
 ) {
   const {
+    user_id,
     activity,
     date,
     beta_notes,
@@ -58,7 +58,7 @@ export async function postNewAdventure(
           data: {
             type: 'adventure',
             attributes: {
-              user_id: id,
+              user_id,
               activity,
               date,
               beta_notes,
@@ -77,6 +77,7 @@ export async function postNewAdventure(
     if (!response.ok) {
       throw new Error('Oops, something went wrong. Please try again later.');
     }
+    console.log('post response',response)
     return await response.json();
   } catch (error) {}
 }
