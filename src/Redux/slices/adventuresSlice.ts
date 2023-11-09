@@ -103,13 +103,6 @@ export const postAdventureAsync = createAsyncThunk(
 
     const data = await response.json();
     console.log('data', data);
-    // newAdventure.adventure_id = data.attributes.adventure_id;
-    // console.log('new adv here', newAdventure);
-    // const completeAdventure = {
-    //   ...newAdventure,
-    //   adventure_id: data.attributes.adventure_id,
-    // };
-    // console.log(completeAdventure);
     return { newAdventure, data };
   }
 );
