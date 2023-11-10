@@ -1,8 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../store';
 import { Adventure } from '../../types';
-
-// import { userLogin, fetchUserAdventures} from '../../apiCalls'
+import { getAdventuresAsync, postAdventureAsync } from './AsyncThunks';
 
 interface AdventureState {
   adventures: Adventure[];
@@ -15,97 +14,6 @@ const initialState: AdventureState = {
   loading: false,
   error: '',
 };
-
-export const getAdventuresAsync = createAsyncThunk(
-  'user/getData',
-  async (id: string, thunkAPI) => {
-    const response = await fetch(
-      'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/user/adventures',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          data: {
-            type: 'adventures',
-            attributes: {
-              user_id: id,
-            },
-          },
-        }),
-      }
-    );
-    if (response.status === 404) {
-      throw new Error('404 page not found');
-    }
-    if (!response.ok) {
-      throw new Error(response.statusText);
-    }
-
-    const data = await response.json();
-    return data;
-  }
-);
-
-export const postAdventureAsync = createAsyncThunk(
-  'post/addAdventure',
-  async (
-    { newAdventure, userID }: { newAdventure: Adventure; userID: string },
-    thunkAPI
-  ) => {
-    console.log('Thunk dun thanked');
-    const {
-      activity,
-      date,
-      beta_notes,
-      image_url,
-      stress_level,
-      hydration,
-      diet,
-      hours_slept: sleep,
-      diet_hydration_notes,
-      sleep_stress_notes,
-    } = newAdventure;
-    const response = await fetch(
-      'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/adventure',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          data: {
-            type: 'adventure',
-            attributes: {
-              user_id: userID,
-              activity,
-              date,
-              beta_notes,
-              image_url,
-              stress_level,
-              hydration,
-              diet,
-              hours_slept: sleep,
-              diet_hydration_notes,
-              sleep_stress_notes,
-            },
-          },
-        }),
-      }
-    );
-    if (response.status === 404) {
-      throw new Error('404 page not found');
-    }
-    if (!response.ok) {
-      throw new Error(response.statusText);
-    }
-
-    const data = await response.json();
-    console.log('data', data);
-    return { newAdventure, data };
-  }
-);
 
 export const adventuresSlice = createSlice({
   name: 'adventures',

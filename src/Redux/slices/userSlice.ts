@@ -1,5 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { RootState } from '../store';
+import { userLoginAsync } from './AsyncThunks';
 // import { userLogin, fetchUserAdventures} from '../../apiCalls'
 
 interface UserState {
@@ -22,43 +23,7 @@ const initialState: UserState = {
 
 // it's good practice to have async thunks in a separate file
 
-export const userLoginAsync = createAsyncThunk(
-  'user/login',
-  async (
-    { email, password }: { email: string; password: string },
-    thunkAPI,
-  ) => {
-    const response = await fetch(
-      'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/user',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          data: {
-            type: 'user',
-            attributes: {
-              email: email,
-              password: password,
-            },
-          },
-        }),
-      },
-    );
 
-    if (response.status === 404) {
-      throw new Error('404 page not found');
-    }
-
-    if (!response.ok) {
-      throw new Error('error');
-    }
-
-    const data = await response.json();
-    return data;
-  },
-);
 
 export const userSlice = createSlice({
   name: 'user',

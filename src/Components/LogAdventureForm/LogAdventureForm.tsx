@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 import logo from '../../Assets/logo.png';
 import { useAdventures } from '../../Context/AdventureContext';
 import { useAppDispatch, useAppSelector } from '../../Redux/hooks';
-import { postAdventureAsync } from '../../Redux/slices/adventuresSlice';
+import { postAdventureAsync } from '../../Redux/slices/AsyncThunks';
 import { selectUser } from '../../Redux/slices/userSlice';
 
 function LogAdventureForm(): React.ReactElement {
@@ -56,7 +56,7 @@ function LogAdventureForm(): React.ReactElement {
       const formattedDate = parsedDate.format('MM/DD/YYYY');
 
       const newAdventureData: Adventure = {
-        user_id: null,
+        user_id: userID,
         activity,
         date: formattedDate || '',
         beta_notes: betaNotes,
@@ -69,15 +69,15 @@ function LogAdventureForm(): React.ReactElement {
         sleep_stress_notes: extraSleepNotes,
         adventure_id: undefined,
       };
-      
-      handlePostingNewAdventure(newAdventureData, userID);
+      handlePostingNewAdventure(newAdventureData);
+
     }
   };
   async function handlePostingNewAdventure(
     newAdventureData: Adventure,
-    userID: string
   ): Promise<void> {
-    const action = await dispatch(postAdventureAsync({newAdventure: newAdventureData, userID:userID}));
+    const action = await dispatch(postAdventureAsync(newAdventureData));
+
     if (postAdventureAsync.fulfilled.match(action)) {
       console.log(action);
     }

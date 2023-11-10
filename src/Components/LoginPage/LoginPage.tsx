@@ -2,13 +2,16 @@ import { useEffect, useState } from 'react';
 import './LoginPage.scss';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../Redux/hooks';
-import { getAdventuresAsync } from '../../Redux/slices/adventuresSlice';
-import { selectUser, toggleIsLoggedIn, userLoginAsync } from '../../Redux/slices/userSlice';
+import {
+  getAdventuresAsync,
+  userLoginAsync,
+} from '../../Redux/slices/AsyncThunks';
+import { selectUser, toggleIsLoggedIn } from '../../Redux/slices/userSlice';
 
 function LoginPage(): React.ReactElement {
   const [userEmail, setUserEmail] = useState<string>('me@gmail.com');
   const [userPassword, setUserPassword] = useState<string>('hi');
-  const isLoggedIn = useAppSelector(selectUser).isLoggedIn
+  const isLoggedIn = useAppSelector(selectUser).isLoggedIn;
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
@@ -22,7 +25,7 @@ function LoginPage(): React.ReactElement {
 
   async function handleLogin(event: React.FormEvent): Promise<void> {
     event.preventDefault();
-    dispatch(toggleIsLoggedIn(true))
+    dispatch(toggleIsLoggedIn(true));
     const action = await dispatch(
       userLoginAsync({ email: userEmail, password: userPassword })
     );
