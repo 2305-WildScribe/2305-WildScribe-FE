@@ -5,7 +5,7 @@ export const userLoginAsync = createAsyncThunk(
   'user/login',
   async (
     { email, password }: { email: string; password: string },
-    thunkAPI
+    thunkAPI,
   ) => {
     const response = await fetch(
       'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/user',
@@ -23,7 +23,7 @@ export const userLoginAsync = createAsyncThunk(
             },
           },
         }),
-      }
+      },
     );
 
     if (response.status === 404) {
@@ -36,7 +36,7 @@ export const userLoginAsync = createAsyncThunk(
 
     const data = await response.json();
     return data;
-  }
+  },
 );
 
 export const getAdventuresAsync = createAsyncThunk(
@@ -57,7 +57,7 @@ export const getAdventuresAsync = createAsyncThunk(
             },
           },
         }),
-      }
+      },
     );
     if (response.status === 404) {
       throw new Error('404 page not found');
@@ -68,16 +68,12 @@ export const getAdventuresAsync = createAsyncThunk(
 
     const data = await response.json();
     return data;
-  }
+  },
 );
 
 export const postAdventureAsync = createAsyncThunk(
   'post/addAdventure',
-  async (
-    newAdventure: Adventure,
-    thunkAPI
-  ) => {
-    console.log('Thunk dun thanked');
+  async (newAdventure: Adventure, thunkAPI) => {
     const {
       activity,
       date,
@@ -116,7 +112,7 @@ export const postAdventureAsync = createAsyncThunk(
             },
           },
         }),
-      }
+      },
     );
     if (response.status === 404) {
       throw new Error('404 page not found');
@@ -127,5 +123,38 @@ export const postAdventureAsync = createAsyncThunk(
 
     const data = await response.json();
     return { newAdventure, data };
-  }
+  },
+);
+
+export const deleteAdventureAsync = createAsyncThunk(
+  'post/deleteAdventure',
+  async (id: string | undefined, thunkAPI) => {
+    const response = await fetch(
+      'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/adventure',
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          data: {
+            type: 'adventure',
+            attributes: {
+              adventure_id: id,
+            },
+          },
+        }),
+      },
+    )
+
+    if (response.status === 404) {
+      throw new Error('404 page not found');
+    }
+    if (!response.ok) {
+      throw new Error('error');
+    }
+
+    const data = await response.json()
+    return id;
+  },
 );

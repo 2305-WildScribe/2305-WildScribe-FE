@@ -1,10 +1,12 @@
 import './AdventureCard.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faPencil } from '@fortawesome/free-solid-svg-icons';
-import { deleteAdventure } from '../../apiCalls';
 import { Adventure } from '../../types';
 import { useNavigate } from 'react-router-dom';
 import { useAdventures } from '../../Context/AdventureContext';
+import { useAppDispatch } from '../../Redux/hooks';
+import { deleteAdventureAsync } from '../../Redux/slices/AsyncThunks';
+
 
 interface AdventureCardProps {
   adventure: Adventure;
@@ -17,10 +19,7 @@ function AdventureCard({
 AdventureCardProps): React.ReactElement {
   const {
     searchedAdventures,
-    deleteAdventureOnDom,
     setSingleAdventure,
-    error,
-    setError,
   } = useAdventures();
 
   const {
@@ -38,16 +37,10 @@ AdventureCardProps): React.ReactElement {
   } = adventure;
 
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const handleDelete = () => {
-    deleteAdventure(adventure_id)
-      .then(() => deleteAdventureOnDom(adventure_id))
-      .catch((error) =>
-        setError({
-          error: true,
-          message: 'Oops, something went wrong, please try again later',
-        })
-      );
+    dispatch(deleteAdventureAsync(adventure_id))
   };
 
   const handleEdit = () => {

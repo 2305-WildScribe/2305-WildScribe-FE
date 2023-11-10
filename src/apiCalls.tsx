@@ -17,8 +17,8 @@ export async function fetchUserAdventures(user_id: string | undefined) {
           },
         },
       }),
-    }
-  ).then((response) => {
+    },
+  ).then(response => {
     if (response.status === 404) {
       throw new Error('404 page not found');
     }
@@ -29,9 +29,7 @@ export async function fetchUserAdventures(user_id: string | undefined) {
   });
 }
 
-export async function postNewAdventure(
-  newAdventureData: Adventure,
-) {
+export async function postNewAdventure(newAdventureData: Adventure) {
   const {
     user_id,
     activity,
@@ -72,19 +70,17 @@ export async function postNewAdventure(
             },
           },
         }),
-      }
+      },
     );
     if (!response.ok) {
       throw new Error('Oops, something went wrong. Please try again later.');
     }
-    console.log('post response',response)
+    console.log('post response', response);
     return await response.json();
   } catch (error) {}
 }
 
 export async function userLogin(email: string, password: string) {
-  // console.log('email', email)
-  // console.log("password", password)
   return fetch(
     'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/user',
     {
@@ -101,8 +97,8 @@ export async function userLogin(email: string, password: string) {
           },
         },
       }),
-    }
-  ).then((response) => {
+    },
+  ).then(response => {
     if (response.status === 404) {
       throw new Error('404 page not found');
     }
@@ -129,8 +125,8 @@ export async function deleteAdventure(id: string | undefined) {
           },
         },
       }),
-    }
-  ).then((response) => {
+    },
+  ).then(response => {
     console.log('res', response);
     if (response.status === 404) {
       throw new Error('404 page not found');
@@ -144,8 +140,9 @@ export async function deleteAdventure(id: string | undefined) {
 
 export async function editLog(updatedLog: any) {
   console.log('updatedLog in api call', updatedLog);
-  
-  const { user_id,
+
+  const {
+    user_id,
     adventure_id,
     activity,
     date,
@@ -157,8 +154,9 @@ export async function editLog(updatedLog: any) {
     hydration,
     diet,
     diet_hydration_notes,
-    beta_notes} = updatedLog
-    
+    beta_notes,
+  } = updatedLog;
+
   return fetch(
     'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/adventure',
     {
@@ -167,27 +165,27 @@ export async function editLog(updatedLog: any) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        "data": {
-            "type": "adventure",
-            "attributes": {
-                "user_id": user_id,
-                "adventure_id": adventure_id,
-                "activity": activity,
-                "date": date,
-                "notes": notes,
-                "image_url": image_url,
-                "stress_level": stress_level,
-                "hours_slept": hours_slept,
-                "sleep_stress_notes": sleep_stress_notes,
-                "hydration": hydration,
-                "diet": diet,
-                "diet_hydration_notes": diet_hydration_notes,
-                "beta_notes": beta_notes
-            }
-        }
-    }),
-    }
-  ).then((response) => {
+        data: {
+          type: 'adventure',
+          attributes: {
+            user_id: user_id,
+            adventure_id: adventure_id,
+            activity: activity,
+            date: date,
+            notes: notes,
+            image_url: image_url,
+            stress_level: stress_level,
+            hours_slept: hours_slept,
+            sleep_stress_notes: sleep_stress_notes,
+            hydration: hydration,
+            diet: diet,
+            diet_hydration_notes: diet_hydration_notes,
+            beta_notes: beta_notes,
+          },
+        },
+      }),
+    },
+  ).then(response => {
     console.log('PUT response-->', response);
     if (response.status === 404) {
       throw new Error('404 page not found');
