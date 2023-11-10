@@ -1,13 +1,9 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { Adventure } from '../../src/types';
-import { useNavigate } from 'react-router-dom';
 
 export const AdventureContext = createContext<Adventure[] | any | null>(null);
 
 export function AdventureContextProvider({ children }: any) {
-  const navigate = useNavigate();
-
-  const [adventures, setAdventures] = useState<Adventure[]>([]);
 
   const [error, setError] = useState<{ error: boolean; message: string }>({
     error: false,
@@ -20,92 +16,19 @@ export function AdventureContextProvider({ children }: any) {
     undefined
   );
 
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(() => {
-    const savedIsLoggedIn = localStorage.getItem('isLoggedIn');
-    const parsedBoolean = savedIsLoggedIn ? JSON.parse(savedIsLoggedIn) : null;
-    return parsedBoolean || null;
-  });
 
-  const [user_id, setuser_id] = useState<string | undefined>(() => {
-    const saveduser_id = localStorage.getItem('user_id');
-    const parsedId = saveduser_id ? JSON.parse(saveduser_id) : undefined;
-    return parsedId || undefined;
-  });
+  // useEffect(() => {
+  //   localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
+  // }, [isLoggedIn]);
 
-  const [keyword, setKeyword] = useState<string>('');
-
-  const [searchedAdventures, setSearchedAdventures] = useState<
-    Adventure[] | undefined
-  >([]);
-
-  const [filter, setFilter] = useState<boolean>(false);
-
-  useEffect(() => {
-    localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
-  }, [isLoggedIn]);
-
-  const logNewAdventure = (newAdventureData: Adventure) => {
-    setAdventures([...adventures, newAdventureData]);
-  };
-
-  const deleteAdventureOnDom = (adventure_id: string | undefined) => {
-    const filterAdventures = adventures.filter(
-      (adventure) => adventure.adventure_id !== adventure_id
-    );
-    setSearchedAdventures(filterAdventures);
-    setAdventures(filterAdventures);
-  };
-
-  const filteredAdventures = (keyword: any) => {
-    console.log('keyword in filtered funciton', keyword);
-    let searchedLogs =
-      adventures &&
-      adventures.filter((adventure) => {
-        if (
-          adventure.activity.toLowerCase().includes(keyword) ||
-          adventure.date?.includes(keyword) ||
-          adventure.sleep_stress_notes?.toLowerCase().includes(keyword) ||
-          adventure.diet_hydration_notes?.toLowerCase().includes(keyword) ||
-          adventure.beta_notes?.toLowerCase().includes(keyword)
-        ) {
-          return adventure;
-        } else {
-          return;
-        }
-      });
-    return searchedLogs;
-  };
-
-  const handleSearch = (keyword: string) => {
-    console.log('keyword in handleSearch', keyword);
-    let results = filteredAdventures(keyword) || [];
-    // let filteredResults: (Adventure | undefined)[];
-    // filteredResults = results.filter((adventure) => adventure !== undefined);
-    setSearchedAdventures([...results] as Adventure[]);
-    setFilter(true);
-  };
 
   const value = {
-    keyword,
-    setKeyword,
-    searchedAdventures,
-    setSearchedAdventures,
-    adventures,
-    logNewAdventure,
-    deleteAdventureOnDom,
-    setAdventures,
-    filteredAdventures,
     setSingleAdventure,
     singleAdventure,
-    user_id,
     setLoading,
     loading,
-    setuser_id,
     setError,
     error,
-    setFilter,
-    filter,
-    handleSearch,
   };
 
   return (
