@@ -1,52 +1,52 @@
 import './EditLogForm.scss';
 import { Adventure } from '../../types';
 import { useState, ChangeEvent, useEffect } from 'react';
-import { editLog } from '../../apiCalls';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
-import { useAdventures } from '../../Context/AdventureContext'
-
+import { useAdventures } from '../../Context/AdventureContext';
+import { useAppDispatch } from '../../Redux/hooks';
+import { editAdventureAsync } from '../../Redux/slices/AsyncThunks';
 
 function EditLogForm(): React.ReactElement {
   const {
-    adventures,
-    setAdventures,
-    setError,
+
     setSingleAdventure,
     singleAdventure,
-    userId,
-    setUserId,
+    user_id,
+    setuser_id,
   } = useAdventures();
 
+  const dispatch = useAppDispatch();
+
   const [updatedActivity, setUpdatedActivity] = useState<string>(
-    singleAdventure ? singleAdventure.activity : ''
+    singleAdventure ? singleAdventure.activity : '',
   );
   const [updatedDate, setUpdatedDate] = useState<string | null>(
-    singleAdventure ? singleAdventure.date : null
+    singleAdventure ? singleAdventure.date : null,
   );
   const [updatedBetaNotes, setUpdatedBetaNotes] = useState<string>(
-    singleAdventure ? singleAdventure.beta_notes : ''
+    singleAdventure ? singleAdventure.beta_notes : '',
   );
   const [updatedImage_url, setUpdatedImage] = useState<string>(
-    singleAdventure ? singleAdventure.image_url : ''
+    singleAdventure ? singleAdventure.image_url : '',
   );
   const [updatedStress_level, setUpdatedStressLevel] = useState<string>(
-    singleAdventure ? singleAdventure.stress_level : ''
+    singleAdventure ? singleAdventure.stress_level : '',
   );
   const [updatedHydration, setUpdatedHydration] = useState<string>(
-    singleAdventure ? singleAdventure.hydration : ''
+    singleAdventure ? singleAdventure.hydration : '',
   );
   const [updatedDiet, setUpdatedDiet] = useState<string>(
-    singleAdventure ? singleAdventure.diet : ''
+    singleAdventure ? singleAdventure.diet : '',
   );
   const [updatedExtraSleepNotes, setUpdatedExtraSleepNotes] = useState<string>(
-    singleAdventure ? singleAdventure.sleep_stress_notes : ''
+    singleAdventure ? singleAdventure.sleep_stress_notes : '',
   );
   const [updatedExtraDietNotes, setUpdatedExtraDietNotes] = useState<string>(
-    singleAdventure ? singleAdventure.diet_hydration_notes : ''
+    singleAdventure ? singleAdventure.diet_hydration_notes : '',
   );
   const [updatedSleep, setUpdatedSleep] = useState<number>(
-    singleAdventure ? singleAdventure.hours_slept : 0
+    singleAdventure ? singleAdventure.hours_slept : 0,
   );
 
   const [userMsg, setUserMsg] = useState<string>('');
@@ -63,13 +63,13 @@ function EditLogForm(): React.ReactElement {
     setUpdatedDate(formattedDate);
   }, []);
 
-  useEffect(()=>{
-    if(!userId){
-      const savedUserId = localStorage.getItem('UserId');
-      const parsedId = savedUserId ? JSON.parse(savedUserId): null
-      setUserId(parsedId)
+  useEffect(() => {
+    if (!user_id) {
+      const saveduser_id = localStorage.getItem('user_id');
+      const parsedId = saveduser_id ? JSON.parse(saveduser_id) : null;
+      setuser_id(parsedId);
     }
-  },[userId])
+  }, [user_id]);
 
   const navigate = useNavigate();
 
@@ -79,7 +79,7 @@ function EditLogForm(): React.ReactElement {
     const formattedDate = parsedDate.format('MM/DD/YYYY');
 
     const updatedLog: Adventure = {
-      user_id: singleAdventure ? singleAdventure.user_id : userId,
+      user_id: singleAdventure ? singleAdventure.user_id : user_id,
       adventure_id: singleAdventure?.adventure_id || undefined,
       activity: updatedActivity || '',
       date: formattedDate || '',
@@ -92,26 +92,9 @@ function EditLogForm(): React.ReactElement {
       diet_hydration_notes: updatedExtraDietNotes || '',
       beta_notes: updatedBetaNotes || '',
     };
-
-    editLog(updatedLog)
-      .then((response) => {
-        console.log('resposne', response);
-        const filterAdventures = adventures.filter(
-          (adventure: Adventure) => adventure.adventure_id !== updatedLog.adventure_id
-        );
-        setAdventures([...filterAdventures, updatedLog]);
-        setError({ error: false, message: '' });
-        navigate('/home');
-      })
-      .catch((error) => {
-        setError({
-          error: true,
-          message: 'Oops, something went wrong, please try again later',
-        });
-        navigate('/error');
-      });
-
+    dispatch(editAdventureAsync(updatedLog));
     setSingleAdventure(undefined);
+    navigate('/home');
   };
 
   return (
@@ -123,7 +106,7 @@ function EditLogForm(): React.ReactElement {
             type='text'
             name='activity'
             value={updatedActivity}
-            onChange={(event) => setUpdatedActivity(event.target.value)}
+            onChange={event => setUpdatedActivity(event.target.value)}
           />
           <label htmlFor='date-input'>Date:</label>
           <input
@@ -138,7 +121,7 @@ function EditLogForm(): React.ReactElement {
             type='text'
             name='image'
             value={updatedImage_url}
-            onChange={(event) => setUpdatedImage(event.target.value)}
+            onChange={event => setUpdatedImage(event.target.value)}
             placeholder='Enter the image URL'
           />
         </div>
@@ -146,7 +129,7 @@ function EditLogForm(): React.ReactElement {
           {userMsg !== '' && <p>{userMsg}</p>}
           <button
             className='submit-button'
-            onClick={(event) => handleSaveChanges(event)}
+            onClick={event => handleSaveChanges(event)}
           >
             Save Changes
           </button>
@@ -159,7 +142,7 @@ function EditLogForm(): React.ReactElement {
         <select
           name='stressLevel'
           value={updatedStress_level}
-          onChange={(event) => setUpdatedStressLevel(event.target.value)}
+          onChange={event => setUpdatedStressLevel(event.target.value)}
         >
           <option value=''>Stress Level:</option>
           <option value='Min'>No stress</option>
@@ -171,7 +154,7 @@ function EditLogForm(): React.ReactElement {
         <select
           name='updatedHydration'
           value={updatedHydration}
-          onChange={(event) => setUpdatedHydration(event.target.value)}
+          onChange={event => setUpdatedHydration(event.target.value)}
         >
           <option value=''>Hydration Level:</option>
           <option value='Dehydrated'>Dehydrated</option>
@@ -182,7 +165,7 @@ function EditLogForm(): React.ReactElement {
         <select
           name='diet'
           value={updatedDiet}
-          onChange={(event) => setUpdatedDiet(event.target.value)}
+          onChange={event => setUpdatedDiet(event.target.value)}
         >
           <option value=''>Overall Diet:</option>
           <option value='Poor'>Poor</option>
@@ -195,11 +178,8 @@ function EditLogForm(): React.ReactElement {
             type='number'
             name='sleep'
             value={updatedSleep}
-            onChange={(event) => {
-              const inputValue = Number(event.target.value);
-              if (inputValue >= 0) {
-                setUpdatedSleep(inputValue);
-              }
+            onChange={event => {
+              setUpdatedSleep(Number(event.target.value));
             }}
             min='0'
           />
@@ -210,21 +190,21 @@ function EditLogForm(): React.ReactElement {
         placeholder='Add any extra notes on sleep or stress'
         name='notes'
         value={updatedExtraSleepNotes}
-        onChange={(event) => setUpdatedExtraSleepNotes(event.target.value)}
+        onChange={event => setUpdatedExtraSleepNotes(event.target.value)}
       />
       <textarea
         className='hydro-notes-input'
         placeholder='Add any extra notes on diet or Hydration'
         name='notes'
         value={updatedExtraDietNotes}
-        onChange={(event) => setUpdatedExtraDietNotes(event.target.value)}
+        onChange={event => setUpdatedExtraDietNotes(event.target.value)}
       />
       <textarea
         className='notes-input'
         placeholder='Add any extra notes on any beta '
         name='notes'
         value={updatedBetaNotes}
-        onChange={(event) => setUpdatedBetaNotes(event.target.value)}
+        onChange={event => setUpdatedBetaNotes(event.target.value)}
       />
     </form>
   );

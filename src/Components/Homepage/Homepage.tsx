@@ -48,7 +48,6 @@ function Homepage(): React.ReactElement {
   };
 
   const handleSearch = (keyword: string) => {
-    console.log(keyword)
     let results = filteredAdventures(keyword) || [];
     setSearchedAdventures([...results] as Adventure[]);
   };

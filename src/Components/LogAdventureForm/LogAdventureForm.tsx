@@ -12,14 +12,14 @@ import { selectUser } from '../../Redux/slices/userSlice';
 
 function LogAdventureForm(): React.ReactElement {
   const dispatch = useAppDispatch();
-  const userID = useAppSelector(selectUser).userID;
+  const user_id = useAppSelector(selectUser).user_id;
 
   const {
     adventures,
     setAdventures,
     setError,
     loading,
-    // userId,
+    // user_id,
   } = useAdventures();
 
   const [activity, setActivity] = useState<string>('');
@@ -56,7 +56,7 @@ function LogAdventureForm(): React.ReactElement {
       const formattedDate = parsedDate.format('MM/DD/YYYY');
 
       const newAdventureData: Adventure = {
-        user_id: userID,
+        user_id: user_id,
         activity,
         date: formattedDate || '',
         beta_notes: betaNotes,

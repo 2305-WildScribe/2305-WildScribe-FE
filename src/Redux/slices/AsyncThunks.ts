@@ -145,7 +145,7 @@ export const deleteAdventureAsync = createAsyncThunk(
           },
         }),
       },
-    )
+    );
 
     if (response.status === 404) {
       throw new Error('404 page not found');
@@ -154,7 +154,70 @@ export const deleteAdventureAsync = createAsyncThunk(
       throw new Error('error');
     }
 
-    const data = await response.json()
+    const data = await response.json();
     return id;
+  },
+);
+
+export const editAdventureAsync = createAsyncThunk(
+  'edit/addAdventure',
+  async (editedAdventure: any, thunkAPI) => {
+    console.log('updatedLog in api call', editedAdventure);
+
+    const {
+      user_id,
+      adventure_id,
+      activity,
+      date,
+      notes,
+      image_url,
+      stress_level,
+      hours_slept,
+      sleep_stress_notes,
+      hydration,
+      diet,
+      diet_hydration_notes,
+      beta_notes,
+    } = editedAdventure;
+
+    const response = await fetch(
+      'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/adventure',
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          data: {
+            type: 'adventure',
+            attributes: {
+              user_id: user_id,
+              adventure_id: adventure_id,
+              activity: activity,
+              date: date,
+              notes: notes,
+              image_url: image_url,
+              stress_level: stress_level,
+              hours_slept: hours_slept,
+              sleep_stress_notes: sleep_stress_notes,
+              hydration: hydration,
+              diet: diet,
+              diet_hydration_notes: diet_hydration_notes,
+              beta_notes: beta_notes,
+            },
+          },
+        }),
+      },
+    );
+    console.log('resp', response)
+    if (response.status === 404) {
+      throw new Error('404 page not found');
+    }
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+
+    const data = await response.json();
+    return editedAdventure;
   },
 );

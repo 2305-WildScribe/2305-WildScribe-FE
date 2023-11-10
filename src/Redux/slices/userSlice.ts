@@ -5,7 +5,7 @@ import { userLoginAsync } from './AsyncThunks';
 
 interface UserState {
   isLoggedIn: boolean;
-  userID: string;
+  user_id: string;
   userName: string;
   isSuccessful: boolean;
   loading: boolean;
@@ -14,7 +14,7 @@ interface UserState {
 
 const initialState: UserState = {
   isLoggedIn: false,
-  userID: '',
+  user_id: '',
   userName: '',
   isSuccessful: false,
   loading: false,
@@ -40,7 +40,7 @@ export const userSlice = createSlice({
       })
       .addCase(userLoginAsync.fulfilled, (state, action) => {
         state.loading = false;
-        state.userID = action.payload.data.attributes.user_id;
+        state.user_id = action.payload.data.attributes.user_id;
         state.userName = action.payload.data.attributes.name;
         state.isSuccessful = true;
         state.isLoggedIn = true;

@@ -15,13 +15,13 @@ function LoginPage(): React.ReactElement {
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
-  let userId = useAppSelector(selectUser).userID;
+  let user_id = useAppSelector(selectUser).user_id;
 
   useEffect(() => {
-    if (userId !== '') {
-      dispatch(getAdventuresAsync(userId));
+    if (user_id !== '') {
+      dispatch(getAdventuresAsync(user_id));
     }
-  }, [userId]);
+  }, [user_id]);
 
   async function handleLogin(event: React.FormEvent): Promise<void> {
     event.preventDefault();
@@ -30,7 +30,7 @@ function LoginPage(): React.ReactElement {
       userLoginAsync({ email: userEmail, password: userPassword })
     );
     if (userLoginAsync.fulfilled.match(action)) {
-      localStorage.setItem('UserId', JSON.stringify(userId));
+      localStorage.setItem('user_id', JSON.stringify(user_id));
       localStorage.setItem('isLoggedIn', JSON.stringify(true));
     }
     navigate('/home');

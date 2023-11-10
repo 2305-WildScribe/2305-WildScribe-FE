@@ -3,6 +3,7 @@ import type { RootState } from '../store';
 import { Adventure } from '../../types';
 import {
   deleteAdventureAsync,
+  editAdventureAsync,
   getAdventuresAsync,
   postAdventureAsync,
 } from './AsyncThunks';
@@ -40,7 +41,6 @@ export const adventuresSlice = createSlice({
         const { newAdventure, data } = action.payload;
         newAdventure.adventure_id = data.data.attributes.adventure_id;
         state.adventures = [...state.adventures, newAdventure];
-        console.log('payload: ', action.payload);
       })
       .addCase(postAdventureAsync.rejected, (state, action) => {
         state.error = action.error.message;
@@ -53,7 +53,15 @@ export const adventuresSlice = createSlice({
       })
       .addCase(deleteAdventureAsync.rejected, (state, action) => {
         state.error = action.error.message;
-      });
+      })
+      .addCase(editAdventureAsync.fulfilled, (state, action) => {
+        const adventureIndex = state.adventures.findIndex(adventure => adventure.adventure_id === action.payload.adventure_id)
+        state.adventures.splice(adventureIndex, 1, action.payload)
+        
+      })
+      .addCase(editAdventureAsync.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
   },
 });
 

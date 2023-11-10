@@ -26,9 +26,9 @@ export function AdventureContextProvider({ children }: any) {
     return parsedBoolean || null;
   });
 
-  const [userId, setUserId] = useState<string | undefined>(() => {
-    const savedUserId = localStorage.getItem('UserId');
-    const parsedId = savedUserId ? JSON.parse(savedUserId) : undefined;
+  const [user_id, setuser_id] = useState<string | undefined>(() => {
+    const saveduser_id = localStorage.getItem('user_id');
+    const parsedId = saveduser_id ? JSON.parse(saveduser_id) : undefined;
     return parsedId || undefined;
   });
 
@@ -97,10 +97,10 @@ export function AdventureContextProvider({ children }: any) {
     filteredAdventures,
     setSingleAdventure,
     singleAdventure,
-    userId,
+    user_id,
     setLoading,
     loading,
-    setUserId,
+    setuser_id,
     setError,
     error,
     setFilter,

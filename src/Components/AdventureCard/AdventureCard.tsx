@@ -10,12 +10,11 @@ import { deleteAdventureAsync } from '../../Redux/slices/AsyncThunks';
 
 interface AdventureCardProps {
   adventure: Adventure;
-  // adventures: Adventure[];
 }
 
 function AdventureCard({
   adventure,
-}: // adventures,
+}: 
 AdventureCardProps): React.ReactElement {
   const {
     searchedAdventures,
@@ -44,10 +43,7 @@ AdventureCardProps): React.ReactElement {
   };
 
   const handleEdit = () => {
-    const logToBeEdited = searchedAdventures.find((adventure: Adventure) => {
-      return adventure.adventure_id === adventure_id;
-    });
-    setSingleAdventure(logToBeEdited);
+    setSingleAdventure(adventure);
     navigate('/edit');
   };
 
