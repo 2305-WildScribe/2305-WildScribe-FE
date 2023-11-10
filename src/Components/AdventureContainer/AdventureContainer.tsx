@@ -1,22 +1,15 @@
 import './AdventureContainer.scss';
 import { AdventureCard } from '../AdventureCard/AdventureCard';
 import { Adventure } from '../../types';
+import { useAppSelector } from '../../Redux/hooks';
+import { selectAdventures } from '../../Redux/slices/adventuresSlice';
 
 interface AdventureContainerProps {
-  adventures: Adventure[];
-  deleteAdventureOnDom: (adventure_id: string | undefined) => void;
-  setSingleAdventure: React.Dispatch<
-    React.SetStateAction<Adventure | undefined>
-  >;
+  searchedAdventures: Adventure[];
 }
 
-function AdventureContainer({
-  adventures,
-  deleteAdventureOnDom,
-  setSingleAdventure,
-}: AdventureContainerProps): React.ReactElement {
+function AdventureContainer({searchedAdventures} : AdventureContainerProps): React.ReactElement {
 
-  
   function sortByDateAscending(adventures: Adventure[]) {
     return adventures.slice().sort((a, b) => {
       const dateA = new Date(a.date);
@@ -25,18 +18,12 @@ function AdventureContainer({
     });
   }
 
-  const sortedAdventures = sortByDateAscending(adventures)
+  const sortedAdventures = sortByDateAscending(searchedAdventures);
 
   const adventureCards = sortedAdventures.map((adventure) => {
-    console.log('date -->',typeof(adventure.date))
     return (
       <div key={adventure.adventure_id}>
-        <AdventureCard
-          adventure={adventure}
-          deleteAdventureOnDom={deleteAdventureOnDom}
-          adventures={adventures}
-          setSingleAdventure={setSingleAdventure}
-        />
+        <AdventureCard adventure={adventure} />
       </div>
     );
   });

@@ -116,7 +116,6 @@ describe('Homepage', () => {
       .get('.card-button-wrapper')
       .get('.pencil-btn').should('exist')
       .get('.trash-btn').should('exist');
-    // come back and add more teting about the content on the cards 
   });
   
   it('should be able to search for a logged adventure', () => {

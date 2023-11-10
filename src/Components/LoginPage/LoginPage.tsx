@@ -1,77 +1,69 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './LoginPage.scss';
 import { useNavigate } from 'react-router-dom';
-import { userLogin,  } from '../../apiCalls';
+import { useAppDispatch, useAppSelector } from '../../Redux/hooks';
+import {
+  getAdventuresAsync,
+  userLoginAsync,
+} from '../../Redux/slices/AsyncThunks';
+import { selectUser, toggleIsLoggedIn } from '../../Redux/slices/userSlice';
 
-interface LoginPageProps {
-  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean | null>>;
-  isLoggedIn: boolean | null;
-  loading: boolean;
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>
-  setUserId: React.Dispatch<React.SetStateAction<string | null>>
-  retrieveUserInformation: (id: string) => Promise<void>
-
-}
-
-function LoginPage({
-  setIsLoggedIn,
-  isLoggedIn,
-  loading,
-  setLoading,
-  setUserId,
-  retrieveUserInformation,
-}: LoginPageProps): React.ReactElement {
+function LoginPage(): React.ReactElement {
   const [userEmail, setUserEmail] = useState<string>('me@gmail.com');
   const [userPassword, setUserPassword] = useState<string>('hi');
+  const isLoggedIn = useAppSelector(selectUser).isLoggedIn;
   const navigate = useNavigate();
 
-  function handleLogin(event: React.FormEvent): null {
+  const dispatch = useAppDispatch();
+  let user_id = useAppSelector(selectUser).user_id;
+
+  useEffect(() => {
+    if (user_id !== '') {
+      dispatch(getAdventuresAsync(user_id));
+    }
+  }, [user_id]);
+
+  async function handleLogin(event: React.FormEvent): Promise<void> {
     event.preventDefault();
-    setIsLoggedIn(true);
-    setLoading(true);
-    userLogin('me@gmail.com', 'hi').then((response) => {
-      const userId = response.data.attributes.user_id;
-      setUserId(userId);
-      localStorage.setItem('UserId', JSON.stringify(userId));
-      console.log('is',userId)
-      retrieveUserInformation(userId)
-      localStorage.setItem('UserId', JSON.stringify(true));
-      console.log('isLoggedIn', isLoggedIn);
-      navigate('/home');
-    });
-    return null;
+    dispatch(toggleIsLoggedIn(true));
+    const action = await dispatch(
+      userLoginAsync({ email: userEmail, password: userPassword })
+    );
+    if (userLoginAsync.fulfilled.match(action)) {
+      localStorage.setItem('user_id', JSON.stringify(user_id));
+      localStorage.setItem('isLoggedIn', JSON.stringify(true));
+    }
+    navigate('/home');
   }
 
   return (
-    <form className='login-form'>
-      {!loading && (
-        <div className='form-wrapper'>
-          <p>Welcome to WildScribe! Please log in to continue.</p>
-          <input
-            type='email'
-            id='email'
-            name='email'
-            value={userEmail}
-            placeholder='Email'
-            onChange={(event) => setUserEmail(event.target.value)}
-            required
-          />
+    <form className='login-form' onSubmit={(e) => handleLogin(e)}>
+      <div className='form-wrapper'>
+        <p>Welcome to WildScribe! Please log in to continue.</p>
+        <input
+          type='email'
+          id='email'
+          name='email'
+          value={userEmail}
+          placeholder='Email'
+          onChange={(event) => setUserEmail(event.target.value)}
+          required
+        />
 
-          <input
-            type='password'
-            id='password'
-            name='password'
-            value={userPassword}
-            placeholder='Password'
-            onChange={(event) => setUserPassword(event.target.value)}
-            required
-          />
+        <input
+          type='password'
+          id='password'
+          name='password'
+          value={userPassword}
+          placeholder='Password'
+          onChange={(event) => setUserPassword(event.target.value)}
+          required
+        />
 
-          <button className='login-btn' type='submit' onClick={(e) => handleLogin(e)}>
-            Login
-          </button>
-        </div>
-      )}
+        <button className='login-btn' type='submit'>
+          Login
+        </button>
+      </div>
     </form>
   );
 }

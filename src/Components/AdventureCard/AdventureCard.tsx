@@ -1,25 +1,26 @@
 import './AdventureCard.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faPencil } from '@fortawesome/free-solid-svg-icons';
-import { deleteAdventure } from '../../apiCalls';
 import { Adventure } from '../../types';
 import { useNavigate } from 'react-router-dom';
+import { useAdventures } from '../../Context/AdventureContext';
+import { useAppDispatch } from '../../Redux/hooks';
+import { deleteAdventureAsync } from '../../Redux/slices/AsyncThunks';
+
 
 interface AdventureCardProps {
   adventure: Adventure;
-  deleteAdventureOnDom: (adventure_id: string | undefined) => void;
-  adventures: Adventure[];
-  setSingleAdventure: React.Dispatch<
-    React.SetStateAction<Adventure | undefined>
-  >;
 }
 
 function AdventureCard({
   adventure,
-  deleteAdventureOnDom,
-  adventures,
-  setSingleAdventure,
-}: AdventureCardProps): React.ReactElement {
+}: 
+AdventureCardProps): React.ReactElement {
+  const {
+    searchedAdventures,
+    setSingleAdventure,
+  } = useAdventures();
+
   const {
     activity,
     date,
@@ -35,17 +36,14 @@ function AdventureCard({
   } = adventure;
 
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const handleDelete = () => {
-    deleteAdventure(adventure_id);
-    deleteAdventureOnDom(adventure_id);
+    dispatch(deleteAdventureAsync(adventure_id))
   };
 
   const handleEdit = () => {
-    const logToBeEdited = adventures.find((adventure) => {
-      return adventure.adventure_id === adventure_id;
-    });
-    setSingleAdventure(logToBeEdited);
+    setSingleAdventure(adventure);
     navigate('/edit');
   };
 
@@ -70,11 +68,17 @@ function AdventureCard({
               )}
             </div>
             <div className='card-button-wrapper'>
-              <button className='fa-btn pencil-btn' onClick={() => handleEdit()}>
+              <button
+                className='fa-btn pencil-btn'
+                onClick={() => handleEdit()}
+              >
                 {' '}
                 <FontAwesomeIcon icon={faPencil} className='fa-icon' />
               </button>
-              <button className='fa-btn trash-btn' onClick={() => handleDelete()}>
+              <button
+                className='fa-btn trash-btn'
+                onClick={() => handleDelete()}
+              >
                 {' '}
                 <FontAwesomeIcon icon={faTrash} className='fa-icon' />
               </button>

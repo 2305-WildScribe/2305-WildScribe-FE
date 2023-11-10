@@ -2,18 +2,18 @@ import './NavBar.scss';
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import logo from '../../Assets/logo.png';
+import { useAppDispatch, useAppSelector } from '../../Redux/hooks';
+import { selectUser, toggleIsLoggedIn } from '../../Redux/slices/userSlice';
 
-interface NavBarProps {
-  isLoggedIn: boolean|null;
-  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean | null>>
-}
-function NavBar({ isLoggedIn,setIsLoggedIn }: NavBarProps): React.ReactElement {
-  const navigate = useNavigate()
+function NavBar(): React.ReactElement {
+  const isLoggedIn = useAppSelector(selectUser).isLoggedIn
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate();
+
   const handleLogOut = () => {
-    setIsLoggedIn(false)
-    localStorage.setItem('UserId', JSON.stringify(false));
-    navigate('/')
-  }
+    navigate('/');
+    dispatch(toggleIsLoggedIn(false))
+  };
   return (
     <nav className='nav-bar'>
       <div className='nav-text-wrapper'>
@@ -30,9 +30,12 @@ function NavBar({ isLoggedIn,setIsLoggedIn }: NavBarProps): React.ReactElement {
             Home
           </NavLink>
           <NavLink className='new-adventure-btn nav-link' to='/logAdventure'>
-              Log New Adventure
-            </NavLink>
-          <button onClick={()=>handleLogOut()} className='nav-link log-out-btn'>
+            Log New Adventure
+          </NavLink>
+          <button
+            onClick={() => handleLogOut()}
+            className='nav-link log-out-btn'
+          >
             Log Out
           </button>
         </div>

@@ -1,12 +1,15 @@
+import { useAdventures } from '../../Context/AdventureContext'
 import './ErrorPage.scss'
 
-interface ErrorPageProps{
-  message: string;
+// interface ErrorPageProps{
+//   message: string;
   
-}
+// }
 
-function ErrorPage({ message }: ErrorPageProps): React.ReactElement {
-  let errorMsg = `${message}`
+function ErrorPage(): React.ReactElement {
+  const{ error } = useAdventures()
+
+  let errorMsg = `${error.message}`
   if(errorMsg === ''){
     errorMsg = 'Error: 404 page not found'
   }
