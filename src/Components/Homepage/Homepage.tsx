@@ -30,19 +30,18 @@ function Homepage(): React.ReactElement {
   };
 
   const filteredAdventures = (keyword: string) => {
-    let filtered =
+    return (
       adventures &&
       adventures.filter((adventure) => {
-        if (
+        return (
           adventure.activity.toLowerCase().includes(keyword) ||
           adventure.date?.includes(keyword) ||
           adventure.sleep_stress_notes?.toLowerCase().includes(keyword) ||
           adventure.diet_hydration_notes?.toLowerCase().includes(keyword) ||
           adventure.beta_notes?.toLowerCase().includes(keyword)
-        )
-          return adventure;
-      });
-    return filtered;
+        );
+      })
+    );
   };
 
   const handleSearch = (keyword: string) => {

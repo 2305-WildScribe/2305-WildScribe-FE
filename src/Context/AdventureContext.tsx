@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 import { Adventure } from '../../src/types';
 
 export const AdventureContext = createContext<Adventure[] | any | null>(null);
@@ -17,9 +17,6 @@ export function AdventureContextProvider({ children }: any) {
   );
 
 
-  // useEffect(() => {
-  //   localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
-  // }, [isLoggedIn]);
 
 
   const value = {
