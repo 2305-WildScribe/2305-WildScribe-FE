@@ -14,6 +14,7 @@ function NavBar(): React.ReactElement {
     navigate('/');
     dispatch(toggleIsLoggedIn(false))
   };
+  
   return (
     <nav className='nav-bar'>
       <div className='nav-text-wrapper'>

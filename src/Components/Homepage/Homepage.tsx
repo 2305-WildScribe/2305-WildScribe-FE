@@ -7,16 +7,17 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import Loading from '../Loading/Loading';
 import { useAppSelector } from '../../Redux/hooks';
 import { selectAdventures } from '../../Redux/slices/adventuresSlice';
+import { selectUser } from '../../Redux/slices/userSlice';
 
 function Homepage(): React.ReactElement {
-
   const [searchedAdventures, setSearchedAdventures] = useState<
     Adventure[] | []
   >([]);
   const [keyword, setKeyword] = useState<string>('');
   let adventures = useAppSelector(selectAdventures).adventures;
   let loading = useAppSelector(selectAdventures).loading;
-
+  let username = useAppSelector(selectUser).userName;
+  console.log(username);
   useEffect(() => {
     setSearchedAdventures(adventures);
   }, [adventures]);
@@ -45,55 +46,69 @@ function Homepage(): React.ReactElement {
     let results = filteredAdventures(keyword) || [];
     setSearchedAdventures([...results] as Adventure[]);
   };
-
+  const usernameText = !adventures.length
+    ? `Welcome ${username}!`
+    : `Welcome back ${username}!`;
+    
   return (
     <>
       {loading ? (
         <Loading />
       ) : (
         <div id='home-main'>
-          {adventures && adventures.length ? (
-            <>
-              <div className='search-bar'>
-                {keyword !== '' && keyword !== ' ' && (
-                  <button className='keyword-btn'>
-                    {keyword}{' '}
-                    <FontAwesomeIcon
-                      icon={faXmark}
-                      className='fa-icon delete-keyword'
-                      onClick={() => clearSearch()}
-                    />
-                  </button>
-                )}
-                <input
-                  className='search-input'
-                  type='text'
-                  placeholder='Search logs here'
-                  value={keyword}
-                  onChange={(e) => {
-                    setKeyword(e.target.value);
-                    handleSearch(e.target.value);
-                  }}
-                />
-              </div>
-              {searchedAdventures.length === 0  && (
-                <p className='no-results-msg'>
-                  Sorry, we couldn't find anything that matched. Please try
-                  again.
-                </p>
-              )}
-              <AdventureContainer searchedAdventures={searchedAdventures} />
-            </>
-          ) : (
-            <p className='welcome-message'>
-              Welcome to WildScribe, an app that tracks your adventures,
-              training, beta, etc. so you don't have to. To get started, log
-              your first adventure!
-            </p>
-          )}
+          <p className='username'>{usernameText}</p>
         </div>
       )}
     </>
+
+    // <>
+    //   {loading ? (
+    //     <Loading />
+    //   ) : (
+    //     <div id='home-main'>
+    //       {adventures && adventures.length ? (
+    //         <>
+    //           <div className='search-bar'>
+    //             <p className='username'> Welcome back {username}!</p>
+    //             {keyword !== '' && keyword !== ' ' && (
+    //               <button className='keyword-btn'>
+    //                 {keyword}{' '}
+    //                 <FontAwesomeIcon
+    //                   icon={faXmark}
+    //                   className='fa-icon delete-keyword'
+    //                   onClick={() => clearSearch()}
+    //                 />
+    //               </button>
+    //             )}
+    //             <input
+    //               className='search-input'
+    //               type='text'
+    //               placeholder='Search logs here'
+    //               value={keyword}
+    //               onChange={(e) => {
+    //                 setKeyword(e.target.value);
+    //                 handleSearch(e.target.value);
+    //               }}
+    //             />
+    //           </div>
+    //           {searchedAdventures.length === 0  && (
+    //             <p className='no-results-msg'>
+    //               Sorry, we couldn't find anything that matched. Please try
+    //               again.
+    //             </p>
+    //           )}
+    //           <AdventureContainer searchedAdventures={searchedAdventures} />
+    //         </>
+    //       ) : (
+    //         <p className='welcome-message'>
+    //           Welcome to WildScribe, an app that tracks your adventures,
+    //           training, beta, etc. so you don't have to. To get started, log
+    //           your first adventure!
+    //         </p>
+    //       )}
+    //     </div>
+    //   )}
+    // </>
   );
 }
 

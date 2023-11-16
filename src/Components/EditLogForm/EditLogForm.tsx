@@ -59,7 +59,6 @@ function EditLogForm(): React.ReactElement {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-
   const handleSaveChanges = (event: React.FormEvent) => {
     event.preventDefault();
     const parsedDate = dayjs(updatedDate);
