@@ -4,13 +4,11 @@ import { Adventure } from '../../types';
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
-import { useAdventures } from '../../Context/AdventureContext';
 import Loading from '../Loading/Loading';
 import { useAppSelector } from '../../Redux/hooks';
 import { selectAdventures } from '../../Redux/slices/adventuresSlice';
 
 function Homepage(): React.ReactElement {
-  const { setFilter, filter } = useAdventures();
 
   const [searchedAdventures, setSearchedAdventures] = useState<
     Adventure[] | []
@@ -26,7 +24,6 @@ function Homepage(): React.ReactElement {
   const clearSearch = () => {
     setKeyword('');
     setSearchedAdventures(adventures);
-    setFilter(false);
   };
 
   const filteredAdventures = (keyword: string) => {
@@ -78,11 +75,8 @@ function Homepage(): React.ReactElement {
                     handleSearch(e.target.value);
                   }}
                 />
-                {/* <button className='search-btn' onClick={() => handleSearch()}>
-                  Search
-                </button> */}
               </div>
-              {searchedAdventures.length === 0 && filter === true && (
+              {searchedAdventures.length === 0  && (
                 <p className='no-results-msg'>
                   Sorry, we couldn't find anything that matched. Please try
                   again.

@@ -1,7 +1,6 @@
 import './App.scss';
 import Homepage from '../Homepage/Homepage';
 import NavBar from '../NavBar/NavBar';
-import { AdventureContextProvider } from '../../Context/AdventureContext';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import LogAdventureForm from '../LogAdventureForm/LogAdventureForm';
 import LoginPage from '../LoginPage/LoginPage';
@@ -22,7 +21,6 @@ function App(): React.ReactElement {
   }, [isLoggedIn, navigate]);
 
   return (
-    <AdventureContextProvider>
       <div className='App'>
         <NavBar />
         <main className='main'>
@@ -38,7 +36,6 @@ function App(): React.ReactElement {
           </div>
         </main>
       </div>
-    </AdventureContextProvider>
   );
 }
 
