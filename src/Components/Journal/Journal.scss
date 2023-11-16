@@ -1,0 +1,7 @@
+@import '../../index.scss';
+
+.activity-card {
+  @include center;
+  border: 1px solid $brown;
+  height: 5rem;
+}

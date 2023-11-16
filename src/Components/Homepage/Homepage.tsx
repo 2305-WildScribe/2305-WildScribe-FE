@@ -8,6 +8,7 @@ import Loading from '../Loading/Loading';
 import { useAppSelector } from '../../Redux/hooks';
 import { selectAdventures } from '../../Redux/slices/adventuresSlice';
 import { selectUser } from '../../Redux/slices/userSlice';
+import AdventureJournalContianer from '../AdventureJournalContainer/AdventureJournalContainer';
 
 function Homepage(): React.ReactElement {
   const [searchedAdventures, setSearchedAdventures] = useState<
@@ -17,7 +18,7 @@ function Homepage(): React.ReactElement {
   let adventures = useAppSelector(selectAdventures).adventures;
   let loading = useAppSelector(selectAdventures).loading;
   let username = useAppSelector(selectUser).userName;
-  console.log(username);
+
   useEffect(() => {
     setSearchedAdventures(adventures);
   }, [adventures]);
@@ -46,10 +47,23 @@ function Homepage(): React.ReactElement {
     let results = filteredAdventures(keyword) || [];
     setSearchedAdventures([...results] as Adventure[]);
   };
+
+  const filterAdventureTypes = () => {
+    let types: string[] = [];
+    adventures.forEach((adventure) => {
+      if (!types.includes(adventure.activity)) {
+        types.push(adventure.activity);
+      }
+    });
+    return types.sort();
+  };
+
+  let activityTypes = filterAdventureTypes() 
+
   const usernameText = !adventures.length
     ? `Welcome ${username}!`
     : `Welcome back ${username}!`;
-    
+
   return (
     <>
       {loading ? (
@@ -57,6 +71,7 @@ function Homepage(): React.ReactElement {
       ) : (
         <div id='home-main'>
           <p className='username'>{usernameText}</p>
+          <AdventureJournalContianer activityTypes={activityTypes}/>
         </div>
       )}
     </>
