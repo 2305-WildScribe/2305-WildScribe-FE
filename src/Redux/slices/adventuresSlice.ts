@@ -12,21 +12,28 @@ interface AdventureState {
   adventures: Adventure[];
   loading: boolean;
   error: string | undefined;
+  singleAdventure: Adventure | undefined;
 }
 
 const initialState: AdventureState = {
   adventures: [],
   loading: false,
   error: '',
+  singleAdventure: undefined,
 };
 
 export const adventuresSlice = createSlice({
   name: 'adventures',
   initialState,
-  reducers: {},
-  extraReducers: builder => {
+  reducers: {
+    setSingleAdventure(state, action) {
+      state.singleAdventure = action.payload;
+      console.log('here', state.singleAdventure);
+    },
+  },
+  extraReducers: (builder) => {
     builder
-      .addCase(getAdventuresAsync.pending, state => {
+      .addCase(getAdventuresAsync.pending, (state) => {
         state.loading = true;
       })
       .addCase(getAdventuresAsync.fulfilled, (state, action) => {
@@ -47,7 +54,7 @@ export const adventuresSlice = createSlice({
       })
       .addCase(deleteAdventureAsync.fulfilled, (state, action) => {
         const newState = state.adventures.filter(
-          adventure => adventure.adventure_id !== action.payload,
+          (adventure) => adventure.adventure_id !== action.payload
         );
         state.adventures = newState;
       })
@@ -55,15 +62,17 @@ export const adventuresSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(editAdventureAsync.fulfilled, (state, action) => {
-        const adventureIndex = state.adventures.findIndex(adventure => adventure.adventure_id === action.payload.adventure_id)
-        state.adventures.splice(adventureIndex, 1, action.payload)
-        
+        const adventureIndex = state.adventures.findIndex(
+          (adventure) => adventure.adventure_id === action.payload.adventure_id
+        );
+        state.adventures.splice(adventureIndex, 1, action.payload);
       })
       .addCase(editAdventureAsync.rejected, (state, action) => {
         state.error = action.error.message;
-      })
+      });
   },
 });
 
+export const { setSingleAdventure } = adventuresSlice.actions;
 export const selectAdventures = (state: RootState) => state.adventures;
 export default adventuresSlice.reducer;

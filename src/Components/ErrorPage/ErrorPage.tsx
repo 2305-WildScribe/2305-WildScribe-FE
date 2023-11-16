@@ -1,15 +1,16 @@
-import { useAdventures } from '../../Context/AdventureContext'
+// import { useAdventures } from '../../Context/AdventureContext'
+import { useAppSelector } from '../../Redux/hooks';
+import { selectAdventures } from '../../Redux/slices/adventuresSlice';
 import './ErrorPage.scss'
 
-// interface ErrorPageProps{
-//   message: string;
-  
-// }
+
 
 function ErrorPage(): React.ReactElement {
-  const{ error } = useAdventures()
+  // const{ error } = useAdventures()
+  let error = useAppSelector(selectAdventures).error;
 
-  let errorMsg = `${error.message}`
+
+  let errorMsg = error
   if(errorMsg === ''){
     errorMsg = 'Error: 404 page not found'
   }

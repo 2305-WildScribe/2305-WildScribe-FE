@@ -3,22 +3,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faPencil } from '@fortawesome/free-solid-svg-icons';
 import { Adventure } from '../../types';
 import { useNavigate } from 'react-router-dom';
-import { useAdventures } from '../../Context/AdventureContext';
 import { useAppDispatch } from '../../Redux/hooks';
 import { deleteAdventureAsync } from '../../Redux/slices/AsyncThunks';
-
+import { setSingleAdventure } from '../../Redux/slices/adventuresSlice';
 
 interface AdventureCardProps {
   adventure: Adventure;
 }
 
-function AdventureCard({
-  adventure,
-}: 
-AdventureCardProps): React.ReactElement {
-  const {
-    setSingleAdventure,
-  } = useAdventures();
+function AdventureCard({ adventure }: AdventureCardProps): React.ReactElement {
 
   const {
     activity,
@@ -38,11 +31,11 @@ AdventureCardProps): React.ReactElement {
   const dispatch = useAppDispatch();
 
   const handleDelete = () => {
-    dispatch(deleteAdventureAsync(adventure_id))
+    dispatch(deleteAdventureAsync(adventure_id));
   };
 
   const handleEdit = () => {
-    setSingleAdventure(adventure);
+    dispatch(setSingleAdventure(adventure));
     navigate('/edit');
   };
 
