@@ -5,7 +5,7 @@ export const userLoginAsync = createAsyncThunk(
   'user/login',
   async (
     { email, password }: { email: string; password: string },
-    thunkAPI,
+    thunkAPI
   ) => {
     const response = await fetch(
       'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/user',
@@ -23,7 +23,7 @@ export const userLoginAsync = createAsyncThunk(
             },
           },
         }),
-      },
+      }
     );
 
     if (response.status === 404) {
@@ -36,7 +36,7 @@ export const userLoginAsync = createAsyncThunk(
 
     const data = await response.json();
     return data;
-  },
+  }
 );
 
 export const getAdventuresAsync = createAsyncThunk(
@@ -57,7 +57,7 @@ export const getAdventuresAsync = createAsyncThunk(
             },
           },
         }),
-      },
+      }
     );
     if (response.status === 404) {
       throw new Error('404 page not found');
@@ -68,7 +68,7 @@ export const getAdventuresAsync = createAsyncThunk(
 
     const data = await response.json();
     return data;
-  },
+  }
 );
 
 export const postAdventureAsync = createAsyncThunk(
@@ -112,7 +112,7 @@ export const postAdventureAsync = createAsyncThunk(
             },
           },
         }),
-      },
+      }
     );
     if (response.status === 404) {
       throw new Error('404 page not found');
@@ -123,7 +123,7 @@ export const postAdventureAsync = createAsyncThunk(
 
     const data = await response.json();
     return { newAdventure, data };
-  },
+  }
 );
 
 export const deleteAdventureAsync = createAsyncThunk(
@@ -144,7 +144,7 @@ export const deleteAdventureAsync = createAsyncThunk(
             },
           },
         }),
-      },
+      }
     );
 
     if (response.status === 404) {
@@ -154,16 +154,14 @@ export const deleteAdventureAsync = createAsyncThunk(
       throw new Error('error');
     }
 
-    const data = await response.json();
+    await response.json();
     return id;
-  },
+  }
 );
 
 export const editAdventureAsync = createAsyncThunk(
   'edit/addAdventure',
   async (editedAdventure: any, thunkAPI) => {
-    console.log('updatedLog in api call', editedAdventure);
-
     const {
       user_id,
       adventure_id,
@@ -207,9 +205,8 @@ export const editAdventureAsync = createAsyncThunk(
             },
           },
         }),
-      },
+      }
     );
-    console.log('resp', response)
     if (response.status === 404) {
       throw new Error('404 page not found');
     }
@@ -217,7 +214,7 @@ export const editAdventureAsync = createAsyncThunk(
       throw new Error(response.statusText);
     }
 
-    const data = await response.json();
+    await response.json();
     return editedAdventure;
-  },
+  }
 );

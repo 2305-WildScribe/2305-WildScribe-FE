@@ -11,7 +11,6 @@ import { selectUser, toggleIsLoggedIn } from '../../Redux/slices/userSlice';
 function LoginPage(): React.ReactElement {
   const [userEmail, setUserEmail] = useState<string>('me@gmail.com');
   const [userPassword, setUserPassword] = useState<string>('hi');
-  const isLoggedIn = useAppSelector(selectUser).isLoggedIn;
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
@@ -21,7 +20,7 @@ function LoginPage(): React.ReactElement {
     if (user_id !== '') {
       dispatch(getAdventuresAsync(user_id));
     }
-  }, [user_id]);
+  }, [user_id, dispatch]);
 
   async function handleLogin(event: React.FormEvent): Promise<void> {
     event.preventDefault();

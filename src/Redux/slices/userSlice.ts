@@ -1,4 +1,4 @@
-import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import type { RootState } from '../store';
 import { userLoginAsync } from './AsyncThunks';
 // import { userLogin, fetchUserAdventures} from '../../apiCalls'

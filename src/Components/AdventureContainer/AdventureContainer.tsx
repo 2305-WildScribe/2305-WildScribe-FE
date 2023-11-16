@@ -1,8 +1,6 @@
 import './AdventureContainer.scss';
 import { AdventureCard } from '../AdventureCard/AdventureCard';
 import { Adventure } from '../../types';
-import { useAppSelector } from '../../Redux/hooks';
-import { selectAdventures } from '../../Redux/slices/adventuresSlice';
 
 interface AdventureContainerProps {
   searchedAdventures: Adventure[];

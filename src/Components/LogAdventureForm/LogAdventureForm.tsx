@@ -1,11 +1,9 @@
 import { useState, ChangeEvent } from 'react';
 import './LogAdventureForm.scss';
-// import { postNewAdventure } from '../../apiCalls';
-import { Adventure, Error } from '../../types';
+import { Adventure } from '../../types';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
 import logo from '../../Assets/logo.png';
-import { useAdventures } from '../../Context/AdventureContext';
 import { useAppDispatch, useAppSelector } from '../../Redux/hooks';
 import { postAdventureAsync } from '../../Redux/slices/AsyncThunks';
 import { selectUser } from '../../Redux/slices/userSlice';
@@ -14,13 +12,7 @@ function LogAdventureForm(): React.ReactElement {
   const dispatch = useAppDispatch();
   const user_id = useAppSelector(selectUser).user_id;
 
-  const {
-    adventures,
-    setAdventures,
-    setError,
-    loading,
-    // user_id,
-  } = useAdventures();
+
 
   const [activity, setActivity] = useState<string>('');
   const [date, setDate] = useState<string | null>(null);
@@ -79,30 +71,8 @@ function LogAdventureForm(): React.ReactElement {
     const action = await dispatch(postAdventureAsync(newAdventureData));
 
     if (postAdventureAsync.fulfilled.match(action)) {
-      console.log(action);
     }
-
-    // .then((response) => {
-    //         console.log('response with user id --->', response);
-    //         let adventureId = response.data.attributes.adventure_id;
-    //         console.log(
-    //           'new Adventure ID to be posted',
-    //           newAdventureData.adventure_id
-    //         );
-    // newAdventureData.adventure_id = adventureId;
-    // console.log(newAdventureData);
-    // setAdventures([...adventures, newAdventureData]);
-    // setError({ error: false, message: '' });
     navigate('/home');
-    //     })
-    //     .catch((error) => {
-    //       setError({
-    //         error: true,
-    //         message: 'Oops, something went wront, please try again later',
-    //       });
-    //       navigate('/error');
-    //     });
-    // }
   }
 
   return (

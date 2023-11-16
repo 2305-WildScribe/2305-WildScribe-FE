@@ -4,47 +4,41 @@ import { Adventure } from '../../types';
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
-import { useAdventures } from '../../Context/AdventureContext';
 import Loading from '../Loading/Loading';
-import { useAppDispatch, useAppSelector } from '../../Redux/hooks';
+import { useAppSelector } from '../../Redux/hooks';
 import { selectAdventures } from '../../Redux/slices/adventuresSlice';
 
-
 function Homepage(): React.ReactElement {
-  const {
-    setFilter,
-    filter,
-  } = useAdventures();
 
-  const dispatch = useAppDispatch();
-  const [searchedAdventures, setSearchedAdventures] = useState<Adventure[] | []>([])
-  const [keyword, setKeyword] = useState<string>('')
+  const [searchedAdventures, setSearchedAdventures] = useState<
+    Adventure[] | []
+  >([]);
+  const [keyword, setKeyword] = useState<string>('');
   let adventures = useAppSelector(selectAdventures).adventures;
-  let loading = useAppSelector(selectAdventures).loading
-
+  let loading = useAppSelector(selectAdventures).loading;
 
   useEffect(() => {
-    setSearchedAdventures(adventures)
+    setSearchedAdventures(adventures);
   }, [adventures]);
 
   const clearSearch = () => {
     setKeyword('');
-    setSearchedAdventures(adventures)
-    setFilter(false);
+    setSearchedAdventures(adventures);
   };
 
   const filteredAdventures = (keyword: string) => {
-    return adventures &&
+    return (
+      adventures &&
       adventures.filter((adventure) => {
-        if (
+        return (
           adventure.activity.toLowerCase().includes(keyword) ||
           adventure.date?.includes(keyword) ||
           adventure.sleep_stress_notes?.toLowerCase().includes(keyword) ||
           adventure.diet_hydration_notes?.toLowerCase().includes(keyword) ||
           adventure.beta_notes?.toLowerCase().includes(keyword)
-        ) 
-          return adventure;
-      });
+        );
+      })
+    );
   };
 
   const handleSearch = (keyword: string) => {
@@ -67,7 +61,7 @@ function Homepage(): React.ReactElement {
                     <FontAwesomeIcon
                       icon={faXmark}
                       className='fa-icon delete-keyword'
-                      onClick={() =>clearSearch()}
+                      onClick={() => clearSearch()}
                     />
                   </button>
                 )}
@@ -81,17 +75,14 @@ function Homepage(): React.ReactElement {
                     handleSearch(e.target.value);
                   }}
                 />
-                {/* <button className='search-btn' onClick={() => handleSearch()}>
-                  Search
-                </button> */}
               </div>
-              {searchedAdventures.length === 0 && filter === true && (
+              {searchedAdventures.length === 0  && (
                 <p className='no-results-msg'>
                   Sorry, we couldn't find anything that matched. Please try
                   again.
                 </p>
               )}
-              <AdventureContainer searchedAdventures={searchedAdventures}/>
+              <AdventureContainer searchedAdventures={searchedAdventures} />
             </>
           ) : (
             <p className='welcome-message'>

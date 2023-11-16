@@ -3,20 +3,18 @@ import { Adventure } from '../../types';
 import { useState, ChangeEvent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
-import { useAdventures } from '../../Context/AdventureContext';
-import { useAppDispatch } from '../../Redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../Redux/hooks';
 import { editAdventureAsync } from '../../Redux/slices/AsyncThunks';
+import { selectAdventures, setSingleAdventure } from '../../Redux/slices/adventuresSlice';
+import { selectUser } from '../../Redux/slices/userSlice';
 
 function EditLogForm(): React.ReactElement {
-  const {
 
-    setSingleAdventure,
-    singleAdventure,
-    user_id,
-    setuser_id,
-  } = useAdventures();
-
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
+  let singleAdventure = useAppSelector(selectAdventures).singleAdventure;
+  let user_id = useAppSelector(selectUser).user_id;
 
   const [updatedActivity, setUpdatedActivity] = useState<string>(
     singleAdventure ? singleAdventure.activity : '',
@@ -49,29 +47,18 @@ function EditLogForm(): React.ReactElement {
     singleAdventure ? singleAdventure.hours_slept : 0,
   );
 
-  const [userMsg, setUserMsg] = useState<string>('');
-
   const handleDateChange = (event: ChangeEvent<HTMLInputElement>) => {
     const originalDate: string = event.target.value;
     setUpdatedDate(originalDate);
   };
 
   useEffect(() => {
-    console.log('date in edit log', updatedDate);
     const parsedDate = dayjs(updatedDate);
     const formattedDate = parsedDate.format('YYYY-MM-DD');
     setUpdatedDate(formattedDate);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    if (!user_id) {
-      const saveduser_id = localStorage.getItem('user_id');
-      const parsedId = saveduser_id ? JSON.parse(saveduser_id) : null;
-      setuser_id(parsedId);
-    }
-  }, [user_id]);
-
-  const navigate = useNavigate();
 
   const handleSaveChanges = (event: React.FormEvent) => {
     event.preventDefault();
@@ -93,7 +80,7 @@ function EditLogForm(): React.ReactElement {
       beta_notes: updatedBetaNotes || '',
     };
     dispatch(editAdventureAsync(updatedLog));
-    setSingleAdventure(undefined);
+    dispatch(setSingleAdventure(undefined));
     navigate('/home');
   };
 
@@ -126,7 +113,6 @@ function EditLogForm(): React.ReactElement {
           />
         </div>
         <div className='form-btn-wrapper'>
-          {userMsg !== '' && <p>{userMsg}</p>}
           <button
             className='submit-button'
             onClick={event => handleSaveChanges(event)}
