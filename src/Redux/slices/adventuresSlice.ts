@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import type { RootState } from '../store';
 import { Adventure } from '../../types';
 import {
@@ -26,7 +26,7 @@ export const adventuresSlice = createSlice({
   name: 'adventures',
   initialState,
   reducers: {
-    setSingleAdventure(state, action) {
+    setSingleAdventure(state, action: PayloadAction<Adventure | undefined>) {
       state.singleAdventure = action.payload;
       console.log('here', state.singleAdventure);
     },
