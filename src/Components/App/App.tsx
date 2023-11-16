@@ -9,6 +9,7 @@ import EditLogForm from '../EditLogForm/EditLogForm';
 import { useEffect } from 'react';
 import { useAppSelector } from '../../Redux/hooks';
 import { selectUser } from '../../Redux/slices/userSlice';
+import AdventureContainer from '../AdventureContainer/AdventureContainer';
 
 function App(): React.ReactElement {
   const isLoggedIn = useAppSelector(selectUser).isLoggedIn;
@@ -28,6 +29,7 @@ function App(): React.ReactElement {
             <Routes>
               <Route path='/' element={<LoginPage />} />
               <Route path='/home' element={<Homepage />} />
+              <Route path=':activity' element ={<AdventureContainer />} />
               <Route path='/logAdventure' element={<LogAdventureForm />} />
               <Route path={'/edit'} element={<EditLogForm />} />
               <Route path='/error' element={<ErrorPage />} />
