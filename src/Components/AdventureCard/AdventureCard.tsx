@@ -17,7 +17,6 @@ function AdventureCard({
 }: 
 AdventureCardProps): React.ReactElement {
   const {
-    searchedAdventures,
     setSingleAdventure,
   } = useAdventures();
 

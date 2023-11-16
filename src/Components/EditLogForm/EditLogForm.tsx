@@ -13,7 +13,6 @@ function EditLogForm(): React.ReactElement {
     setSingleAdventure,
     singleAdventure,
     user_id,
-    setuser_id,
   } = useAdventures();
 
   const dispatch = useAppDispatch();
@@ -49,27 +48,17 @@ function EditLogForm(): React.ReactElement {
     singleAdventure ? singleAdventure.hours_slept : 0,
   );
 
-  const [userMsg, setUserMsg] = useState<string>('');
-
   const handleDateChange = (event: ChangeEvent<HTMLInputElement>) => {
     const originalDate: string = event.target.value;
     setUpdatedDate(originalDate);
   };
 
   useEffect(() => {
-    console.log('date in edit log', updatedDate);
     const parsedDate = dayjs(updatedDate);
     const formattedDate = parsedDate.format('YYYY-MM-DD');
     setUpdatedDate(formattedDate);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    if (!user_id) {
-      const saveduser_id = localStorage.getItem('user_id');
-      const parsedId = saveduser_id ? JSON.parse(saveduser_id) : null;
-      setuser_id(parsedId);
-    }
-  }, [user_id]);
 
   const navigate = useNavigate();
 
@@ -126,7 +115,6 @@ function EditLogForm(): React.ReactElement {
           />
         </div>
         <div className='form-btn-wrapper'>
-          {userMsg !== '' && <p>{userMsg}</p>}
           <button
             className='submit-button'
             onClick={event => handleSaveChanges(event)}

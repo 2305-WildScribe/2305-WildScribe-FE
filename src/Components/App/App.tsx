@@ -2,13 +2,25 @@ import './App.scss';
 import Homepage from '../Homepage/Homepage';
 import NavBar from '../NavBar/NavBar';
 import { AdventureContextProvider } from '../../Context/AdventureContext';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import LogAdventureForm from '../LogAdventureForm/LogAdventureForm';
 import LoginPage from '../LoginPage/LoginPage';
 import ErrorPage from '../ErrorPage/ErrorPage';
 import EditLogForm from '../EditLogForm/EditLogForm';
+import { useEffect } from 'react';
+import { useAppSelector } from '../../Redux/hooks';
+import { selectUser } from '../../Redux/slices/userSlice';
 
 function App(): React.ReactElement {
+  const isLoggedIn = useAppSelector(selectUser).isLoggedIn;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate('/');
+    }
+  }, [isLoggedIn, navigate]);
+
   return (
     <AdventureContextProvider>
       <div className='App'>
