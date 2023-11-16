@@ -162,8 +162,6 @@ export const deleteAdventureAsync = createAsyncThunk(
 export const editAdventureAsync = createAsyncThunk(
   'edit/addAdventure',
   async (editedAdventure: any, thunkAPI) => {
-    console.log('updatedLog in api call', editedAdventure);
-
     const {
       user_id,
       adventure_id,
@@ -209,7 +207,6 @@ export const editAdventureAsync = createAsyncThunk(
         }),
       }
     );
-    console.log('resp', response);
     if (response.status === 404) {
       throw new Error('404 page not found');
     }

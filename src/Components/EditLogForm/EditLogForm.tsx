@@ -16,7 +16,6 @@ function EditLogForm(): React.ReactElement {
   let singleAdventure = useAppSelector(selectAdventures).singleAdventure;
   let user_id = useAppSelector(selectUser).user_id;
 
-
   const [updatedActivity, setUpdatedActivity] = useState<string>(
     singleAdventure ? singleAdventure.activity : '',
   );

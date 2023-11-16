@@ -28,7 +28,6 @@ export const adventuresSlice = createSlice({
   reducers: {
     setSingleAdventure(state, action: PayloadAction<Adventure | undefined>) {
       state.singleAdventure = action.payload;
-      console.log('here', state.singleAdventure);
     },
   },
   extraReducers: (builder) => {

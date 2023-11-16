@@ -71,7 +71,6 @@ function LogAdventureForm(): React.ReactElement {
     const action = await dispatch(postAdventureAsync(newAdventureData));
 
     if (postAdventureAsync.fulfilled.match(action)) {
-      console.log(action);
     }
     navigate('/home');
   }
