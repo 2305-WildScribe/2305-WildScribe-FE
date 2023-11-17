@@ -4,6 +4,7 @@ import { Adventure } from '../../types';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAppSelector } from '../../Redux/hooks';
 import { selectAdventures } from '../../Redux/slices/adventuresSlice';
+import { useEffect, useState } from 'react';
 
 // interface AdventureContainerProps {
 //   searchedAdventures: Adventure[];
@@ -14,7 +15,41 @@ function AdventureContainer(): React.ReactElement {
   let adventures = useAppSelector(selectAdventures).adventures;
   const navigate = useNavigate();
   const activity = useParams().activity;
-  console.log('activity', activity);
+  const [keyword, setKeyword] = useState<string>('');
+
+  const clearSearch = () => {
+    setKeyword('');
+    setSearchedAdventures(adventures);
+  };
+
+  const [searchedAdventures, setSearchedAdventures] = useState<
+    Adventure[] | []
+  >([]);
+
+  useEffect(() => {
+    setSearchedAdventures(sortByDateAscending());
+  }, [adventures]);
+
+  const searchAdventures = (keyword: string) => {
+    return (
+      sortByDateAscending() &&
+      sortByDateAscending().filter((adventure) => {
+        return (
+          adventure.activity.toLowerCase().includes(keyword) ||
+          adventure.date?.includes(keyword) ||
+          adventure.sleep_stress_notes?.toLowerCase().includes(keyword) ||
+          adventure.diet_hydration_notes?.toLowerCase().includes(keyword) ||
+          adventure.beta_notes?.toLowerCase().includes(keyword)
+        );
+      })
+    );
+  };
+
+  const handleSearch = (keyword: string) => {
+    console.log(keyword);
+    let results = searchAdventures(keyword) || [];
+    setSearchedAdventures([...results] as Adventure[]);
+  };
 
   const filterAdventures = () => {
     let filtered = adventures.filter(
@@ -22,8 +57,6 @@ function AdventureContainer(): React.ReactElement {
     );
     return filtered;
   };
-
-  const filteredAdventures = filterAdventures();
 
   function sortByDateAscending() {
     return filterAdventures()
@@ -34,11 +67,12 @@ function AdventureContainer(): React.ReactElement {
         return dateB.getTime() - dateA.getTime();
       });
   }
+
   const handleNewLog = () => {
     navigate(`/${activity}/newLog`);
   };
 
-  const adventureCards = sortByDateAscending().map((adventure) => {
+  const adventureCards = searchedAdventures.map((adventure) => {
     return (
       <div key={adventure.adventure_id}>
         <AdventureCard adventure={adventure} />
@@ -47,17 +81,37 @@ function AdventureContainer(): React.ReactElement {
   });
 
   return (
-    <div className='adventure-card-container'>
+    <>
       <button
         className='new-adventure-btn nav-link'
         onClick={() => handleNewLog()}
       >
         Add Log
       </button>
-      {adventureCards}
-    </div>
+      <div className='search-bar'>
+        <input
+          className='search-input'
+          type='text'
+          placeholder='Search logs here'
+          value={keyword}
+          onChange={(e) => {
+            setKeyword(e.target.value);
+            handleSearch(e.target.value);
+          }}
+        />
+      </div>
+      {/* {searchedAdventures.length === 0  && ( */}
+      <p className='no-results-msg'>
+        Sorry, we couldn't find anything that matched. Please try again.
+      </p>
+      {/* )} */}
+
+      <div className='adventure-card-container'>{adventureCards}</div>
+      {!adventureCards.length && (
+        <p>{`It looks like you don't have any ${activity?.toLowerCase()} logs yet, go ahead and add a log to get started!  `}</p>
+      )}
+    </>
   );
-  // return <div className='adventure-card-container'>container</div>;
 }
 
 export default AdventureContainer;

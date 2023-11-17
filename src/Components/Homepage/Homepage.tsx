@@ -1,9 +1,6 @@
 import './Homepage.scss';
-import AdventureContainer from '../AdventureContainer/AdventureContainer';
 import { Adventure } from '../../types';
 import { useEffect, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import Loading from '../Loading/Loading';
 import { useAppSelector } from '../../Redux/hooks';
 import { selectAdventures } from '../../Redux/slices/adventuresSlice';
@@ -11,45 +8,13 @@ import { selectUser } from '../../Redux/slices/userSlice';
 import AdventureJournalContainer from '../AdventureJournalContainer/AdventureJournalContainer';
 
 function Homepage(): React.ReactElement {
-  const [searchedAdventures, setSearchedAdventures] = useState<
-    Adventure[] | []
-  >([]);
+
   const [newActivity, setNewActivity] = useState<string>('');
-  const [keyword, setKeyword] = useState<string>('');
   const [activityTypes, setActivityTypes] = useState<string[]>([]);
 
   let adventures = useAppSelector(selectAdventures).adventures;
   let loading = useAppSelector(selectAdventures).loading;
   let username = useAppSelector(selectUser).userName;
-
-  useEffect(() => {
-    setSearchedAdventures(adventures);
-  }, [adventures]);
-
-  const clearSearch = () => {
-    setKeyword('');
-    setSearchedAdventures(adventures);
-  };
-
-  const filteredAdventures = (keyword: string) => {
-    return (
-      adventures &&
-      adventures.filter((adventure) => {
-        return (
-          adventure.activity.toLowerCase().includes(keyword) ||
-          adventure.date?.includes(keyword) ||
-          adventure.sleep_stress_notes?.toLowerCase().includes(keyword) ||
-          adventure.diet_hydration_notes?.toLowerCase().includes(keyword) ||
-          adventure.beta_notes?.toLowerCase().includes(keyword)
-        );
-      })
-    );
-  };
-
-  const handleSearch = (keyword: string) => {
-    let results = filteredAdventures(keyword) || [];
-    setSearchedAdventures([...results] as Adventure[]);
-  };
 
   const filterAdventureTypes = () => {
     let types: string[] = [];

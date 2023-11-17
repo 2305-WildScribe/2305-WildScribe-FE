@@ -9,8 +9,6 @@ interface AdventureJournalContainerProps {
 function AdventureJournalContainer({
   activityTypes,
 }: AdventureJournalContainerProps): React.ReactElement {
-  console.log(activityTypes)
-
 
   let allActivities = activityTypes.map((activity) => {
     return <Journal activity={activity} />;
