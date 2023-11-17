@@ -23,7 +23,7 @@ function AdventureContainer(): React.ReactElement {
 
   useEffect(() => {
     setSearchedAdventures(sortByDateAscending());
-  }, [adventures]);
+  }, [adventures, setSearchedAdventures]);
 
   const searchAdventures = (keyword: string) => {
     return (

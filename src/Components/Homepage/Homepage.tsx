@@ -26,6 +26,7 @@ function Homepage(): React.ReactElement {
 
   useEffect(() => {
     filterAdventureTypes();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [adventures]);
 
   const handleAddNewActivity = () => {
@@ -58,7 +59,8 @@ function Homepage(): React.ReactElement {
                     e.preventDefault(); // Prevent the default form submission behavior
                     handleAddNewActivity();
                   }
-                }}              />
+                }}
+              />
               {/* <button onClick={(e) => handleAddNewActivity(e)}> + </button> */}
             </div>
           </div>
