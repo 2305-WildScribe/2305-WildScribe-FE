@@ -2,19 +2,21 @@ import React from 'react';
 import './AdventureJournalContainer.scss';
 import Journal from '../Journal/Journal';
 
-interface AdventureJournalContianerProps {
+interface AdventureJournalContainerProps {
   activityTypes: string[];
 }
 
-function AdventureJournalContianer({
+function AdventureJournalContainer({
   activityTypes,
-}: AdventureJournalContianerProps): React.ReactElement {
+}: AdventureJournalContainerProps): React.ReactElement {
+  console.log(activityTypes)
+
+
   let allActivities = activityTypes.map((activity) => {
     return <Journal activity={activity} />;
   });
 
-  return( 
-  <div className='activity-container'>{allActivities} </div>);
+  return <div className='activity-container'>{allActivities} </div>;
 }
 
-export default AdventureJournalContianer;
+export default AdventureJournalContainer;

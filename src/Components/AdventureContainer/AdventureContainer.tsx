@@ -23,19 +23,15 @@ function AdventureContainer(): React.ReactElement {
     return filtered
   };
 
-  const filteredAdventures = filterAdventures()
-
-  function sortByDateAscending(adventures: Adventure[]) {
-    return filteredAdventures.slice().sort((a, b) => {
+  function sortByDateAscending() {
+    return filterAdventures().slice().sort((a, b) => {
       const dateA = new Date(a.date);
       const dateB = new Date(b.date);
       return dateB.getTime() - dateA.getTime();
     });
   }
 
-  const sortedAdventures = sortByDateAscending(filteredAdventures);
-
-  const adventureCards = sortedAdventures.map((adventure) => {
+  const adventureCards = sortByDateAscending().map((adventure) => {
     return (
       <div key={adventure.adventure_id}>
         <AdventureCard adventure={adventure} />

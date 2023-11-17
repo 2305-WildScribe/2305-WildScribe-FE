@@ -1,5 +1,17 @@
 @import '../../index.scss';
 
+.username-wrapper{
+  width: 90%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+
+
+
+
+
+
 #home-main {
   display: flex;
   flex-direction: column;
@@ -10,61 +22,61 @@
   padding: 1rem;
 }
 
-.welcome-message {
-  font-size: 3rem;
-  margin: 1rem;
-  margin-top: 15rem;
-  text-align: center;
-  @include amatic;
-}
+// .welcome-message {
+//   font-size: 3rem;
+//   margin: 1rem;
+//   margin-top: 15rem;
+//   text-align: center;
+//   @include amatic;
+// }
 
-.search-bar {
-  width: 90%;
-  height: 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 3rem;
-  padding-bottom: 1rem;
-  .username{
-    @include sourceSans;
-  }
-}
+// .search-bar {
+//   width: 90%;
+//   height: 2rem;
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   height: 3rem;
+//   padding-bottom: 1rem;
+//   .username{
+//     @include sourceSans;
+//   }
+// }
 
-.search-input {
-  border-radius: 10px;
-  padding-right: 40px;
-  align-self: flex-end;
-  height: 90%;
-  margin-right: 0px;
-}
+// .search-input {
+//   border-radius: 10px;
+//   padding-right: 40px;
+//   align-self: flex-end;
+//   height: 90%;
+//   margin-right: 0px;
+// }
 
-.search-btn {
-  @include btn;
-  border-bottom-right-radius: 10px;
-  font-size: 1.5rem;
-  height: 100%;
-  margin-top: 0px;
-  margin-left: 0px;
-  &:hover {
-    background-color: $yellow;
-  }
-}
+// .search-btn {
+//   @include btn;
+//   border-bottom-right-radius: 10px;
+//   font-size: 1.5rem;
+//   height: 100%;
+//   margin-top: 0px;
+//   margin-left: 0px;
+//   &:hover {
+//     background-color: $yellow;
+//   }
+// }
 
-.delete-keyword {
-  &:hover {
-    cursor: pointer;
-  }
-}
+// .delete-keyword {
+//   &:hover {
+//     cursor: pointer;
+//   }
+// }
 
-.keyword-btn{
-  margin-right: 1rem;
-  border-radius: 10px;
-  height: 100%
-}
+// .keyword-btn{
+//   margin-right: 1rem;
+//   border-radius: 10px;
+//   height: 100%
+// }
 
-.no-results-msg{
-  @include sourceSans;
-  font-size: 2rem;
-}
+// .no-results-msg{
+//   @include sourceSans;
+//   font-size: 2rem;
+// }
 

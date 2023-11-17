@@ -8,13 +8,16 @@ import Loading from '../Loading/Loading';
 import { useAppSelector } from '../../Redux/hooks';
 import { selectAdventures } from '../../Redux/slices/adventuresSlice';
 import { selectUser } from '../../Redux/slices/userSlice';
-import AdventureJournalContianer from '../AdventureJournalContainer/AdventureJournalContainer';
+import AdventureJournalContainer from '../AdventureJournalContainer/AdventureJournalContainer';
 
 function Homepage(): React.ReactElement {
   const [searchedAdventures, setSearchedAdventures] = useState<
     Adventure[] | []
   >([]);
+  const [newActivity, setNewActivity] = useState<string>('');
   const [keyword, setKeyword] = useState<string>('');
+  const [activityTypes, setActivityTypes] = useState<string[]>([]);
+
   let adventures = useAppSelector(selectAdventures).adventures;
   let loading = useAppSelector(selectAdventures).loading;
   let username = useAppSelector(selectUser).userName;
@@ -55,10 +58,21 @@ function Homepage(): React.ReactElement {
         types.push(adventure.activity);
       }
     });
-    return types.sort();
+    setActivityTypes([...types]);
   };
 
-  let activityTypes = filterAdventureTypes() 
+  useEffect(() => {
+    filterAdventureTypes();
+  }, [adventures]);
+
+  const handleAddNewActivity = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    setActivityTypes([...activityTypes, newActivity]);
+    setNewActivity('');
+    console.log(activityTypes);
+  };
 
   const usernameText = !adventures.length
     ? `Welcome ${username}!`
@@ -70,8 +84,27 @@ function Homepage(): React.ReactElement {
         <Loading />
       ) : (
         <div id='home-main'>
-          <p className='username'>{usernameText}</p>
-          <AdventureJournalContianer activityTypes={activityTypes}/>
+          <div className='username-wrapper'>
+            <p className='username'>{usernameText}</p>
+            <div>
+              <input
+                type='text'
+                name='newActivity'
+                value={newActivity}
+                onChange={(event) => setNewActivity(event.target.value)}
+                placeholder='Add a new activity'
+              />
+              <button onClick={(e) => handleAddNewActivity(e)}> + </button>
+            </div>
+          </div>
+          <AdventureJournalContainer activityTypes={activityTypes} />
+          {activityTypes.length === 0 && (
+            <p className='welcome-message'>
+              Welcome to WildScribe, an app that tracks your adventures,
+              training, beta, etc. so you don't have to. To get started, log
+              your first adventure!
+            </p>
+          )}
         </div>
       )}
     </>

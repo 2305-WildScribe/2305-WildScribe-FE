@@ -13,6 +13,7 @@ interface AdventureState {
   loading: boolean;
   error: string | undefined;
   singleAdventure: Adventure | undefined;
+  activityTypes: string[] | [] | never[]
 }
 
 const initialState: AdventureState = {
@@ -20,13 +21,14 @@ const initialState: AdventureState = {
   loading: false,
   error: '',
   singleAdventure: undefined,
+  activityTypes: [],
 };
 
 export const adventuresSlice = createSlice({
   name: 'adventures',
   initialState,
   reducers: {
-    setSingleAdventure(state, action: PayloadAction<Adventure | undefined>) {
+    setSingleAdventure(state, action: PayloadAction<Adventure| undefined>) {
       state.singleAdventure = action.payload;
     },
   },
