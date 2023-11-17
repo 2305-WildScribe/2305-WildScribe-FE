@@ -9,6 +9,7 @@ import AdventureJournalContainer from '../AdventureJournalContainer/AdventureJou
 function Homepage(): React.ReactElement {
   const [newActivity, setNewActivity] = useState<string>('');
   const [activityTypes, setActivityTypes] = useState<string[]>([]);
+  const [message, setMessage] = useState<string>('');
 
   let adventures = useAppSelector(selectAdventures).adventures;
   let loading = useAppSelector(selectAdventures).loading;
@@ -30,9 +31,16 @@ function Homepage(): React.ReactElement {
   }, [adventures]);
 
   const handleAddNewActivity = () => {
-    setActivityTypes([...activityTypes, newActivity]);
-    setNewActivity('');
-    console.log(activityTypes);
+    setMessage('');
+    if (newActivity === '') {
+      setMessage(`Please enter a new activity you would like to track!`);
+    } else if (!activityTypes.includes(newActivity)) {
+      setActivityTypes([...activityTypes, newActivity]);
+      setNewActivity('');
+    } else {
+      setMessage(`It looks like you already have a ${newActivity} journal`);
+      setNewActivity('');
+    }
   };
 
   const usernameText = !adventures.length
@@ -47,21 +55,23 @@ function Homepage(): React.ReactElement {
         <div id='home-main'>
           <div className='username-wrapper'>
             <p className='username'>{usernameText}</p>
-            <div className='new-activity-input-wrapper'>
-              <input
-                type='text'
-                name='newActivity'
-                value={newActivity}
-                onChange={(event) => setNewActivity(event.target.value)}
-                placeholder='Add a new activity'
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    e.preventDefault(); // Prevent the default form submission behavior
-                    handleAddNewActivity();
-                  }
-                }}
-              />
-              {/* <button onClick={(e) => handleAddNewActivity(e)}> + </button> */}
+            <div className='input-message-wrapper'>
+              {message !== '' && <p>{message}</p>}
+              <div className='input-wrapper'>
+                <input
+                  type='text'
+                  name='newActivity'
+                  value={newActivity}
+                  onChange={(event) => setNewActivity(event.target.value)}
+                  placeholder='Add a new activity'
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      handleAddNewActivity();
+                    }
+                  }}
+                />
+              </div>
             </div>
           </div>
           <AdventureJournalContainer activityTypes={activityTypes} />

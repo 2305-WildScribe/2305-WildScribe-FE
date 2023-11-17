@@ -14,11 +14,20 @@
   }
 }
 
-.new-activity-input-wrapper {
+.input-message-wrapper {
+  display: flex;
   height: 100%;
+  width: 50%;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.input-wrapper {
+  height: 100%;
+  margin-left: 1rem;
   input {
     margin: 0rem;
-    height: 100%;
+    height: 90%;
     align-self: right;
   }
 }

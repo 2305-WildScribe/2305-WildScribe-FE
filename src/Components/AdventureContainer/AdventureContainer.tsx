@@ -6,11 +6,6 @@ import { useAppSelector } from '../../Redux/hooks';
 import { selectAdventures } from '../../Redux/slices/adventuresSlice';
 import { useEffect, useState } from 'react';
 
-// interface AdventureContainerProps {
-//   searchedAdventures: Adventure[];
-// }
-// function AdventureContainer({searchedAdventures} : AdventureContainerProps): React.ReactElement {
-
 function AdventureContainer(): React.ReactElement {
   let adventures = useAppSelector(selectAdventures).adventures;
   const navigate = useNavigate();

@@ -71,7 +71,8 @@ function LogAdventureForm(): React.ReactElement {
   return (
     <>
       <form className='form'>
-        <div className='top-line-components'>
+        <div className='top-line-wrapper'>
+          <div className='top-line-data'>
           <p>Activity: {activity}</p>
           <label htmlFor='date-input'>Date:</label>
           <input
@@ -89,6 +90,7 @@ function LogAdventureForm(): React.ReactElement {
             onChange={(event) => setImage(event.target.value)}
             placeholder='Enter the image URL'
           />
+          </div>
           <div className='form-btn-wrapper'>
             {userMsg !== '' && <p>{userMsg}</p>}
             <button
