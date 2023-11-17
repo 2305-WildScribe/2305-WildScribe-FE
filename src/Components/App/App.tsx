@@ -30,7 +30,7 @@ function App(): React.ReactElement {
               <Route path='/' element={<LoginPage />} />
               <Route path='/home' element={<Homepage />} />
               <Route path=':activity' element ={<AdventureContainer />} />
-              <Route path='/logAdventure' element={<LogAdventureForm />} />
+              <Route path=':activity/newLog' element={<LogAdventureForm />} />
               <Route path={'/edit'} element={<EditLogForm />} />
               <Route path='/error' element={<ErrorPage />} />
               <Route path='*' element={<ErrorPage />} />

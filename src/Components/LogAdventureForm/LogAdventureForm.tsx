@@ -1,7 +1,7 @@
 import { useState, ChangeEvent } from 'react';
 import './LogAdventureForm.scss';
 import { Adventure } from '../../types';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
 import logo from '../../Assets/logo.png';
 import { useAppDispatch, useAppSelector } from '../../Redux/hooks';
@@ -10,11 +10,10 @@ import { selectUser } from '../../Redux/slices/userSlice';
 
 function LogAdventureForm(): React.ReactElement {
   const dispatch = useAppDispatch();
+  const activity: string = useParams().activity ?? 'defaultActivity';
+
   const user_id = useAppSelector(selectUser).user_id;
 
-
-
-  const [activity, setActivity] = useState<string>('');
   const [date, setDate] = useState<string | null>(null);
   const [betaNotes, setBetaNotes] = useState<string>('');
   const [image_url, setImage] = useState<string>('');
@@ -36,10 +35,6 @@ function LogAdventureForm(): React.ReactElement {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setUserMsg('');
-    if (activity === '') {
-      setUserMsg("Please specify the activity you're logging");
-      return;
-    }
     if (!date) {
       setUserMsg('Please specify a date for your adventure!');
       return;
@@ -62,48 +57,38 @@ function LogAdventureForm(): React.ReactElement {
         adventure_id: undefined,
       };
       handlePostingNewAdventure(newAdventureData);
-
     }
   };
   async function handlePostingNewAdventure(
-    newAdventureData: Adventure,
+    newAdventureData: Adventure
   ): Promise<void> {
     const action = await dispatch(postAdventureAsync(newAdventureData));
-
     if (postAdventureAsync.fulfilled.match(action)) {
     }
-    navigate('/home');
+    navigate(`/${activity}`);
   }
 
   return (
     <>
       <form className='form'>
         <div className='top-line-components'>
-          <div>
-            <label htmlFor='activity-input'>Activity:</label>
-            <input
-              type='text'
-              name='activity'
-              value={activity}
-              onChange={(event) => setActivity(event.target.value)}
-            />
-            <label htmlFor='date-input'>Date:</label>
-            <input
-              type='date'
-              name='date'
-              value={date || ''}
-              onChange={handleDateChange}
-              max={new Date().toISOString().split('T')[0]}
-            />
-            <label htmlFor='image'>Add Image:</label>
-            <input
-              type='text'
-              name='image'
-              value={image_url}
-              onChange={(event) => setImage(event.target.value)}
-              placeholder='Enter the image URL'
-            />
-          </div>
+          <p>Activity: {activity}</p>
+          <label htmlFor='date-input'>Date:</label>
+          <input
+            type='date'
+            name='date'
+            value={date || ''}
+            onChange={handleDateChange}
+            max={new Date().toISOString().split('T')[0]}
+          />
+          <label htmlFor='image'>Add Image:</label>
+          <input
+            type='text'
+            name='image'
+            value={image_url}
+            onChange={(event) => setImage(event.target.value)}
+            placeholder='Enter the image URL'
+          />
           <div className='form-btn-wrapper'>
             {userMsg !== '' && <p>{userMsg}</p>}
             <button
