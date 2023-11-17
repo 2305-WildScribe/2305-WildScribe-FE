@@ -11,7 +11,7 @@ function AdventureJournalContainer({
 }: AdventureJournalContainerProps): React.ReactElement {
 
   let allActivities = activityTypes.map((activity) => {
-    return <Journal activity={activity} />;
+    return <Journal key={activity} activity={activity} />;
   });
 
   return <div className='activity-container'>{allActivities} </div>;

@@ -17,11 +17,6 @@ function AdventureContainer(): React.ReactElement {
   const activity = useParams().activity;
   const [keyword, setKeyword] = useState<string>('');
 
-  const clearSearch = () => {
-    setKeyword('');
-    setSearchedAdventures(adventures);
-  };
-
   const [searchedAdventures, setSearchedAdventures] = useState<
     Adventure[] | []
   >([]);
@@ -82,32 +77,33 @@ function AdventureContainer(): React.ReactElement {
 
   return (
     <>
-      <button
-        className='new-adventure-btn nav-link'
-        onClick={() => handleNewLog()}
-      >
-        Add Log
-      </button>
-      <div className='search-bar'>
-        <input
-          className='search-input'
-          type='text'
-          placeholder='Search logs here'
-          value={keyword}
-          onChange={(e) => {
-            setKeyword(e.target.value);
-            handleSearch(e.target.value);
-          }}
-        />
+      <div className='search-bar-wrapper'>
+        <button
+          className='new-adventure-btn'
+          onClick={() => handleNewLog()}
+        >
+          Add Log
+        </button>
+        <div className='search-bar'>
+          <input
+            className='search-input'
+            type='text'
+            placeholder='Search logs here'
+            value={keyword}
+            onChange={(e) => {
+              setKeyword(e.target.value);
+              handleSearch(e.target.value);
+            }}
+          />
+        </div>
       </div>
-      {/* {searchedAdventures.length === 0  && ( */}
-      <p className='no-results-msg'>
-        Sorry, we couldn't find anything that matched. Please try again.
-      </p>
-      {/* )} */}
-
+      {searchedAdventures.length === 0 && sortByDateAscending().length > 0 &&(
+        <p className='no-results-msg'>
+          Sorry, we couldn't find anything that matched. Please try again.
+        </p>
+      )}
       <div className='adventure-card-container'>{adventureCards}</div>
-      {!adventureCards.length && (
+      {!sortByDateAscending().length && (
         <p>{`It looks like you don't have any ${activity?.toLowerCase()} logs yet, go ahead and add a log to get started!  `}</p>
       )}
     </>

@@ -1,5 +1,4 @@
 import './Homepage.scss';
-import { Adventure } from '../../types';
 import { useEffect, useState } from 'react';
 import Loading from '../Loading/Loading';
 import { useAppSelector } from '../../Redux/hooks';
@@ -8,7 +7,6 @@ import { selectUser } from '../../Redux/slices/userSlice';
 import AdventureJournalContainer from '../AdventureJournalContainer/AdventureJournalContainer';
 
 function Homepage(): React.ReactElement {
-
   const [newActivity, setNewActivity] = useState<string>('');
   const [activityTypes, setActivityTypes] = useState<string[]>([]);
 
@@ -30,10 +28,7 @@ function Homepage(): React.ReactElement {
     filterAdventureTypes();
   }, [adventures]);
 
-  const handleAddNewActivity = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    e.preventDefault();
+  const handleAddNewActivity = () => {
     setActivityTypes([...activityTypes, newActivity]);
     setNewActivity('');
     console.log(activityTypes);
@@ -51,77 +46,33 @@ function Homepage(): React.ReactElement {
         <div id='home-main'>
           <div className='username-wrapper'>
             <p className='username'>{usernameText}</p>
-            <div>
+            <div className='new-activity-input-wrapper'>
               <input
                 type='text'
                 name='newActivity'
                 value={newActivity}
                 onChange={(event) => setNewActivity(event.target.value)}
                 placeholder='Add a new activity'
-              />
-              <button onClick={(e) => handleAddNewActivity(e)}> + </button>
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault(); // Prevent the default form submission behavior
+                    handleAddNewActivity();
+                  }
+                }}              />
+              {/* <button onClick={(e) => handleAddNewActivity(e)}> + </button> */}
             </div>
           </div>
           <AdventureJournalContainer activityTypes={activityTypes} />
           {activityTypes.length === 0 && (
             <p className='welcome-message'>
               Welcome to WildScribe, an app that tracks your adventures,
-              training, beta, etc. so you don't have to. To get started, log
-              your first adventure!
+              training, beta, etc. so you don't have to. To get started, create
+              an activity jounral!
             </p>
           )}
         </div>
       )}
     </>
-
-    // <>
-    //   {loading ? (
-    //     <Loading />
-    //   ) : (
-    //     <div id='home-main'>
-    //       {adventures && adventures.length ? (
-    //         <>
-    //           <div className='search-bar'>
-    //             <p className='username'> Welcome back {username}!</p>
-    //             {keyword !== '' && keyword !== ' ' && (
-    //               <button className='keyword-btn'>
-    //                 {keyword}{' '}
-    //                 <FontAwesomeIcon
-    //                   icon={faXmark}
-    //                   className='fa-icon delete-keyword'
-    //                   onClick={() => clearSearch()}
-    //                 />
-    //               </button>
-    //             )}
-    //             <input
-    //               className='search-input'
-    //               type='text'
-    //               placeholder='Search logs here'
-    //               value={keyword}
-    //               onChange={(e) => {
-    //                 setKeyword(e.target.value);
-    //                 handleSearch(e.target.value);
-    //               }}
-    //             />
-    //           </div>
-    //           {searchedAdventures.length === 0  && (
-    //             <p className='no-results-msg'>
-    //               Sorry, we couldn't find anything that matched. Please try
-    //               again.
-    //             </p>
-    //           )}
-    //           <AdventureContainer searchedAdventures={searchedAdventures} />
-    //         </>
-    //       ) : (
-    //         <p className='welcome-message'>
-    //           Welcome to WildScribe, an app that tracks your adventures,
-    //           training, beta, etc. so you don't have to. To get started, log
-    //           your first adventure!
-    //         </p>
-    //       )}
-    //     </div>
-    //   )}
-    // </>
   );
 }
 
