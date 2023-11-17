@@ -23,7 +23,8 @@ function AdventureContainer(): React.ReactElement {
 
   useEffect(() => {
     setSearchedAdventures(sortByDateAscending());
-  }, [adventures, setSearchedAdventures]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [adventures]);
 
   const searchAdventures = (keyword: string) => {
     return (
@@ -78,10 +79,7 @@ function AdventureContainer(): React.ReactElement {
   return (
     <>
       <div className='search-bar-wrapper'>
-        <button
-          className='new-adventure-btn'
-          onClick={() => handleNewLog()}
-        >
+        <button className='new-adventure-btn' onClick={() => handleNewLog()}>
           Add Log
         </button>
         <div className='search-bar'>
@@ -97,7 +95,7 @@ function AdventureContainer(): React.ReactElement {
           />
         </div>
       </div>
-      {searchedAdventures.length === 0 && sortByDateAscending().length > 0 &&(
+      {searchedAdventures.length === 0 && sortByDateAscending().length > 0 && (
         <p className='no-results-msg'>
           Sorry, we couldn't find anything that matched. Please try again.
         </p>
