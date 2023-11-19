@@ -91,13 +91,16 @@ function AdventureContainer(): React.ReactElement {
           />
         </div>
       </div>
-      {searchedAdventures.length === 0 && sortByDateAscending().length > 0 && (
-        <p className='no-results-msg'>
-          Sorry, we couldn't find anything that matched. Please try again.
-        </p>
-      )}
+      <div className='map-card-wrapper'>
+        <div className='adventure-card-container'>{adventureCards}</div>
+        {searchedAdventures.length === 0 &&
+          sortByDateAscending().length > 0 && (
+            <p className='no-results-msg'>
+              Sorry, we couldn't find anything that matched. Please try again.
+            </p>
+          )}
         <Map />
-      <div className='adventure-card-container'>{adventureCards}</div>
+      </div>
       {!sortByDateAscending().length && (
         <p>{`It looks like you don't have any ${activity?.toLowerCase()} logs yet, go ahead and add a log to get started!  `}</p>
       )}
