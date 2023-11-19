@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useAppSelector } from '../../Redux/hooks';
 import { selectAdventures } from '../../Redux/slices/adventuresSlice';
 import { useEffect, useState } from 'react';
+import Map from '../Map/Map';
 
 function AdventureContainer(): React.ReactElement {
   let adventures = useAppSelector(selectAdventures).adventures;
@@ -95,6 +96,7 @@ function AdventureContainer(): React.ReactElement {
           Sorry, we couldn't find anything that matched. Please try again.
         </p>
       )}
+        <Map />
       <div className='adventure-card-container'>{adventureCards}</div>
       {!sortByDateAscending().length && (
         <p>{`It looks like you don't have any ${activity?.toLowerCase()} logs yet, go ahead and add a log to get started!  `}</p>
