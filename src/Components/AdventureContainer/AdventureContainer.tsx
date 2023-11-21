@@ -44,15 +44,14 @@ function AdventureContainer(): React.ReactElement {
   };
 
   const filterAdventures = () => {
-    let filtered = adventures.filter(
+    let filtered = adventures?.filter(
       (adventure) => adventure.activity === activity
     );
     return filtered;
   };
 
   function sortByDateAscending() {
-    return filterAdventures()
-      .slice()
+    return filterAdventures()?.slice()
       .sort((a, b) => {
         const dateA = new Date(a.date);
         const dateB = new Date(b.date);
@@ -64,7 +63,7 @@ function AdventureContainer(): React.ReactElement {
     navigate(`/${activity}/newLog`);
   };
 
-  const adventureCards = searchedAdventures.map((adventure) => {
+  const adventureCards = searchedAdventures?.map((adventure) => {
     return (
       <div key={adventure.adventure_id}>
         <AdventureCard adventure={adventure} />
@@ -93,17 +92,18 @@ function AdventureContainer(): React.ReactElement {
       </div>
       <div className='map-card-wrapper'>
         <div className='adventure-card-container'>{adventureCards}</div>
-        {searchedAdventures.length === 0 &&
-          sortByDateAscending().length > 0 && (
+        {searchedAdventures?.length === 0 &&
+          sortByDateAscending()?.length > 0 && (
             <p className='no-results-msg'>
               Sorry, we couldn't find anything that matched. Please try again.
             </p>
           )}
-        <Map />
-      </div>
-      {!sortByDateAscending().length && (
+           {!sortByDateAscending()?.length && (
         <p>{`It looks like you don't have any ${activity?.toLowerCase()} logs yet, go ahead and add a log to get started!  `}</p>
       )}
+        <Map />
+      </div>
+     
     </>
   );
 }

@@ -17,7 +17,7 @@ function Homepage(): React.ReactElement {
 
   const filterAdventureTypes = () => {
     let types: string[] = [];
-    adventures.forEach((adventure) => {
+    adventures && adventures.forEach((adventure) => {
       if (!types.includes(adventure.activity)) {
         types.push(adventure.activity);
       }
@@ -43,7 +43,7 @@ function Homepage(): React.ReactElement {
     }
   };
 
-  const usernameText = !adventures.length
+  const usernameText = !adventures?.length
     ? `Welcome ${username}!`
     : `Welcome back ${username}!`;
 
@@ -75,7 +75,7 @@ function Homepage(): React.ReactElement {
             </div>
           </div>
           <AdventureJournalContainer activityTypes={activityTypes} />
-          {activityTypes.length === 0 && (
+          {activityTypes?.length === 0 && (
             <p className='welcome-message'>
               Welcome to WildScribe, an app that tracks your adventures,
               training, beta, etc. so you don't have to. To get started, create
