@@ -1,5 +1,32 @@
 @import '../../index.scss';
 
+.search-bar-wrapper{
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 2rem;
+  padding: 1rem;
+}
+
+.search-bar {
+  height: 2rem;
+  .username{
+    @include sourceSans;
+  }
+}
+
+.new-adventure-btn{
+  @include btn;
+  height: 100%;
+  font-size: 1rem;
+}
+
+.search-input {
+  height: 100%;
+  margin-right: 0px;
+}
+
 .adventure-card-container {
   background-color: $tan;
   display: grid;

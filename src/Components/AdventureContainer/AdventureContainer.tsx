@@ -1,24 +1,69 @@
 import './AdventureContainer.scss';
 import { AdventureCard } from '../AdventureCard/AdventureCard';
 import { Adventure } from '../../types';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useAppSelector } from '../../Redux/hooks';
+import { selectAdventures } from '../../Redux/slices/adventuresSlice';
+import { useEffect, useState } from 'react';
 
-interface AdventureContainerProps {
-  searchedAdventures: Adventure[];
-}
+function AdventureContainer(): React.ReactElement {
+  let adventures = useAppSelector(selectAdventures).adventures;
+  const navigate = useNavigate();
+  const activity = useParams().activity;
+  const [keyword, setKeyword] = useState<string>('');
 
-function AdventureContainer({searchedAdventures} : AdventureContainerProps): React.ReactElement {
+  const [searchedAdventures, setSearchedAdventures] = useState<
+    Adventure[] | []
+  >([]);
 
-  function sortByDateAscending(adventures: Adventure[]) {
-    return adventures.slice().sort((a, b) => {
-      const dateA = new Date(a.date);
-      const dateB = new Date(b.date);
-      return dateB.getTime() - dateA.getTime();
-    });
+  useEffect(() => {
+    setSearchedAdventures(sortByDateAscending());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [adventures]);
+
+  const searchAdventures = (keyword: string) => {
+    return (
+      sortByDateAscending() &&
+      sortByDateAscending().filter((adventure) => {
+        return (
+          adventure.activity.toLowerCase().includes(keyword) ||
+          adventure.date?.includes(keyword) ||
+          adventure.sleep_stress_notes?.toLowerCase().includes(keyword) ||
+          adventure.diet_hydration_notes?.toLowerCase().includes(keyword) ||
+          adventure.beta_notes?.toLowerCase().includes(keyword)
+        );
+      })
+    );
+  };
+
+  const handleSearch = (keyword: string) => {
+    console.log(keyword);
+    let results = searchAdventures(keyword) || [];
+    setSearchedAdventures([...results] as Adventure[]);
+  };
+
+  const filterAdventures = () => {
+    let filtered = adventures.filter(
+      (adventure) => adventure.activity === activity
+    );
+    return filtered;
+  };
+
+  function sortByDateAscending() {
+    return filterAdventures()
+      .slice()
+      .sort((a, b) => {
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
+        return dateB.getTime() - dateA.getTime();
+      });
   }
 
-  const sortedAdventures = sortByDateAscending(searchedAdventures);
+  const handleNewLog = () => {
+    navigate(`/${activity}/newLog`);
+  };
 
-  const adventureCards = sortedAdventures.map((adventure) => {
+  const adventureCards = searchedAdventures.map((adventure) => {
     return (
       <div key={adventure.adventure_id}>
         <AdventureCard adventure={adventure} />
@@ -26,7 +71,36 @@ function AdventureContainer({searchedAdventures} : AdventureContainerProps): Rea
     );
   });
 
-  return <div className='adventure-card-container'>{adventureCards}</div>;
+  return (
+    <>
+      <div className='search-bar-wrapper'>
+        <button className='new-adventure-btn' onClick={() => handleNewLog()}>
+          Add Log
+        </button>
+        <div className='search-bar'>
+          <input
+            className='search-input'
+            type='text'
+            placeholder='Search logs here'
+            value={keyword}
+            onChange={(e) => {
+              setKeyword(e.target.value);
+              handleSearch(e.target.value);
+            }}
+          />
+        </div>
+      </div>
+      {searchedAdventures.length === 0 && sortByDateAscending().length > 0 && (
+        <p className='no-results-msg'>
+          Sorry, we couldn't find anything that matched. Please try again.
+        </p>
+      )}
+      <div className='adventure-card-container'>{adventureCards}</div>
+      {!sortByDateAscending().length && (
+        <p>{`It looks like you don't have any ${activity?.toLowerCase()} logs yet, go ahead and add a log to get started!  `}</p>
+      )}
+    </>
+  );
 }
 
 export default AdventureContainer;

@@ -9,16 +9,11 @@
   width: 90%;
 }
 
-input {
-  margin-right: 1rem;
-}
-
 label {
-  margin-right: 0.25rem;
   @include sourceSans;
 }
 
-.user-prompt{
+.user-prompt {
   @include sourceSans;
 }
 
@@ -42,10 +37,22 @@ textarea {
   height: 50%;
 }
 
-.top-line-components {
+.top-line-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.top-line-data {
+  display: flex;
+  align-items: center;
+  input{
+    height: 1rem;
+    margin: 0rem;
+  }
+  label{
+    margin-left: 1rem;
+  }
 }
 
 .second-line-components {
@@ -58,9 +65,9 @@ textarea {
   font-size: 1.5rem;
   width: 7rem;
   height: 3rem;
-  &:hover{
+  &:hover {
     background-color: $yellow;
-  } 
+  }
 }
 
 .form-btn-wrapper {

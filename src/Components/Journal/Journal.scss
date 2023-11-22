@@ -1,0 +1,14 @@
+@import '../../index.scss';
+
+.activity-card {
+  @include center;
+  border: 1px solid $brown;
+  height: 5rem;
+  @include sourceSans;
+  font-size: 1.5rem;
+  &:hover{
+    cursor: pointer;
+    box-shadow: 5px 5px 5px $brown;
+    background-color: $yellow;
+  }
+}

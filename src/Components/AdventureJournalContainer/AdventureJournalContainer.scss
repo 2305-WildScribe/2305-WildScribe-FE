@@ -1,0 +1,16 @@
+@import '../../index.scss';
+
+.activity-container {
+  background-color: $tan;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+  gap: 1rem;
+  padding: 1rem;
+  max-height: 85%;
+  overflow-y: scroll;
+  width: 90%;
+}
+
+.activity-container::-webkit-scrollbar {
+  display: none;
+}

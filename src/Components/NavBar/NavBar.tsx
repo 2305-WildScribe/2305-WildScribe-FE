@@ -14,6 +14,7 @@ function NavBar(): React.ReactElement {
     navigate('/');
     dispatch(toggleIsLoggedIn(false))
   };
+  
   return (
     <nav className='nav-bar'>
       <div className='nav-text-wrapper'>
@@ -28,9 +29,6 @@ function NavBar(): React.ReactElement {
         <div className='nav-button-container'>
           <NavLink className='home-btn nav-link' to='/home'>
             Home
-          </NavLink>
-          <NavLink className='new-adventure-btn nav-link' to='/logAdventure'>
-            Log New Adventure
           </NavLink>
           <button
             onClick={() => handleLogOut()}
