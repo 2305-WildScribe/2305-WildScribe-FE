@@ -1,32 +1,38 @@
 import './Homepage.scss';
 import { useEffect, useState } from 'react';
 import Loading from '../Loading/Loading';
-import { useAppSelector } from '../../Redux/hooks';
-import { selectAdventures } from '../../Redux/slices/adventuresSlice';
+import { useAppDispatch, useAppSelector } from '../../Redux/hooks';
+import {
+  selectAdventures,
+  setActivityTypes,
+} from '../../Redux/slices/adventuresSlice';
 import { selectUser } from '../../Redux/slices/userSlice';
 import AdventureJournalContainer from '../AdventureJournalContainer/AdventureJournalContainer';
 
 function Homepage(): React.ReactElement {
   const [newActivity, setNewActivity] = useState<string>('');
-  const [activityTypes, setActivityTypes] = useState<string[]>([]);
+  // const [activityTypes, setActivityTypes] = useState<string[]>([]);
   const [message, setMessage] = useState<string>('');
-
+  const dispatch = useAppDispatch();
+  let activityTypes = useAppSelector(selectAdventures).activityTypes
   let adventures = useAppSelector(selectAdventures).adventures;
   let loading = useAppSelector(selectAdventures).loading;
   let username = useAppSelector(selectUser).userName;
 
-  const filterAdventureTypes = () => {
-    let types: string[] = [];
-    adventures && adventures.forEach((adventure) => {
-      if (!types.includes(adventure.activity)) {
-        types.push(adventure.activity);
-      }
-    });
-    setActivityTypes([...types]);
-  };
+  // const filterAdventureTypes = () => {
+  //   let types: string[] = [];
+  //   adventures &&
+  //     adventures.forEach((adventure) => {
+  //       if (!types.includes(adventure.activity)) {
+  //         types.push(adventure.activity);
+  //       }
+  //     });
+  //   setActivityTypes([...types]);
+  // };
 
   useEffect(() => {
-    filterAdventureTypes();
+    // filterAdventureTypes();
+    dispatch(setActivityTypes(adventures));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [adventures]);
 
@@ -35,7 +41,7 @@ function Homepage(): React.ReactElement {
     if (newActivity === '') {
       setMessage(`Please enter a new activity you would like to track!`);
     } else if (!activityTypes.includes(newActivity)) {
-      setActivityTypes([...activityTypes, newActivity]);
+      // setActivityTypes([...activityTypes, newActivity]);
       setNewActivity('');
     } else {
       setMessage(`It looks like you already have a ${newActivity} journal`);

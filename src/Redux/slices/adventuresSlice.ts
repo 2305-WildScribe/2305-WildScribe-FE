@@ -13,6 +13,7 @@ interface AdventureState {
   loading: boolean;
   error: string | undefined;
   singleAdventure: Adventure | undefined;
+  activityTypes: string[];
 }
 
 const initialState: AdventureState = {
@@ -20,6 +21,7 @@ const initialState: AdventureState = {
   loading: false,
   error: '',
   singleAdventure: undefined,
+  activityTypes: [],
 };
 
 export const adventuresSlice = createSlice({
@@ -28,6 +30,15 @@ export const adventuresSlice = createSlice({
   reducers: {
     setSingleAdventure(state, action: PayloadAction<Adventure | undefined>) {
       state.singleAdventure = action.payload;
+    },
+    setActivityTypes(state, action: PayloadAction<Adventure[] | undefined>) {
+      let types: string[] = [];
+      action.payload?.forEach((adventure) => {
+        if (!types.includes(adventure.activity)) {
+          types.push(adventure.activity);
+        }
+      });
+      state.activityTypes = [...types];
     },
   },
   extraReducers: (builder) => {
@@ -72,6 +83,6 @@ export const adventuresSlice = createSlice({
   },
 });
 
-export const { setSingleAdventure } = adventuresSlice.actions;
+export const { setSingleAdventure, setActivityTypes } = adventuresSlice.actions;
 export const selectAdventures = (state: RootState) => state.adventures;
 export default adventuresSlice.reducer;

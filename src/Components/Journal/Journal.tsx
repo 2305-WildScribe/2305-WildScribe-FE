@@ -33,7 +33,6 @@ function Journal({ activity }: JournalProps) {
           accum = adventure;
         }
         return accum;
-        console.log(accum);
       },
       { date: '0' }
     );
