@@ -5,15 +5,15 @@ import { useAppDispatch, useAppSelector } from '../../Redux/hooks';
 import {
   selectAdventures,
   setActivityTypes,
-  addNewActivityType,
+  // addNewActivityType,
 } from '../../Redux/slices/adventuresSlice';
 import { selectUser } from '../../Redux/slices/userSlice';
 import AdventureJournalContainer from '../AdventureJournalContainer/AdventureJournalContainer';
 import UserInfoContainer from '../UserInfoContainer/UserInfoContainer';
 
 function Homepage(): React.ReactElement {
-  const [newActivity, setNewActivity] = useState<string>('');
-  const [message, setMessage] = useState<string>('');
+  // const [newActivity, setNewActivity] = useState<string>('');
+  // const [message, setMessage] = useState<string>('');
   const dispatch = useAppDispatch();
   let activityTypes = useAppSelector(selectAdventures).activityTypes;
   let adventures = useAppSelector(selectAdventures).adventures;
@@ -25,21 +25,21 @@ function Homepage(): React.ReactElement {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [adventures]);
 
-  const handleAddNewActivity = () => {
-    setMessage('');
-    if (newActivity === '') {
-      setMessage(`Please enter a new activity you would like to track!`);
-    } else if (!activityTypes.includes(newActivity)) {
-      const capitalizedNewActivity = () =>
-        newActivity.charAt(0).toUpperCase() + newActivity.slice(1).trim();
+  // const handleAddNewActivity = () => {
+  //   setMessage('');
+  //   if (newActivity === '') {
+  //     setMessage(`Please enter a new activity you would like to track!`);
+  //   } else if (!activityTypes.includes(newActivity)) {
+  //     const capitalizedNewActivity = () =>
+  //       newActivity.charAt(0).toUpperCase() + newActivity.slice(1).trim();
 
-      dispatch(addNewActivityType(capitalizedNewActivity()));
-      setNewActivity('');
-    } else {
-      setMessage(`It looks like you already have a ${newActivity} journal`);
-      setNewActivity('');
-    }
-  };
+  //     dispatch(addNewActivityType(capitalizedNewActivity()));
+  //     setNewActivity('');
+  //   } else {
+  //     setMessage(`It looks like you already have a ${newActivity} journal`);
+  //     setNewActivity('');
+  //   }
+  // };
 
   const usernameText = !adventures?.length
     ? `Welcome ${username}!`
@@ -53,7 +53,7 @@ function Homepage(): React.ReactElement {
         <div id='home-main'>
           <div className='username-wrapper'>
             <p className='username'>{usernameText}</p>
-            <div className='input-message-wrapper'>
+            {/* <div className='input-message-wrapper'>
               {message !== '' && <p>{message}</p>}
               <div className='input-wrapper'>
                 <input
@@ -70,7 +70,7 @@ function Homepage(): React.ReactElement {
                   }}
                 />
               </div>
-            </div>
+            </div> */}
           </div>
           <div className='content-wrapper'>
             <AdventureJournalContainer />

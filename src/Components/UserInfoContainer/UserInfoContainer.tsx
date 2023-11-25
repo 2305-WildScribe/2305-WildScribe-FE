@@ -1,12 +1,21 @@
 import './UserInfoContainer.scss';
-import { useAppSelector } from '../../Redux/hooks';
-import { selectAdventures } from '../../Redux/slices/adventuresSlice';
+import { useAppDispatch, useAppSelector } from '../../Redux/hooks';
+import {
+  selectAdventures,
+  addNewActivityType,
+} from '../../Redux/slices/adventuresSlice';
 import dayjs from 'dayjs';
 import { PieChart } from '@mui/x-charts/PieChart';
-
+import { useState } from 'react';
+// import {
+//   addNewActivityType,
+// } from '../../Redux/slices/adventuresSlice';
 function UserInfoContainer() {
   let adventures = useAppSelector(selectAdventures).adventures;
   let activityTypes = useAppSelector(selectAdventures).activityTypes;
+  const [newActivity, setNewActivity] = useState<string>('');
+  const [message, setMessage] = useState<string>('');
+  const dispatch = useAppDispatch();
 
   function findMostRecentLog() {
     let sorted = adventures?.slice().sort((a, b) => {
@@ -35,22 +44,58 @@ function UserInfoContainer() {
     return types;
   };
 
-  console.log(pieChartData());
-  const palette = ['#01204E', '#028391', '#115C80', '#008081', '#479685' ];
-  
+  const handleAddNewActivity = () => {
+    setMessage('');
+    if (newActivity === '') {
+      setMessage(`Please enter a new activity you would like to track!`);
+    } else if (!activityTypes.includes(newActivity)) {
+      const capitalizedNewActivity = () =>
+        newActivity.charAt(0).toUpperCase() + newActivity.slice(1).trim();
+
+      dispatch(addNewActivityType(capitalizedNewActivity()));
+      setNewActivity('');
+    } else {
+      setMessage(`It looks like you already have a ${newActivity} journal`);
+      setNewActivity('');
+    }
+  };
+
+  const palette = ['#01204E', '#028391', '#115C80', '#008081', '#479685'];
+
   return (
     <div className='user-info-wrapper'>
-      Your last log was on {mostRecentDate} in your {mostRecentActivity} journal
-      <PieChart
-        colors={palette}
-        series={[
-          {
-            data: pieChartData(),
-          },
-        ]}
-        width={400}
-        height={200}
-      />
+      <div className='input-wrapper'>
+        <input
+          type='text'
+          name='newActivity'
+          value={newActivity}
+          onChange={(event) => setNewActivity(event.target.value)}
+          placeholder='Add a new activity'
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              handleAddNewActivity();
+            }
+          }}
+        />
+        {message !== '' && <p>{message}</p>}
+      </div>
+      <p>
+        Your last log was on <span>{mostRecentDate}</span> in your
+        <span> {mostRecentActivity}</span> journal
+      </p>
+      <div className='pie-chart'>
+        <PieChart
+          colors={palette}
+          series={[
+            {
+              data: pieChartData(),
+            },
+          ]}
+          width={400}
+          height={200}
+        />
+      </div>
     </div>
   );
 }
