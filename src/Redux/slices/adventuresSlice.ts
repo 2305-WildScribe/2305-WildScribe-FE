@@ -7,6 +7,7 @@ import {
   getAdventuresAsync,
   postAdventureAsync,
 } from './AsyncThunks';
+import { stat } from 'fs';
 
 interface AdventureState {
   adventures: Adventure[] | [];
@@ -39,6 +40,9 @@ export const adventuresSlice = createSlice({
         }
       });
       state.activityTypes = [...types];
+    },
+    addNewActivityType(state, action: PayloadAction<string>) {
+      state.activityTypes = [...state.activityTypes, action.payload];
     },
   },
   extraReducers: (builder) => {
@@ -83,6 +87,6 @@ export const adventuresSlice = createSlice({
   },
 });
 
-export const { setSingleAdventure, setActivityTypes } = adventuresSlice.actions;
+export const { setSingleAdventure, setActivityTypes, addNewActivityType } = adventuresSlice.actions;
 export const selectAdventures = (state: RootState) => state.adventures;
 export default adventuresSlice.reducer;

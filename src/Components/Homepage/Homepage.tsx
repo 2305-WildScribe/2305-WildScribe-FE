@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../Redux/hooks';
 import {
   selectAdventures,
   setActivityTypes,
+  addNewActivityType
 } from '../../Redux/slices/adventuresSlice';
 import { selectUser } from '../../Redux/slices/userSlice';
 import AdventureJournalContainer from '../AdventureJournalContainer/AdventureJournalContainer';
@@ -41,6 +42,7 @@ function Homepage(): React.ReactElement {
     if (newActivity === '') {
       setMessage(`Please enter a new activity you would like to track!`);
     } else if (!activityTypes.includes(newActivity)) {
+      dispatch(addNewActivityType(newActivity))
       // setActivityTypes([...activityTypes, newActivity]);
       setNewActivity('');
     } else {
