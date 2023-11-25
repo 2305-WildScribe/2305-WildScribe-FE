@@ -9,10 +9,10 @@ import {
 } from '../../Redux/slices/adventuresSlice';
 import { selectUser } from '../../Redux/slices/userSlice';
 import AdventureJournalContainer from '../AdventureJournalContainer/AdventureJournalContainer';
+import UserInfoContainer from '../UserInfoContainer/UserInfoContainer';
 
 function Homepage(): React.ReactElement {
   const [newActivity, setNewActivity] = useState<string>('');
-  // const [activityTypes, setActivityTypes] = useState<string[]>([]);
   const [message, setMessage] = useState<string>('');
   const dispatch = useAppDispatch();
   let activityTypes = useAppSelector(selectAdventures).activityTypes;
@@ -20,19 +20,7 @@ function Homepage(): React.ReactElement {
   let loading = useAppSelector(selectAdventures).loading;
   let username = useAppSelector(selectUser).userName;
 
-  // const filterAdventureTypes = () => {
-  //   let types: string[] = [];
-  //   adventures &&
-  //     adventures.forEach((adventure) => {
-  //       if (!types.includes(adventure.activity)) {
-  //         types.push(adventure.activity);
-  //       }
-  //     });
-  //   setActivityTypes([...types]);
-  // };
-
   useEffect(() => {
-    // filterAdventureTypes();
     dispatch(setActivityTypes(adventures));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [adventures]);
@@ -42,8 +30,10 @@ function Homepage(): React.ReactElement {
     if (newActivity === '') {
       setMessage(`Please enter a new activity you would like to track!`);
     } else if (!activityTypes.includes(newActivity)) {
-      dispatch(addNewActivityType(newActivity));
-      // setActivityTypes([...activityTypes, newActivity]);
+      const capitalizedNewActivity = () =>
+        newActivity.charAt(0).toUpperCase() + newActivity.slice(1).trim();
+
+      dispatch(addNewActivityType(capitalizedNewActivity()));
       setNewActivity('');
     } else {
       setMessage(`It looks like you already have a ${newActivity} journal`);
@@ -82,7 +72,10 @@ function Homepage(): React.ReactElement {
               </div>
             </div>
           </div>
-          <AdventureJournalContainer />
+          <div className='content-wrapper'>
+            <AdventureJournalContainer />
+            <UserInfoContainer />
+          </div>
           {activityTypes?.length === 0 && (
             <p className='welcome-message'>
               Welcome to WildScribe, an app that tracks your adventures,

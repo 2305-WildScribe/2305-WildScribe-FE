@@ -49,3 +49,9 @@
   text-align: center;
   @include amatic;
 }
+
+.content-wrapper {
+  display: flex;
+  width: 100%;
+  padding: 1rem;
+}

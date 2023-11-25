@@ -51,7 +51,8 @@ function AdventureContainer(): React.ReactElement {
   };
 
   function sortByDateAscending() {
-    return filterAdventures()?.slice()
+    return filterAdventures()
+      ?.slice()
       .sort((a, b) => {
         const dateA = new Date(a.date);
         const dateB = new Date(b.date);
@@ -98,12 +99,11 @@ function AdventureContainer(): React.ReactElement {
               Sorry, we couldn't find anything that matched. Please try again.
             </p>
           )}
-           {!sortByDateAscending()?.length && (
-        <p>{`It looks like you don't have any ${activity?.toLowerCase()} logs yet, go ahead and add a log to get started!  `}</p>
-      )}
+        {!sortByDateAscending()?.length && (
+          <p>{`It looks like you don't have any ${activity?.toLowerCase()} logs yet, go ahead and add a log to get started!  `}</p>
+        )}
         <Map />
       </div>
-     
     </>
   );
 }

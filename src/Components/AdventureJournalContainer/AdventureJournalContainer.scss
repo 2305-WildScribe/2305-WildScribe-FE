@@ -3,7 +3,7 @@
 .activity-container {
   background-color: $tan;
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   padding: 1rem;
   max-height: 85%;

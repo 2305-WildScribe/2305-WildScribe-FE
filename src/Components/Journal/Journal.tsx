@@ -35,11 +35,11 @@ function Journal({ activity }: JournalProps) {
       { date: '0' }
     );
 
-    console.log('latest', latest);
     if (latest.date === '0') {
       return 'No logs yet';
+    } else {
+      return dayjs(latest.date).format('MM-DD-YYYY');
     }
-    return dayjs(latest.date).format('MM-DD-YYYY');
   };
 
   return (
