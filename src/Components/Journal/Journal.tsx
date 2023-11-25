@@ -18,8 +18,6 @@ function Journal({ activity }: JournalProps) {
 
   let adventures = useAppSelector(selectAdventures).adventures;
 
-  console.log('activity', activity);
-
   const lastLog = () => {
     let filteredLogs = adventures.filter(
       (adventure) => adventure.activity === activity
@@ -36,6 +34,11 @@ function Journal({ activity }: JournalProps) {
       },
       { date: '0' }
     );
+
+    console.log('latest', latest);
+    if (latest.date === '0') {
+      return 'No logs yet';
+    }
     return dayjs(latest.date).format('MM-DD-YYYY');
   };
 

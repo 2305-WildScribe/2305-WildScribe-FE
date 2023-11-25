@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../Redux/hooks';
 import {
   selectAdventures,
   setActivityTypes,
-  addNewActivityType
+  addNewActivityType,
 } from '../../Redux/slices/adventuresSlice';
 import { selectUser } from '../../Redux/slices/userSlice';
 import AdventureJournalContainer from '../AdventureJournalContainer/AdventureJournalContainer';
@@ -15,7 +15,7 @@ function Homepage(): React.ReactElement {
   // const [activityTypes, setActivityTypes] = useState<string[]>([]);
   const [message, setMessage] = useState<string>('');
   const dispatch = useAppDispatch();
-  let activityTypes = useAppSelector(selectAdventures).activityTypes
+  let activityTypes = useAppSelector(selectAdventures).activityTypes;
   let adventures = useAppSelector(selectAdventures).adventures;
   let loading = useAppSelector(selectAdventures).loading;
   let username = useAppSelector(selectUser).userName;
@@ -42,7 +42,7 @@ function Homepage(): React.ReactElement {
     if (newActivity === '') {
       setMessage(`Please enter a new activity you would like to track!`);
     } else if (!activityTypes.includes(newActivity)) {
-      dispatch(addNewActivityType(newActivity))
+      dispatch(addNewActivityType(newActivity));
       // setActivityTypes([...activityTypes, newActivity]);
       setNewActivity('');
     } else {
@@ -82,7 +82,7 @@ function Homepage(): React.ReactElement {
               </div>
             </div>
           </div>
-          <AdventureJournalContainer activityTypes={activityTypes} />
+          <AdventureJournalContainer />
           {activityTypes?.length === 0 && (
             <p className='welcome-message'>
               Welcome to WildScribe, an app that tracks your adventures,
