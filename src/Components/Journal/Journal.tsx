@@ -19,14 +19,14 @@ function Journal({ activity }: JournalProps) {
   let adventures = useAppSelector(selectAdventures).adventures;
 
   const lastLog = () => {
-    let filteredLogs = adventures.filter(
+    let filteredLogs = adventures?.filter(
       (adventure) => adventure.activity === activity
     );
 
-    const latest = filteredLogs.reduce(
+    const latest = filteredLogs?.reduce(
       (accum, adventure) => {
-        const adventureDate = dayjs(adventure.date);
-        const accumDate = dayjs(accum.date);
+        const adventureDate = dayjs(adventure?.date);
+        const accumDate = dayjs(accum?.date);
         if (adventureDate.isAfter(accumDate)) {
           accum = adventure;
         }
@@ -35,17 +35,17 @@ function Journal({ activity }: JournalProps) {
       { date: '0' }
     );
 
-    if (latest.date === '0') {
+    if (latest?.date === '0') {
       return 'No logs yet';
     } else {
-      return dayjs(latest.date).format('MM-DD-YYYY');
+      return dayjs(latest?.date).format('MM-DD-YYYY');
     }
   };
 
   return (
     <div className='activity-card' onClick={() => handleJournalClick()}>
       {activity}
-      <div className='last-log'>Last log: {lastLog()}</div>
+      {adventures && <div className='last-log'>Last log: {lastLog()}</div>}
     </div>
   );
 }

@@ -61,7 +61,7 @@ export const adventuresSlice = createSlice({
       .addCase(postAdventureAsync.fulfilled, (state, action) => {
         const { newAdventure, data } = action.payload;
         newAdventure.adventure_id = data.data.attributes.adventure_id;
-        state.adventures = [...state.adventures, newAdventure];
+        state.adventures = [...(state.adventures || []), newAdventure];
       })
       .addCase(postAdventureAsync.rejected, (state, action) => {
         state.error = action.error.message;
@@ -87,6 +87,7 @@ export const adventuresSlice = createSlice({
   },
 });
 
-export const { setSingleAdventure, setActivityTypes, addNewActivityType } = adventuresSlice.actions;
+export const { setSingleAdventure, setActivityTypes, addNewActivityType } =
+  adventuresSlice.actions;
 export const selectAdventures = (state: RootState) => state.adventures;
 export default adventuresSlice.reducer;

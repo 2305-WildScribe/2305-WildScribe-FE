@@ -26,15 +26,15 @@ function UserInfoContainer() {
     return sorted[0];
   }
 
-  const mostRecent = findMostRecentLog();
+  const mostRecent = adventures && findMostRecentLog();
   const mostRecentDate = dayjs(mostRecent?.date)?.format('MM-DD-YYYY');
-  const mostRecentActivity = findMostRecentLog()?.activity;
+  const mostRecentActivity = adventures && findMostRecentLog()?.activity;
 
   const pieChartData = () => {
-    const types = activityTypes.map((type, index) => {
+    const types = activityTypes?.map((type, index) => {
       let data = { id: index, value: 0, label: '' };
       data.label += type;
-      adventures.forEach((adventure) => {
+      adventures?.forEach((adventure) => {
         if (adventure.activity === type) {
           data.value += 1;
         }
@@ -46,13 +46,18 @@ function UserInfoContainer() {
 
   const handleAddNewActivity = () => {
     setMessage('');
+    const lowercasedNewActivity = newActivity?.toLowerCase();
+
     if (newActivity === '') {
       setMessage(`Please enter a new activity you would like to track!`);
-    } else if (!activityTypes.includes(newActivity)) {
-      const capitalizedNewActivity = () =>
+    } else if (
+      !activityTypes.some(
+        (activity) => activity.toLowerCase() === lowercasedNewActivity
+      )
+    ) {
+      const capitalizedNewActivity =
         newActivity.charAt(0).toUpperCase() + newActivity.slice(1).trim();
-
-      dispatch(addNewActivityType(capitalizedNewActivity()));
+      dispatch(addNewActivityType(capitalizedNewActivity));
       setNewActivity('');
     } else {
       setMessage(`It looks like you already have a ${newActivity} journal`);
@@ -61,7 +66,6 @@ function UserInfoContainer() {
   };
 
   const palette = ['#01204E', '#028391', '#115C80', '#008081', '#479685'];
-
   return (
     <div className='user-info-wrapper'>
       <div className='input-wrapper'>
@@ -80,22 +84,28 @@ function UserInfoContainer() {
         />
         {message !== '' && <p>{message}</p>}
       </div>
-      <p>
-        Your last log was on <span>{mostRecentDate}</span> in your
-        <span> {mostRecentActivity}</span> journal
-      </p>
-      <div className='pie-chart'>
-        <PieChart
-          colors={palette}
-          series={[
-            {
-              data: pieChartData(),
-            },
-          ]}
-          width={400}
-          height={200}
-        />
-      </div>
+      {!adventures || adventures.length === 0 ? (
+        <p>Info about your logs will appear here!</p>
+      ) : (
+        <p>
+          Your last log was on <span>{mostRecentDate}</span> in your
+          <span> {mostRecentActivity}</span> journal
+        </p>
+      )}
+      {adventures !== null && (
+        <div className='pie-chart'>
+          <PieChart
+            colors={palette}
+            series={[
+              {
+                data: pieChartData(),
+              },
+            ]}
+            width={400}
+            height={200}
+          />
+        </div>
+      )}
     </div>
   );
 }
