@@ -2,7 +2,6 @@ import './Map.scss'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 
 function Map(): React.ReactElement {
-  const defaultPosition = [39.82, -98.57];
   const defaultZoomLevel = 4;
 
 

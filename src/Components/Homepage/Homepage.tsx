@@ -1,5 +1,5 @@
 import './Homepage.scss';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Loading from '../Loading/Loading';
 import { useAppDispatch, useAppSelector } from '../../Redux/hooks';
 import {

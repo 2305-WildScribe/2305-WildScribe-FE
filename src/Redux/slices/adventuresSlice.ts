@@ -7,7 +7,6 @@ import {
   getAdventuresAsync,
   postAdventureAsync,
 } from './AsyncThunks';
-import { stat } from 'fs';
 
 interface AdventureState {
   adventures: Adventure[] | [];

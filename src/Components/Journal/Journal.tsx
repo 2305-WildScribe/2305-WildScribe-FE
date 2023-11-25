@@ -1,6 +1,5 @@
 import { useAppSelector } from '../../Redux/hooks';
 import { selectAdventures } from '../../Redux/slices/adventuresSlice';
-import { Adventure } from '../../types';
 import './Journal.scss';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
