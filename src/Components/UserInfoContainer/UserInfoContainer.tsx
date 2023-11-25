@@ -92,8 +92,8 @@ function UserInfoContainer() {
           <span> {mostRecentActivity}</span> journal
         </p>
       )}
-      {adventures !== null && (
-        <div className='pie-chart'>
+      <div className='pie-chart'>
+        {adventures !== null && (
           <PieChart
             colors={palette}
             series={[
@@ -104,8 +104,8 @@ function UserInfoContainer() {
             width={400}
             height={200}
           />
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
