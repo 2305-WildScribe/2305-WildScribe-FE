@@ -1,14 +1,19 @@
 @import '../../index.scss';
 
 .activity-card {
+  display: flex;
+  flex-direction: column;
   @include center;
   border: 1px solid $brown;
   height: 5rem;
   @include sourceSans;
-  font-size: 1.5rem;
-  &:hover{
+  font-size: 2rem;
+  &:hover {
     cursor: pointer;
     box-shadow: 5px 5px 5px $brown;
     background-color: $yellow;
+  }
+  .last-log {
+    font-size: 1rem;
   }
 }

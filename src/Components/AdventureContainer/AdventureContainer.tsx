@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useAppSelector } from '../../Redux/hooks';
 import { selectAdventures } from '../../Redux/slices/adventuresSlice';
 import { useEffect, useState } from 'react';
+import Map from '../Map/Map';
 
 function AdventureContainer(): React.ReactElement {
   let adventures = useAppSelector(selectAdventures).adventures;
@@ -43,7 +44,7 @@ function AdventureContainer(): React.ReactElement {
   };
 
   const filterAdventures = () => {
-    let filtered = adventures.filter(
+    let filtered = adventures?.filter(
       (adventure) => adventure.activity === activity
     );
     return filtered;
@@ -51,7 +52,7 @@ function AdventureContainer(): React.ReactElement {
 
   function sortByDateAscending() {
     return filterAdventures()
-      .slice()
+      ?.slice()
       .sort((a, b) => {
         const dateA = new Date(a.date);
         const dateB = new Date(b.date);
@@ -63,7 +64,7 @@ function AdventureContainer(): React.ReactElement {
     navigate(`/${activity}/newLog`);
   };
 
-  const adventureCards = searchedAdventures.map((adventure) => {
+  const adventureCards = searchedAdventures?.map((adventure) => {
     return (
       <div key={adventure.adventure_id}>
         <AdventureCard adventure={adventure} />
@@ -90,15 +91,19 @@ function AdventureContainer(): React.ReactElement {
           />
         </div>
       </div>
-      {searchedAdventures.length === 0 && sortByDateAscending().length > 0 && (
-        <p className='no-results-msg'>
-          Sorry, we couldn't find anything that matched. Please try again.
-        </p>
-      )}
-      <div className='adventure-card-container'>{adventureCards}</div>
-      {!sortByDateAscending().length && (
-        <p>{`It looks like you don't have any ${activity?.toLowerCase()} logs yet, go ahead and add a log to get started!  `}</p>
-      )}
+      <div className='map-card-wrapper'>
+        <div className='adventure-card-container'>{adventureCards}</div>
+        {searchedAdventures?.length === 0 &&
+          sortByDateAscending()?.length > 0 && (
+            <p className='no-results-msg'>
+              Sorry, we couldn't find anything that matched. Please try again.
+            </p>
+          )}
+        {!sortByDateAscending()?.length && (
+          <p>{`It looks like you don't have any ${activity?.toLowerCase()} logs yet, go ahead and add a log to get started!  `}</p>
+        )}
+        <Map />
+      </div>
     </>
   );
 }
