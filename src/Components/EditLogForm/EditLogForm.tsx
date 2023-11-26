@@ -80,7 +80,7 @@ function EditLogForm(): React.ReactElement {
     };
     dispatch(editAdventureAsync(updatedLog));
     dispatch(setSingleAdventure(undefined));
-    navigate('/home');
+    navigate(`/${updatedActivity}`);
   };
 
   return (
