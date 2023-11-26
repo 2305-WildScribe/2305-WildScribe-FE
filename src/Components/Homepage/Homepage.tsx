@@ -43,7 +43,7 @@ function Homepage(): React.ReactElement {
               <p className='welcome-message'>
                 Welcome to WildScribe, an app that tracks your activities,
                 training, beta, etc. so you don't have to. To get started,
-                create an activity journal!
+                create your first activity journal!
               </p>
             ) : (
               <AdventureJournalContainer />

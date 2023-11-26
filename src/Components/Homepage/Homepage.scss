@@ -9,6 +9,7 @@
   align-items: center;
   justify-content: space-between;
   .username {
+    margin-left: 1rem;
     font-size: 1.25rem;
     @include sourceSans;
   }
