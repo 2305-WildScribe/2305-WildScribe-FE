@@ -46,12 +46,12 @@ function AdventureCard({ adventure }: AdventureCardProps): React.ReactElement {
         <div className='card-text-wrapper'>
           <div className='top-line-info'>
             <div className='top-line-text'>
-              {activity && (
+              {/* {activity && (
                 <p>
                   <span>Activity Type: </span>
                   {activity}
                 </p>
-              )}
+              )} */}
               {date && (
                 <p>
                   <span>Date: </span>

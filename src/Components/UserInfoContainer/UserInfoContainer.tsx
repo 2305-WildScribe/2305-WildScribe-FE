@@ -81,7 +81,8 @@ function UserInfoContainer() {
               handleAddNewActivity();
             }
           }}
-        />
+        /> 
+        <button onClick={() => handleAddNewActivity()}>Add</button>
         {message !== '' && <p>{message}</p>}
       </div>
       {!adventures || adventures.length === 0 ? (
