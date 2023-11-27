@@ -80,7 +80,7 @@ function AdventureContainer(): React.ReactElement {
   return (
     <>
       {viewStats ? (
-        <StatsPage setViewStats={setViewStats}/>
+        <StatsPage setViewStats={setViewStats} activity={activity}/>
       ) : (
         <>
           <div className='search-bar-wrapper'>
