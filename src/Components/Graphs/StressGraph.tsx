@@ -20,7 +20,7 @@ function StressGraph({ filteredAdventures }: StressGraphProps) {
   ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
   let stressAsNumericalData: { [key: string]: number } = {
-    'No Stress': 1,
+    'None': 1,
     Low: 2,
     Moderate: 3,
     High: 4,
@@ -39,8 +39,10 @@ function StressGraph({ filteredAdventures }: StressGraphProps) {
     datasets: [
       {
         label: 'Stress Level',
-        data: data.map((object) => object.stress),
-        backgroundColor: 'purple',
+        data: data.map((object) => {
+          return object.stress;
+        }),
+        backgroundColor: '#115C80',
       },
     ],
   };
@@ -51,7 +53,7 @@ function StressGraph({ filteredAdventures }: StressGraphProps) {
         ticks: {
           callback: (value: string | number) => {
             const stressValueToString: { [key: string]: string } = {
-              '1': 'No Stress',
+              '1': 'None',
               '2': 'Low',
               '3': 'Moderate',
               '4': 'High',
@@ -75,7 +77,7 @@ function StressGraph({ filteredAdventures }: StressGraphProps) {
         callbacks: {
           label: (context: any) => {
             const stressValueToString: { [key: string]: string } = {
-              '1': 'No Stress',
+              '1': 'None',
               '2': 'Low',
               '3': 'Moderate',
               '4': 'High',

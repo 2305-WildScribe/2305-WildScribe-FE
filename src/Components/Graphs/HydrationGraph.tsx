@@ -39,7 +39,7 @@ function HydrationGraph({ filteredAdventures }: HydrationGraphProps) {
       {
         label: 'Hydration',
         data: hydrationData.map((object) => object.hydration),
-        backgroundColor: 'blue',
+        backgroundColor: '#01204E',
       },
     ],
   };

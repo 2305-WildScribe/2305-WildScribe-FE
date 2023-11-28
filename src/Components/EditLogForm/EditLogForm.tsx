@@ -130,7 +130,7 @@ function EditLogForm(): React.ReactElement {
           onChange={event => setUpdatedStressLevel(event.target.value)}
         >
           <option value=''>Stress Level:</option>
-          <option value='Min'>No stress</option>
+          <option value='None'>None</option>
           <option value='Low'>Low</option>
           <option value='Moderate'>Moderate</option>
           <option value='High'>High</option>

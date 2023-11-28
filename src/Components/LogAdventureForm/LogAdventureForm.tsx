@@ -73,23 +73,23 @@ function LogAdventureForm(): React.ReactElement {
       <form className='form'>
         <div className='top-line-wrapper'>
           <div className='top-line-data'>
-          <p>Activity: {activity}</p>
-          <label htmlFor='date-input'>Date:</label>
-          <input
-            type='date'
-            name='date'
-            value={date || ''}
-            onChange={handleDateChange}
-            max={new Date().toISOString().split('T')[0]}
-          />
-          <label htmlFor='image'>Add Image:</label>
-          <input
-            type='text'
-            name='image'
-            value={image_url}
-            onChange={(event) => setImage(event.target.value)}
-            placeholder='Enter the image URL'
-          />
+            <p>Activity: {activity}</p>
+            <label htmlFor='date-input'>Date:</label>
+            <input
+              type='date'
+              name='date'
+              value={date || ''}
+              onChange={handleDateChange}
+              max={new Date().toISOString().split('T')[0]}
+            />
+            <label htmlFor='image'>Add Image:</label>
+            <input
+              type='text'
+              name='image'
+              value={image_url}
+              onChange={(event) => setImage(event.target.value)}
+              placeholder='Enter the image URL'
+            />
           </div>
           <div className='form-btn-wrapper'>
             {userMsg !== '' && <p>{userMsg}</p>}
@@ -111,7 +111,7 @@ function LogAdventureForm(): React.ReactElement {
             onChange={(event) => setStressLevel(event.target.value)}
           >
             <option value=''>Stress Level:</option>
-            <option value='Min'>No stress</option>
+            <option value='None'>None</option>
             <option value='Low'>Low</option>
             <option value='Moderate'>Moderate</option>
             <option value='High'>High</option>

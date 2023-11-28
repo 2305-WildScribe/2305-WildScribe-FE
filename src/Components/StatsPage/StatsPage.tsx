@@ -19,7 +19,7 @@ function StatsPage({ setViewStats, activity }: StatsPageProps) {
   let sortedByDate = adventures?.slice().sort((a, b) => {
     const dateA = new Date(a.date);
     const dateB = new Date(b.date);
-    return dateB.getTime() - dateA.getTime();
+    return dateA.getTime() - dateB.getTime();
   });
 
   const filteredAdventures = sortedByDate?.filter(
@@ -28,7 +28,11 @@ function StatsPage({ setViewStats, activity }: StatsPageProps) {
 
   return (
     <div className='stats-wrapper'>
-      <button onClick={() => handleStatsClick()}>Back</button>
+      <div className='back-btn-wrapper'>
+        <button className='back-button' onClick={() => handleStatsClick()}>
+          Back
+        </button>
+      </div>
       <div className='graph-wrapper'>
         <HydrationGraph filteredAdventures={filteredAdventures} />
         <StressGraph filteredAdventures={filteredAdventures} />

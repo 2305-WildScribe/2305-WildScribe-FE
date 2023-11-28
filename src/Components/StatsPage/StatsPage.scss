@@ -8,7 +8,20 @@
   overflow-y: scroll;
 }
 
+.back-btn-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  
+  button {
+    height: 2rem;
+    width: 4rem;
+    font-size: 1rem;
+    @include btn;
+  }
+}
+
 .graph-wrapper {
   @include center;
   flex-direction: column;
+  overflow-y: scroll;
 }
