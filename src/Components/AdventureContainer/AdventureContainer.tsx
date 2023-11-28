@@ -66,7 +66,7 @@ function AdventureContainer(): React.ReactElement {
   };
 
   const handleViewStats = () => {
-    setViewStats(true)
+    setViewStats(true);
   };
 
   const adventureCards = searchedAdventures?.map((adventure) => {
@@ -80,14 +80,10 @@ function AdventureContainer(): React.ReactElement {
   return (
     <>
       {viewStats ? (
-        <StatsPage setViewStats={setViewStats} activity={activity}/>
+        <StatsPage setViewStats={setViewStats} activity={activity} />
       ) : (
         <>
           <div className='search-bar-wrapper'>
-            <button className='new-adventure-btn' onClick={handleNewLog}>
-              Add Log
-            </button>
-            <button onClick={handleViewStats}>View stats</button>
             <div className='search-bar'>
               <input
                 className='search-input'
@@ -99,7 +95,14 @@ function AdventureContainer(): React.ReactElement {
                   handleSearch(e.target.value);
                 }}
               />
+              <button className='new-adventure-btn' onClick={handleNewLog}>
+                {`Add ${activity} Log`}
+              </button>
             </div>
+            <button className='view-stats-btn' onClick={handleViewStats}>
+              {' '}
+              {`View ${activity} Stats`}
+            </button>
           </div>
           <div className='map-card-wrapper'>
             <div className='adventure-card-container'>{adventureCards}</div>

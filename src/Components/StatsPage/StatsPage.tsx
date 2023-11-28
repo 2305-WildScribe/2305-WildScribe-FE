@@ -1,6 +1,7 @@
 import { useAppSelector } from '../../Redux/hooks';
 import { selectAdventures } from '../../Redux/slices/adventuresSlice';
 import HydrationGraph from '../Graphs/HydrationGraph';
+import SleepGraph from '../Graphs/SleepGraph';
 import StressGraph from '../Graphs/StressGraph';
 import './StatsPage.scss';
 
@@ -34,8 +35,12 @@ function StatsPage({ setViewStats, activity }: StatsPageProps) {
         </button>
       </div>
       <div className='graph-wrapper'>
+      <label>Hydration levels</label>
         <HydrationGraph filteredAdventures={filteredAdventures} />
+        <label>Stress levels</label>
         <StressGraph filteredAdventures={filteredAdventures} />
+        <label> Hours slept / night</label>
+        <SleepGraph filteredAdventures={filteredAdventures} />
       </div>
     </div>
   );

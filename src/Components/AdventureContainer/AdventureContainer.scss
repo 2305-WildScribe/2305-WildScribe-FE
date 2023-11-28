@@ -1,36 +1,35 @@
 @import '../../index.scss';
 
-.search-bar-wrapper{
-  width: 90%;
+.search-bar-wrapper {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 2rem;
-  padding: 1rem;
+  height: 2.5rem;
+  padding-top: 1rem;
 }
 
 .search-bar {
-  height: 2rem;
-  .username{
+  .username {
     @include sourceSans;
+  }
+  input {
+    height: 2rem;
+    margin-left: 1rem;
   }
 }
 
-.new-adventure-btn{
+.view-stats-btn,
+.new-adventure-btn {
   @include btn;
-  height: 100%;
+  height: 2.3rem;
   font-size: 1rem;
-}
-
-.search-input {
-  height: 100%;
-  margin-right: 0px;
+  margin-right: 1rem;
 }
 
 .adventure-card-container {
   background-color: $tan;
   display: grid;
-  // grid-template-columns: 1fr;
   grid-column: span 1 / 3;
 
   grid-auto-rows: min-content max-content auto;
@@ -46,7 +45,7 @@
   display: none;
 }
 
-.map-card-wrapper{
+.map-card-wrapper {
   padding: 1rem;
   height: 100%;
   display: flex;
