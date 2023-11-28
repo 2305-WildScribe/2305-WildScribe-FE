@@ -1,5 +1,14 @@
+@import '../../index.scss';
 
-
-.stats-wrapper{
+.stats-wrapper {
+  padding: 1rem;
+  height: 100%;
+  width: 70%;
+  padding: 1rem;
   overflow-y: scroll;
+}
+
+.graph-wrapper {
+  @include center;
+  flex-direction: column;
 }

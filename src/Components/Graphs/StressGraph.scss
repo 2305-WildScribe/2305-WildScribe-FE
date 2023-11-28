@@ -1,4 +1,6 @@
-.hydro-graph {
+@import '../../index.scss';
+
+.stress-graph{
   margin: 2rem;
   canvas {
     height: 400px;

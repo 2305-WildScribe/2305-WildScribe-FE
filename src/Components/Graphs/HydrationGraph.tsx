@@ -1,4 +1,4 @@
-import 'HydrationGraph.scss'
+import './HydrationGraph.scss';
 
 import {
   Chart as ChartJS,
@@ -32,7 +32,7 @@ function HydrationGraph({ filteredAdventures }: HydrationGraphProps) {
       date: adventure.date,
     };
   });
-  
+
   let data = {
     labels: hydrationData.map((object) => object.date),
     datasets: [
@@ -59,18 +59,43 @@ function HydrationGraph({ filteredAdventures }: HydrationGraphProps) {
           },
         },
         grid: {
-          display: false, 
+          display: false,
         },
       },
       x: {
         grid: {
-          display: false, 
+          display: false,
+        },
+      },
+    },
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: (context: any) => {
+            const hydratedValueToString: { [key: string]: string } = {
+              '1': 'Dehydrated',
+              '2': 'Somewhat Hydrated',
+              '3': 'Hydrated',
+              '4': 'Very Hydrated',
+            };
+
+            const numericValue = context.parsed.y;
+
+            const stringValue = hydratedValueToString[String(numericValue)];
+
+            return `${stringValue}`;
+          },
         },
       },
     },
   };
 
-  return <Bar data={data} options={hydrationOptions}></Bar>;
+  return (
+    <div className='hydro-graph'>
+      {' '}
+      <Bar data={data} options={hydrationOptions}></Bar>
+    </div>
+  );
 }
 
 export default HydrationGraph;
