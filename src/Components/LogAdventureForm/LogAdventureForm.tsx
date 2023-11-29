@@ -19,7 +19,7 @@ function LogAdventureForm(): React.ReactElement {
   const [image_url, setImage] = useState<string>('');
   const [stress_level, setStressLevel] = useState<string>('');
   const [hydration, setHydration] = useState<string>('');
-  const [diet, setDiet] = useState<string>('');
+  const [diet, setDiet] = useState<number>(0);
   const [extraSleepNotes, setExtraSleepNotes] = useState<string>('');
   const [extraDietNotes, setExtraDietNotes] = useState<string>('');
   const [sleep, setSleep] = useState<number>(0);
@@ -101,9 +101,9 @@ function LogAdventureForm(): React.ReactElement {
             </button>
           </div>
         </div>
-        <p className='user-prompt'>
+        {/* <p className='user-prompt'>
           Over the last 48 hours, how would you describe the following:
-        </p>
+        </p> */}
         <div className='second-line-components'>
           <select
             name='stressLevel'
@@ -128,7 +128,7 @@ function LogAdventureForm(): React.ReactElement {
             <option value='Hydrated'>Hydrated</option>
             <option value='Very Hydrated'>Very Hydrated</option>
           </select>
-          <select
+          {/* <select
             name='diet'
             value={diet}
             onChange={(event) => setDiet(event.target.value)}
@@ -137,7 +137,22 @@ function LogAdventureForm(): React.ReactElement {
             <option value='Poor'>Poor</option>
             <option value='Average'>Average</option>
             <option value='Good'>Good</option>
-          </select>
+          </select> */}
+          <label htmlFor='diet-input'>Calories:</label>
+
+          <input
+            type='number'
+            name='diet'
+            value={diet}
+            onChange={(event) => {
+              const inputValue = Number(event.target.value);
+              if (inputValue >= 0) {
+                setDiet(inputValue);
+              }
+            }}
+            min='0'
+          />
+
           <div>
             <label htmlFor='sleep-input'>Hours slept / night:</label>
             <input

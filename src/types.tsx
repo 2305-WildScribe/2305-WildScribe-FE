@@ -8,7 +8,7 @@ export interface Adventure {
   hours_slept: number;
   sleep_stress_notes: string;
   hydration: string;
-  diet: string;
+  diet: number;
   diet_hydration_notes: string;
   beta_notes: string;
 }

@@ -16,7 +16,7 @@ interface HydrationGraphProps {
   filteredAdventures: Adventure[];
 }
 
-function HydrationGraph({ filteredAdventures }: HydrationGraphProps) {
+function HydrationGraph({ filteredAdventures }: HydrationGraphProps): React.ReactElement  {
   ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
   let hydrationAsNumericalData: { [key: string]: number } = {
@@ -34,6 +34,7 @@ function HydrationGraph({ filteredAdventures }: HydrationGraphProps) {
   });
 
   let data = {
+    label: '',
     labels: hydrationData.map((object) => object.date),
     datasets: [
       {
@@ -47,6 +48,7 @@ function HydrationGraph({ filteredAdventures }: HydrationGraphProps) {
     scales: {
       y: {
         ticks: {
+          color: 'black',
           callback: (value: string | number) => {
             const hydratedValueToString: { [key: string]: string } = {
               '1': 'Dehydrated',
@@ -62,12 +64,18 @@ function HydrationGraph({ filteredAdventures }: HydrationGraphProps) {
         },
       },
       x: {
+        ticks: {
+          color: 'black', 
+        },
         grid: {
           display: false,
         },
       },
     },
     plugins: {
+        legend: {
+          display: false,
+        },
       tooltip: {
         callbacks: {
           label: (context: any) => {

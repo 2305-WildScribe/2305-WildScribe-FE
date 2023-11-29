@@ -14,7 +14,7 @@ interface SleepGraphProps {
   filteredAdventures: Adventure[];
 }
 
-function SleepGraph({ filteredAdventures }: SleepGraphProps) {
+function SleepGraph({ filteredAdventures }: SleepGraphProps): React.ReactElement  {
   ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 
   let data = filteredAdventures.map((adventure) => {
@@ -60,7 +60,6 @@ function SleepGraph({ filteredAdventures }: SleepGraphProps) {
       },
     },
   };
-  
 
   return (
     <div className='sleep-graph'>

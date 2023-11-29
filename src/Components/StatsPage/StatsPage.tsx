@@ -10,7 +10,7 @@ interface StatsPageProps {
   activity: string | undefined;
 }
 
-function StatsPage({ setViewStats, activity }: StatsPageProps) {
+function StatsPage({ setViewStats, activity }: StatsPageProps): React.ReactElement  {
   let adventures = useAppSelector(selectAdventures).adventures;
 
   const handleStatsClick = () => {

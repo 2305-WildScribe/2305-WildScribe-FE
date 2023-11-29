@@ -16,11 +16,13 @@ interface StressGraphProps {
   filteredAdventures: Adventure[];
 }
 
-function StressGraph({ filteredAdventures }: StressGraphProps) {
+function StressGraph({
+  filteredAdventures,
+}: StressGraphProps): React.ReactElement {
   ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
   let stressAsNumericalData: { [key: string]: number } = {
-    'None': 1,
+    None: 1,
     Low: 2,
     Moderate: 3,
     High: 4,
@@ -51,6 +53,7 @@ function StressGraph({ filteredAdventures }: StressGraphProps) {
     scales: {
       y: {
         ticks: {
+          color: 'black',
           callback: (value: string | number) => {
             const stressValueToString: { [key: string]: string } = {
               '1': 'None',
@@ -67,12 +70,18 @@ function StressGraph({ filteredAdventures }: StressGraphProps) {
         },
       },
       x: {
+        ticks: {
+          color: 'black',
+        },
         grid: {
           display: false,
         },
       },
     },
     plugins: {
+        legend: {
+          display: false,
+        },
       tooltip: {
         callbacks: {
           label: (context: any) => {

@@ -85,7 +85,7 @@ function AdventureCard({ adventure }: AdventureCardProps): React.ReactElement {
             )}
             {diet && (
               <p>
-                <span>Diet: </span>
+                <span>Calories: </span>
                 {diet}
               </p>
             )}
@@ -97,7 +97,7 @@ function AdventureCard({ adventure }: AdventureCardProps): React.ReactElement {
             )}
             {hours_slept > 0 && (
               <p>
-                <span>Hours slept: </span>
+                <span>Hours Slept: </span>
                 {hours_slept}
               </p>
             )}
