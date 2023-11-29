@@ -9,7 +9,7 @@ import {
 import { selectUser, toggleIsLoggedIn } from '../../Redux/slices/userSlice';
 
 function LoginPage(): React.ReactElement {
-  const [userEmail, setUserEmail] = useState<string>('me@gmail.com');
+  const [userEmail, setUserEmail] = useState<string>('billy@gmail.com');
   const [userPassword, setUserPassword] = useState<string>('hi');
   const navigate = useNavigate();
 

@@ -70,6 +70,7 @@ function AdventureContainer(): React.ReactElement {
   };
 
   const adventureCards = searchedAdventures?.map((adventure) => {
+      console.log('adventure id here',adventure.adventure_id)
     return (
       <div key={adventure.adventure_id}>
         <AdventureCard adventure={adventure} />
