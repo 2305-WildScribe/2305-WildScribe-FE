@@ -90,7 +90,7 @@ function AdventureContainer(): React.ReactElement {
               </button>
             <button className='view-stats-btn' onClick={handleViewStats}>
               {' '}
-              {`View ${activity} Stats`}
+              {`View Stats`}
             </button>
               <input
                 className='search-input'
@@ -115,7 +115,9 @@ function AdventureContainer(): React.ReactElement {
             {!sortByDateAscending()?.length && (
               <p>{`It looks like you don't have any ${activity?.toLowerCase()} logs yet, go ahead and add a log to get started!  `}</p>
             )}
+            {/* <div className='map-container'> */}
             <Map />
+            {/* </div> */}
           </div>
         </>
       )}

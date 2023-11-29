@@ -29,8 +29,6 @@
 .adventure-card-container {
   background-color: $tan;
   display: grid;
-  grid-column: span 1 / 3;
-
   grid-auto-rows: min-content max-content auto;
   gap: 1rem;
   padding-right: 1rem;

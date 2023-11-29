@@ -46,12 +46,6 @@ function AdventureCard({ adventure }: AdventureCardProps): React.ReactElement {
         <div className='card-text-wrapper'>
           <div className='top-line-info'>
             <div className='top-line-text'>
-              {/* {activity && (
-                <p>
-                  <span>Activity Type: </span>
-                  {activity}
-                </p>
-              )} */}
               {date && (
                 <p>
                   <span>Date: </span>
@@ -102,21 +96,10 @@ function AdventureCard({ adventure }: AdventureCardProps): React.ReactElement {
               </p>
             )}
           </div>
-          {diet_hydration_notes && (
-            <p>
-              <span>Diet Notes: </span>
-              {diet_hydration_notes}
-            </p>
-          )}
-          {sleep_stress_notes && (
-            <p>
-              <span>Stress Notes: </span>
-              {sleep_stress_notes}
-            </p>
-          )}
+          {/*   */}
           {beta_notes && (
             <p>
-              <span>Activity Notes: </span>
+              <span>Notes: </span>
               {beta_notes}
             </p>
           )}
