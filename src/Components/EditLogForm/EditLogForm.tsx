@@ -49,6 +49,13 @@ function EditLogForm(): React.ReactElement {
     singleAdventure ? singleAdventure.hours_slept : 0
   );
 
+  const [updatedLat, setUpdatedLat] = useState<number | null>(
+    singleAdventure ? singleAdventure.lat : 0
+  );
+
+  const [updatedLong, setUpdatedLong] = useState<number | null>(
+    singleAdventure ? singleAdventure.lon : 0
+  );
   const handleDateChange = (event: ChangeEvent<HTMLInputElement>) => {
     const originalDate: string = event.target.value;
     setUpdatedDate(originalDate);
@@ -77,6 +84,8 @@ function EditLogForm(): React.ReactElement {
       sleep_stress_notes: updatedExtraSleepNotes || '',
       hydration: updatedHydration || '',
       diet: updatedDiet || 0,
+      lat: updatedLat || null,
+      lon: updatedLong || null,
       diet_hydration_notes: updatedExtraDietNotes || '',
       beta_notes: updatedBetaNotes || '',
     };
@@ -149,17 +158,6 @@ function EditLogForm(): React.ReactElement {
           <option value='Hydrated'>Hydrated</option>
           <option value='Very Hydrated'>Very Hydrated</option>
         </select>
-
-        {/* <select
-          name='diet'
-          value={updatedDiet}
-          onChange={event => setUpdatedDiet(event.target.value)}
-        >
-          <option value=''>Overall Diet:</option>
-          <option value='Poor'>Poor</option>
-          <option value='Average'>Average</option>
-          <option value='Good'>Good</option>
-        </select> */}
         <label htmlFor='diet-input'>Calories:</label>
         <input
           type='number'

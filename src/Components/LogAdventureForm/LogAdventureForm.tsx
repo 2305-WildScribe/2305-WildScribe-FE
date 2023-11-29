@@ -24,6 +24,8 @@ function LogAdventureForm(): React.ReactElement {
   const [extraDietNotes, setExtraDietNotes] = useState<string>('');
   const [sleep, setSleep] = useState<number>(0);
   const [userMsg, setUserMsg] = useState<string>('');
+  const [lat, setLat] = useState<number | null>(null);
+  const [long, setLong] = useState<number| null>(null);
 
   const navigate = useNavigate();
 
@@ -51,6 +53,8 @@ function LogAdventureForm(): React.ReactElement {
         stress_level,
         hydration,
         diet,
+        lat,
+        lon: long,
         hours_slept: sleep,
         diet_hydration_notes: extraDietNotes,
         sleep_stress_notes: extraSleepNotes,
@@ -128,18 +132,7 @@ function LogAdventureForm(): React.ReactElement {
             <option value='Hydrated'>Hydrated</option>
             <option value='Very Hydrated'>Very Hydrated</option>
           </select>
-          {/* <select
-            name='diet'
-            value={diet}
-            onChange={(event) => setDiet(event.target.value)}
-          >
-            <option value=''>Overall Diet:</option>
-            <option value='Poor'>Poor</option>
-            <option value='Average'>Average</option>
-            <option value='Good'>Good</option>
-          </select> */}
           <label htmlFor='diet-input'>Calories:</label>
-
           <input
             type='number'
             name='diet'
