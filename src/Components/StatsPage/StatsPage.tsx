@@ -1,5 +1,6 @@
 import { useAppSelector } from '../../Redux/hooks';
 import { selectAdventures } from '../../Redux/slices/adventuresSlice';
+import CalorieGraph from '../Graphs/CalorieGraph';
 import HydrationGraph from '../Graphs/HydrationGraph';
 import SleepGraph from '../Graphs/SleepGraph';
 import StressGraph from '../Graphs/StressGraph';
@@ -39,8 +40,11 @@ function StatsPage({ setViewStats, activity }: StatsPageProps): React.ReactEleme
         <HydrationGraph filteredAdventures={filteredAdventures} />
         <label>Stress levels</label>
         <StressGraph filteredAdventures={filteredAdventures} />
-        <label> Hours slept / night</label>
+        <label>Hours slept / night</label>
         <SleepGraph filteredAdventures={filteredAdventures} />
+        <label>Calories</label>
+        <CalorieGraph filteredAdventures={filteredAdventures} />
+
       </div>
     </div>
   );
