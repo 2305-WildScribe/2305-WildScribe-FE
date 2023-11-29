@@ -7,6 +7,9 @@
   flex-direction: column;
   justify-content: space-evenly;
   width: 90%;
+  @include sourceSans;
+  font-size: 1.25rem;
+
 }
 
 label {
@@ -75,4 +78,8 @@ textarea {
   p {
     margin-right: 1rem;
   }
+}
+
+.coordinate-wrapper{
+  display: flex;
 }

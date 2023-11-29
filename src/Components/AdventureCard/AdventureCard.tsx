@@ -89,7 +89,7 @@ function AdventureCard({ adventure }: AdventureCardProps): React.ReactElement {
                 {stress_level}
               </p>
             )}
-            {hours_slept > 0 && (
+            {hours_slept && hours_slept > 0 && (
               <p>
                 <span>Hours Slept: </span>
                 {hours_slept}

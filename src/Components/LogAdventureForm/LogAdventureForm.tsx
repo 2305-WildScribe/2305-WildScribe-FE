@@ -19,13 +19,13 @@ function LogAdventureForm(): React.ReactElement {
   const [image_url, setImage] = useState<string>('');
   const [stress_level, setStressLevel] = useState<string>('');
   const [hydration, setHydration] = useState<string>('');
-  const [diet, setDiet] = useState<number>(0);
+  const [diet, setDiet] = useState<number | undefined>(undefined);
   const [extraSleepNotes, setExtraSleepNotes] = useState<string>('');
   const [extraDietNotes, setExtraDietNotes] = useState<string>('');
-  const [sleep, setSleep] = useState<number>(0);
+  const [sleep, setSleep] = useState<number | undefined>(undefined);
   const [userMsg, setUserMsg] = useState<string>('');
-  const [lat, setLat] = useState<number | null>(null);
-  const [long, setLong] = useState<number| null>(null);
+  const [lat, setLat] = useState<number | undefined>(undefined);
+  const [long, setLong] = useState<number | undefined>(undefined);
 
   const navigate = useNavigate();
 
@@ -77,7 +77,9 @@ function LogAdventureForm(): React.ReactElement {
       <form className='form'>
         <div className='top-line-wrapper'>
           <div className='top-line-data'>
-            <p>Activity: {activity}</p>
+            <p>
+              Activity: <span>{activity}</span>
+            </p>
             <label htmlFor='date-input'>Date:</label>
             <input
               type='date'
@@ -109,43 +111,51 @@ function LogAdventureForm(): React.ReactElement {
           Over the last 48 hours, how would you describe the following:
         </p> */}
         <div className='second-line-components'>
-          <select
-            name='stressLevel'
-            value={stress_level}
-            onChange={(event) => setStressLevel(event.target.value)}
-          >
-            <option value=''>Stress Level:</option>
-            <option value='None'>None</option>
-            <option value='Low'>Low</option>
-            <option value='Moderate'>Moderate</option>
-            <option value='High'>High</option>
-            <option value='Max'>Max</option>
-          </select>
-          <select
-            name='hydration'
-            value={hydration}
-            onChange={(event) => setHydration(event.target.value)}
-          >
-            <option value=''>Hydration Level:</option>
-            <option value='Dehydrated'>Dehydrated</option>
-            <option value='Somewhat Hydrated'>Somewhat Hydrated</option>
-            <option value='Hydrated'>Hydrated</option>
-            <option value='Very Hydrated'>Very Hydrated</option>
-          </select>
-          <label htmlFor='diet-input'>Calories:</label>
-          <input
-            type='number'
-            name='diet'
-            value={diet}
-            onChange={(event) => {
-              const inputValue = Number(event.target.value);
-              if (inputValue >= 0) {
-                setDiet(inputValue);
-              }
-            }}
-            min='0'
-          />
+          <div>
+            <label htmlFor='stress-input'>Stress Level:</label>
 
+            <select
+              name='stressLevel'
+              value={stress_level}
+              onChange={(event) => setStressLevel(event.target.value)}
+            >
+              <option value=''>Select one:</option>
+              <option value='None'>None</option>
+              <option value='Low'>Low</option>
+              <option value='Moderate'>Moderate</option>
+              <option value='High'>High</option>
+              <option value='Max'>Max</option>
+            </select>
+          </div>
+          <div>
+            <label htmlFor='hydration-input'>Hydration Level:</label>
+            <select
+              name='hydration'
+              value={hydration}
+              onChange={(event) => setHydration(event.target.value)}
+            >
+              <option value=''>Select one:</option>
+              <option value='Dehydrated'>Dehydrated</option>
+              <option value='Somewhat Hydrated'>Somewhat Hydrated</option>
+              <option value='Hydrated'>Hydrated</option>
+              <option value='Very Hydrated'>Very Hydrated</option>
+            </select>
+          </div>
+          <div>
+            <label htmlFor='diet-input'>Calories:</label>
+            <input
+              type='number'
+              name='diet'
+              value={diet}
+              onChange={(event) => {
+                const inputValue = Number(event.target.value);
+                if (inputValue >= 0) {
+                  setDiet(inputValue);
+                }
+              }}
+              min='0'
+            />
+          </div>
           <div>
             <label htmlFor='sleep-input'>Hours slept / night:</label>
             <input
@@ -162,23 +172,54 @@ function LogAdventureForm(): React.ReactElement {
             />
           </div>
         </div>
-        <textarea
+        <div className='coordinate-wrapper'>
+          <div>
+            <label htmlFor='lat-input'>Latitude:</label>
+            <input
+              type='number'
+              name='latitude'
+              value={lat}
+              onChange={(event) => {
+                const inputValue = Number(event.target.value);
+                if (inputValue >= 0) {
+                  setLat(inputValue);
+                }
+              }}
+            />
+          </div>
+          <div>
+            <label htmlFor='long-input'>Longitude:</label>
+            <input
+              type='number'
+              name='longitude'
+              value={long}
+              onChange={(event) => {
+                const inputValue = Number(event.target.value);
+                if (inputValue >= 0) {
+                  setLong(inputValue);
+                }
+              }}
+              min='0'
+            />
+          </div>
+        </div>
+        {/* <textarea
           className='sleep-notes-input'
           placeholder='Add any extra notes on sleep or stress'
           name='notes'
           value={extraSleepNotes}
           onChange={(event) => setExtraSleepNotes(event.target.value)}
-        />
-        <textarea
+        /> */}
+        {/* <textarea
           className='hydro-notes-input'
           placeholder='Add any extra notes on diet or hydration'
           name='notes'
           value={extraDietNotes}
           onChange={(event) => setExtraDietNotes(event.target.value)}
-        />
+        /> */}
         <textarea
           className='notes-input'
-          placeholder='Add any extra notes on any beta '
+          placeholder='Notes on activity, diet, beta, etc.'
           name='notes'
           value={betaNotes}
           onChange={(event) => setBetaNotes(event.target.value)}

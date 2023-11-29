@@ -5,12 +5,12 @@ export interface Adventure {
   date: string;
   image_url: string;
   stress_level: string;
-  hours_slept: number;
+  hours_slept: number | undefined;
   sleep_stress_notes: string;
   hydration: string;
-  lat: number | null;
-  lon: number | null;
-  diet: number;
+  lat: number | undefined;
+  lon: number | undefined;
+  diet: number | undefined;
   diet_hydration_notes: string;
   beta_notes: string;
 }

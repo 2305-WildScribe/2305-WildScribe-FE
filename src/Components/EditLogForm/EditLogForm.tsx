@@ -36,8 +36,8 @@ function EditLogForm(): React.ReactElement {
   const [updatedHydration, setUpdatedHydration] = useState<string>(
     singleAdventure ? singleAdventure.hydration : ''
   );
-  const [updatedDiet, setUpdatedDiet] = useState<number>(
-    singleAdventure ? singleAdventure.diet : 0
+  const [updatedDiet, setUpdatedDiet] = useState <number | undefined>(
+    singleAdventure ? singleAdventure.diet : undefined
   );
   const [updatedExtraSleepNotes, setUpdatedExtraSleepNotes] = useState<string>(
     singleAdventure ? singleAdventure.sleep_stress_notes : ''
@@ -45,16 +45,16 @@ function EditLogForm(): React.ReactElement {
   const [updatedExtraDietNotes, setUpdatedExtraDietNotes] = useState<string>(
     singleAdventure ? singleAdventure.diet_hydration_notes : ''
   );
-  const [updatedSleep, setUpdatedSleep] = useState<number>(
-    singleAdventure ? singleAdventure.hours_slept : 0
+  const [updatedSleep, setUpdatedSleep] = useState<number | undefined>(
+    singleAdventure ? singleAdventure.hours_slept : undefined
   );
 
-  const [updatedLat, setUpdatedLat] = useState<number | null>(
-    singleAdventure ? singleAdventure.lat : 0
+  const [updatedLat, setUpdatedLat] = useState<number | undefined>(
+    singleAdventure ? singleAdventure.lat : undefined
   );
 
-  const [updatedLong, setUpdatedLong] = useState<number | null>(
-    singleAdventure ? singleAdventure.lon : 0
+  const [updatedLong, setUpdatedLong] = useState<number | undefined>(
+    singleAdventure ? singleAdventure.lon : undefined
   );
   const handleDateChange = (event: ChangeEvent<HTMLInputElement>) => {
     const originalDate: string = event.target.value;
@@ -84,8 +84,8 @@ function EditLogForm(): React.ReactElement {
       sleep_stress_notes: updatedExtraSleepNotes || '',
       hydration: updatedHydration || '',
       diet: updatedDiet || 0,
-      lat: updatedLat || null,
-      lon: updatedLong || null,
+      lat: updatedLat || undefined,
+      lon: updatedLong || undefined,
       diet_hydration_notes: updatedExtraDietNotes || '',
       beta_notes: updatedBetaNotes || '',
     };
@@ -165,7 +165,7 @@ function EditLogForm(): React.ReactElement {
           value={updatedDiet}
           onChange={(event) => {
             const inputValue = Number(event.target.value);
-            if (inputValue >= 0) {
+            if (inputValue >= 0 || null) {
               setUpdatedDiet(inputValue);
             }
           }}
