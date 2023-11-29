@@ -6,13 +6,14 @@ import { useAppSelector } from '../../Redux/hooks';
 import { selectAdventures } from '../../Redux/slices/adventuresSlice';
 import { useEffect, useState } from 'react';
 import Map from '../Map/Map';
+import StatsPage from '../StatsPage/StatsPage';
 
 function AdventureContainer(): React.ReactElement {
   let adventures = useAppSelector(selectAdventures).adventures;
   const navigate = useNavigate();
   const activity = useParams().activity;
   const [keyword, setKeyword] = useState<string>('');
-
+  const [viewStats, setViewStats] = useState<boolean>(false);
   const [searchedAdventures, setSearchedAdventures] = useState<
     Adventure[] | []
   >([]);
@@ -64,6 +65,10 @@ function AdventureContainer(): React.ReactElement {
     navigate(`/${activity}/newLog`);
   };
 
+  const handleViewStats = () => {
+    setViewStats(true);
+  };
+
   const adventureCards = searchedAdventures?.map((adventure) => {
     return (
       <div key={adventure.adventure_id}>
@@ -74,36 +79,48 @@ function AdventureContainer(): React.ReactElement {
 
   return (
     <>
-      <div className='search-bar-wrapper'>
-        <button className='new-adventure-btn' onClick={() => handleNewLog()}>
-          Add Log
-        </button>
-        <div className='search-bar'>
-          <input
-            className='search-input'
-            type='text'
-            placeholder='Search logs here'
-            value={keyword}
-            onChange={(e) => {
-              setKeyword(e.target.value);
-              handleSearch(e.target.value);
-            }}
-          />
-        </div>
-      </div>
-      <div className='map-card-wrapper'>
-        <div className='adventure-card-container'>{adventureCards}</div>
-        {searchedAdventures?.length === 0 &&
-          sortByDateAscending()?.length > 0 && (
-            <p className='no-results-msg'>
-              Sorry, we couldn't find anything that matched. Please try again.
-            </p>
-          )}
-        {!sortByDateAscending()?.length && (
-          <p>{`It looks like you don't have any ${activity?.toLowerCase()} logs yet, go ahead and add a log to get started!  `}</p>
-        )}
-        <Map />
-      </div>
+      {viewStats ? (
+        <StatsPage setViewStats={setViewStats} activity={activity} />
+      ) : (
+        <>
+          <div className='search-bar-wrapper'>
+              <p>{activity} Journal</p>
+              <button className='new-adventure-btn' onClick={handleNewLog}>
+                {`Add ${activity} Log`}
+              </button>
+            <button className='view-stats-btn' onClick={handleViewStats}>
+              {' '}
+              {`View Stats`}
+            </button>
+              <input
+                className='search-input'
+                type='text'
+                placeholder='Search logs here'
+                value={keyword}
+                onChange={(e) => {
+                  setKeyword(e.target.value);
+                  handleSearch(e.target.value);
+                }}
+              />
+          </div>
+          <div className='map-card-wrapper'>
+            <div className='adventure-card-container'>{adventureCards}</div>
+            {searchedAdventures?.length === 0 &&
+              sortByDateAscending()?.length > 0 && (
+                <p className='no-results-msg'>
+                  Sorry, we couldn't find anything that matched. Please try
+                  again.
+                </p>
+              )}
+            {!sortByDateAscending()?.length && (
+              <p>{`It looks like you don't have any ${activity?.toLowerCase()} logs yet, go ahead and add a log to get started!  `}</p>
+            )}
+            {/* <div className='map-container'> */}
+            <Map />
+            {/* </div> */}
+          </div>
+        </>
+      )}
     </>
   );
 }

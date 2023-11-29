@@ -10,7 +10,7 @@ import { useState } from 'react';
 // import {
 //   addNewActivityType,
 // } from '../../Redux/slices/adventuresSlice';
-function UserInfoContainer() {
+function UserInfoContainer(): React.ReactElement  {
   let adventures = useAppSelector(selectAdventures).adventures;
   let activityTypes = useAppSelector(selectAdventures).activityTypes;
   const [newActivity, setNewActivity] = useState<string>('');
@@ -69,19 +69,22 @@ function UserInfoContainer() {
   return (
     <div className='user-info-wrapper'>
       <div className='input-wrapper'>
-        <input
-          type='text'
-          name='newActivity'
-          value={newActivity}
-          onChange={(event) => setNewActivity(event.target.value)}
-          placeholder='Add a new activity'
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              e.preventDefault();
-              handleAddNewActivity();
-            }
-          }}
-        />
+        <div>
+          <input
+            type='text'
+            name='newActivity'
+            value={newActivity}
+            onChange={(event) => setNewActivity(event.target.value)}
+            placeholder='Add a new activity'
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                handleAddNewActivity();
+              }
+            }}
+          />
+          <button className='add-journal-btn' onClick={() => handleAddNewActivity()}>Add</button>
+        </div>
         {message !== '' && <p>{message}</p>}
       </div>
       {!adventures || adventures.length === 0 ? (

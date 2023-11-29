@@ -19,11 +19,13 @@ function LogAdventureForm(): React.ReactElement {
   const [image_url, setImage] = useState<string>('');
   const [stress_level, setStressLevel] = useState<string>('');
   const [hydration, setHydration] = useState<string>('');
-  const [diet, setDiet] = useState<string>('');
+  const [diet, setDiet] = useState<number>(0);
   const [extraSleepNotes, setExtraSleepNotes] = useState<string>('');
   const [extraDietNotes, setExtraDietNotes] = useState<string>('');
   const [sleep, setSleep] = useState<number>(0);
   const [userMsg, setUserMsg] = useState<string>('');
+  const [lat, setLat] = useState<number | null>(null);
+  const [long, setLong] = useState<number| null>(null);
 
   const navigate = useNavigate();
 
@@ -51,6 +53,8 @@ function LogAdventureForm(): React.ReactElement {
         stress_level,
         hydration,
         diet,
+        lat,
+        lon: long,
         hours_slept: sleep,
         diet_hydration_notes: extraDietNotes,
         sleep_stress_notes: extraSleepNotes,
@@ -73,23 +77,23 @@ function LogAdventureForm(): React.ReactElement {
       <form className='form'>
         <div className='top-line-wrapper'>
           <div className='top-line-data'>
-          <p>Activity: {activity}</p>
-          <label htmlFor='date-input'>Date:</label>
-          <input
-            type='date'
-            name='date'
-            value={date || ''}
-            onChange={handleDateChange}
-            max={new Date().toISOString().split('T')[0]}
-          />
-          <label htmlFor='image'>Add Image:</label>
-          <input
-            type='text'
-            name='image'
-            value={image_url}
-            onChange={(event) => setImage(event.target.value)}
-            placeholder='Enter the image URL'
-          />
+            <p>Activity: {activity}</p>
+            <label htmlFor='date-input'>Date:</label>
+            <input
+              type='date'
+              name='date'
+              value={date || ''}
+              onChange={handleDateChange}
+              max={new Date().toISOString().split('T')[0]}
+            />
+            <label htmlFor='image'>Add Image:</label>
+            <input
+              type='text'
+              name='image'
+              value={image_url}
+              onChange={(event) => setImage(event.target.value)}
+              placeholder='Enter the image URL'
+            />
           </div>
           <div className='form-btn-wrapper'>
             {userMsg !== '' && <p>{userMsg}</p>}
@@ -101,9 +105,9 @@ function LogAdventureForm(): React.ReactElement {
             </button>
           </div>
         </div>
-        <p className='user-prompt'>
+        {/* <p className='user-prompt'>
           Over the last 48 hours, how would you describe the following:
-        </p>
+        </p> */}
         <div className='second-line-components'>
           <select
             name='stressLevel'
@@ -111,7 +115,7 @@ function LogAdventureForm(): React.ReactElement {
             onChange={(event) => setStressLevel(event.target.value)}
           >
             <option value=''>Stress Level:</option>
-            <option value='Min'>No stress</option>
+            <option value='None'>None</option>
             <option value='Low'>Low</option>
             <option value='Moderate'>Moderate</option>
             <option value='High'>High</option>
@@ -128,16 +132,20 @@ function LogAdventureForm(): React.ReactElement {
             <option value='Hydrated'>Hydrated</option>
             <option value='Very Hydrated'>Very Hydrated</option>
           </select>
-          <select
+          <label htmlFor='diet-input'>Calories:</label>
+          <input
+            type='number'
             name='diet'
             value={diet}
-            onChange={(event) => setDiet(event.target.value)}
-          >
-            <option value=''>Overall Diet:</option>
-            <option value='Poor'>Poor</option>
-            <option value='Average'>Average</option>
-            <option value='Good'>Good</option>
-          </select>
+            onChange={(event) => {
+              const inputValue = Number(event.target.value);
+              if (inputValue >= 0) {
+                setDiet(inputValue);
+              }
+            }}
+            min='0'
+          />
+
           <div>
             <label htmlFor='sleep-input'>Hours slept / night:</label>
             <input
