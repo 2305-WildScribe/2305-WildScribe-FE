@@ -84,7 +84,14 @@ function AdventureContainer(): React.ReactElement {
       ) : (
         <>
           <div className='search-bar-wrapper'>
-            <div className='search-bar'>
+              <p>{activity} Journal</p>
+              <button className='new-adventure-btn' onClick={handleNewLog}>
+                {`Add ${activity} Log`}
+              </button>
+            <button className='view-stats-btn' onClick={handleViewStats}>
+              {' '}
+              {`View ${activity} Stats`}
+            </button>
               <input
                 className='search-input'
                 type='text'
@@ -95,14 +102,6 @@ function AdventureContainer(): React.ReactElement {
                   handleSearch(e.target.value);
                 }}
               />
-              <button className='new-adventure-btn' onClick={handleNewLog}>
-                {`Add ${activity} Log`}
-              </button>
-            </div>
-            <button className='view-stats-btn' onClick={handleViewStats}>
-              {' '}
-              {`View ${activity} Stats`}
-            </button>
           </div>
           <div className='map-card-wrapper'>
             <div className='adventure-card-container'>{adventureCards}</div>

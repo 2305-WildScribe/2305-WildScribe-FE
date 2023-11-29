@@ -4,20 +4,19 @@
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   height: 2.5rem;
-  padding-top: 1rem;
-}
-
-.search-bar {
-  .username {
-    @include sourceSans;
-  }
+  padding: 1rem;
   input {
     height: 2rem;
+  }
+  p{
+    @include sourceSans;
+    font-size: 1.3rem;
     margin-left: 1rem;
+    margin-right: 1rem;
   }
 }
+
 
 .view-stats-btn,
 .new-adventure-btn {
