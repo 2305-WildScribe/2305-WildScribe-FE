@@ -22,22 +22,22 @@ function App(): React.ReactElement {
   }, [isLoggedIn, navigate]);
 
   return (
-      <div className='App'>
-        <NavBar />
-        <main className='main'>
-          <div className='inner-main'>
-            <Routes>
-              <Route path='/' element={<LoginPage />} />
-              <Route path='/home' element={<Homepage />} />
-              <Route path=':activity' element ={<AdventureContainer />} />
-              <Route path=':activity/newLog' element={<LogAdventureForm />} />
-              <Route path={'/edit'} element={<EditLogForm />} />
-              <Route path='/error' element={<ErrorPage />} />
-              <Route path='*' element={<ErrorPage />} />
-            </Routes>
-          </div>
-        </main>
-      </div>
+    <div className='App'>
+      <NavBar />
+      <main className='main'>
+        <div className='inner-main'>
+          <Routes>
+            <Route path='/' element={<LoginPage />} />
+            <Route path='/home' element={<Homepage />} />
+            <Route path=':activity' element={<AdventureContainer />} />
+            <Route path=':activity/newLog' element={<LogAdventureForm />} />
+            <Route path={'/edit'} element={<EditLogForm />} />
+            <Route path='/error' element={<ErrorPage />} />
+            <Route path='*' element={<ErrorPage />} />
+          </Routes>
+        </div>
+      </main>
+    </div>
   );
 }
 

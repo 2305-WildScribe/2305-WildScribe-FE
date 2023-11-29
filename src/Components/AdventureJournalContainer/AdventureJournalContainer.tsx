@@ -6,7 +6,6 @@ import { selectAdventures } from '../../Redux/slices/adventuresSlice';
 
 function AdventureJournalContainer(): React.ReactElement {
   let activityTypes = useAppSelector(selectAdventures).activityTypes;
-
   let allActivities = activityTypes.map((activity) => {
     return <Journal key={activity} activity={activity} />;
   });

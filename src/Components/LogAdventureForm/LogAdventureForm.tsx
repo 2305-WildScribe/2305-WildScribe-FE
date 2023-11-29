@@ -20,8 +20,6 @@ function LogAdventureForm(): React.ReactElement {
   const [stress_level, setStressLevel] = useState<string>('');
   const [hydration, setHydration] = useState<string>('');
   const [diet, setDiet] = useState<number | undefined>(undefined);
-  const [extraSleepNotes, setExtraSleepNotes] = useState<string>('');
-  const [extraDietNotes, setExtraDietNotes] = useState<string>('');
   const [sleep, setSleep] = useState<number | undefined>(undefined);
   const [userMsg, setUserMsg] = useState<string>('');
   const [lat, setLat] = useState<number | undefined>(undefined);
@@ -56,8 +54,8 @@ function LogAdventureForm(): React.ReactElement {
         lat,
         lon: long,
         hours_slept: sleep,
-        diet_hydration_notes: extraDietNotes,
-        sleep_stress_notes: extraSleepNotes,
+        diet_hydration_notes: '',
+        sleep_stress_notes: '',
         adventure_id: undefined,
       };
       handlePostingNewAdventure(newAdventureData);
@@ -107,9 +105,6 @@ function LogAdventureForm(): React.ReactElement {
             </button>
           </div>
         </div>
-        {/* <p className='user-prompt'>
-          Over the last 48 hours, how would you describe the following:
-        </p> */}
         <div className='second-line-components'>
           <div>
             <label htmlFor='stress-input'>Stress Level:</label>
@@ -181,9 +176,7 @@ function LogAdventureForm(): React.ReactElement {
               value={lat}
               onChange={(event) => {
                 const inputValue = Number(event.target.value);
-                if (inputValue >= 0) {
-                  setLat(inputValue);
-                }
+                setLat(inputValue);
               }}
             />
           </div>
@@ -195,28 +188,12 @@ function LogAdventureForm(): React.ReactElement {
               value={long}
               onChange={(event) => {
                 const inputValue = Number(event.target.value);
-                if (inputValue >= 0) {
-                  setLong(inputValue);
-                }
+                setLong(inputValue);
               }}
               min='0'
             />
           </div>
         </div>
-        {/* <textarea
-          className='sleep-notes-input'
-          placeholder='Add any extra notes on sleep or stress'
-          name='notes'
-          value={extraSleepNotes}
-          onChange={(event) => setExtraSleepNotes(event.target.value)}
-        /> */}
-        {/* <textarea
-          className='hydro-notes-input'
-          placeholder='Add any extra notes on diet or hydration'
-          name='notes'
-          value={extraDietNotes}
-          onChange={(event) => setExtraDietNotes(event.target.value)}
-        /> */}
         <textarea
           className='notes-input'
           placeholder='Notes on activity, diet, beta, etc.'

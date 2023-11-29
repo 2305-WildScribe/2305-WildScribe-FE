@@ -17,7 +17,6 @@ function AdventureContainer(): React.ReactElement {
   const [searchedAdventures, setSearchedAdventures] = useState<
     Adventure[] | []
   >([]);
-
   useEffect(() => {
     setSearchedAdventures(sortByDateAscending());
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -39,7 +38,6 @@ function AdventureContainer(): React.ReactElement {
   };
 
   const handleSearch = (keyword: string) => {
-    console.log(keyword);
     let results = searchAdventures(keyword) || [];
     setSearchedAdventures([...results] as Adventure[]);
   };
@@ -70,7 +68,6 @@ function AdventureContainer(): React.ReactElement {
   };
 
   const adventureCards = searchedAdventures?.map((adventure) => {
-      console.log('adventure id here',adventure.adventure_id)
     return (
       <div key={adventure.adventure_id}>
         <AdventureCard adventure={adventure} />

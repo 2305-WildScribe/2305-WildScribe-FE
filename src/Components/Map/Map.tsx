@@ -1,23 +1,46 @@
-import './Map.scss'
+import { useState } from 'react';
+import { useAppSelector } from '../../Redux/hooks';
+import { selectAdventures } from '../../Redux/slices/adventuresSlice';
+import './Map.scss';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { Adventure } from '../../types';
 
 function Map(): React.ReactElement {
+  // const [validAdventures, setValidAdventures] = useState<Adventure[]>([]);
   const defaultZoomLevel = 4;
+  let adventures = useAppSelector(selectAdventures).adventures;
 
+  const validAdventures = adventures.filter(
+    (adventure) => adventure.lat && adventure.lon
+  );
 
+  const mapPoints = validAdventures.map((adventure) => {
+    if (adventure.lat !== undefined && adventure.lon !== undefined) {
+      return (
+        <Marker
+          key={adventure.adventure_id}
+          position={[adventure.lat, adventure.lon]}
+        >
+          <Popup>
+            <p>{adventure.activity} log on {adventure.date}</p>
+          </Popup>
+        </Marker>
+      );
+    }
+  });
+  
   return (
     <div className='map-container'>
-      <MapContainer center={[39.82, -98.57]}   
-        zoom={defaultZoomLevel} scrollWheelZoom={false}>
+      <MapContainer
+        center={[39.82, -98.57]}
+        zoom={defaultZoomLevel}
+        scrollWheelZoom={false}
+      >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         />
-        <Marker position={[39.82, -98.57]}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
+        {mapPoints}
       </MapContainer>
     </div>
   );
