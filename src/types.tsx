@@ -19,3 +19,4 @@ export interface Error {
   error: boolean | undefined;
   message: string| '';
 }
+

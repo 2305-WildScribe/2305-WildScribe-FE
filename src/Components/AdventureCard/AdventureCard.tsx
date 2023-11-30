@@ -9,10 +9,15 @@ import { setSingleAdventure } from '../../Redux/slices/adventuresSlice';
 
 interface AdventureCardProps {
   adventure: Adventure;
+  setSelectedLog: React.Dispatch<React.SetStateAction<Adventure | null>>;
+  zoomToLog: ({ lat, lng }: { lat: number; lng: number }) => void;
 }
 
-function AdventureCard({ adventure }: AdventureCardProps): React.ReactElement {
-
+function AdventureCard({
+  adventure,
+  setSelectedLog,
+  zoomToLog,
+}: AdventureCardProps): React.ReactElement {
   const {
     activity,
     date,
@@ -37,8 +42,24 @@ function AdventureCard({ adventure }: AdventureCardProps): React.ReactElement {
     navigate('/edit');
   };
 
+  const handleCardClick = () => {
+    setSelectedLog(adventure);
+    if (adventure.lat && adventure.lon) {
+      const coords = {
+        lat: adventure.lat,
+        lng: adventure.lon,
+      };
+      zoomToLog(coords);
+    }
+  };
+
   return (
-    <div key={adventure_id} id={`${adventure_id}`} className='adventure-card'>
+    <div
+      key={adventure_id}
+      id={`${adventure_id}`}
+      className='adventure-card'
+      onClick={() => handleCardClick()}
+    >
       <div className='inner-card'>
         <img className='adventure-img' src={image_url} alt={activity} />
         <div className='card-text-wrapper'>

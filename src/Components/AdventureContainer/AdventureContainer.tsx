@@ -4,7 +4,7 @@ import { Adventure } from '../../types';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAppSelector } from '../../Redux/hooks';
 import { selectAdventures } from '../../Redux/slices/adventuresSlice';
-import { useEffect, useState } from 'react';
+import { RefObject, useEffect, useRef, useState } from 'react';
 import Map from '../Map/Map';
 import StatsPage from '../StatsPage/StatsPage';
 
@@ -17,6 +17,9 @@ function AdventureContainer(): React.ReactElement {
   const [searchedAdventures, setSearchedAdventures] = useState<
     Adventure[] | []
   >([]);
+
+  const [selectedLog, setSelectedLog] = useState<Adventure | null>(null);
+
   useEffect(() => {
     setSearchedAdventures(sortByDateAscending());
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -67,10 +70,22 @@ function AdventureContainer(): React.ReactElement {
     setViewStats(true);
   };
 
+  type MapMethods = {
+    flyTo: (coordinates: [number, number], zoom: number) => void;
+  };
+
+  const mapRef: RefObject<MapMethods> = useRef<MapMethods>(null as any);
+
+  const zoomToLog = ({ lat, lng }: { lat: number; lng: number }) => {
+    if (mapRef.current !== null) {
+      mapRef.current?.flyTo([lat, lng], 15);
+    }
+  }
+
   const adventureCards = searchedAdventures?.map((adventure) => {
     return (
       <div key={adventure.adventure_id}>
-        <AdventureCard adventure={adventure} />
+        <AdventureCard adventure={adventure} setSelectedLog={setSelectedLog} zoomToLog={zoomToLog}/>
       </div>
     );
   });
@@ -113,9 +128,7 @@ function AdventureContainer(): React.ReactElement {
             {!sortByDateAscending()?.length && (
               <p>{`It looks like you don't have any ${activity?.toLowerCase()} logs yet, go ahead and add a log to get started!  `}</p>
             )}
-            {/* <div className='map-container'> */}
-            <Map activity={activity}/>
-            {/* </div> */}
+            <Map activity={activity} setSelectedLog={setSelectedLog} zoomToLog={zoomToLog} mapRef={mapRef}/>
           </div>
         </>
       )}
