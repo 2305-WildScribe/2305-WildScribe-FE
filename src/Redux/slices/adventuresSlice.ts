@@ -59,7 +59,7 @@ export const adventuresSlice = createSlice({
       })
       .addCase(postAdventureAsync.fulfilled, (state, action) => {
         const { newAdventure, data } = action.payload;
-        newAdventure.adventure_id = data.data.attributes.adventure_id;
+        newAdventure.adventure_id = data.data.attributes[0].adventure_id;
         state.adventures = [...(state.adventures || []), newAdventure];
       })
       .addCase(postAdventureAsync.rejected, (state, action) => {

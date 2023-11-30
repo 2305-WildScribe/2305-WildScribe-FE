@@ -22,8 +22,6 @@ function AdventureCard({ adventure }: AdventureCardProps): React.ReactElement {
     hydration,
     diet,
     hours_slept,
-    diet_hydration_notes,
-    sleep_stress_notes,
     adventure_id,
   } = adventure;
 
@@ -89,14 +87,13 @@ function AdventureCard({ adventure }: AdventureCardProps): React.ReactElement {
                 {stress_level}
               </p>
             )}
-            {hours_slept > 0 && (
+            {hours_slept && hours_slept > 0 && (
               <p>
                 <span>Hours Slept: </span>
                 {hours_slept}
               </p>
             )}
           </div>
-          {/*   */}
           {beta_notes && (
             <p>
               <span>Notes: </span>

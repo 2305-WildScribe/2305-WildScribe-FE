@@ -8,7 +8,7 @@ export const userLoginAsync = createAsyncThunk(
     thunkAPI
   ) => {
     const response = await fetch(
-      'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/user',
+      'https://wildscribe.azurewebsites.net/api/v0/user',
       {
         method: 'POST',
         headers: {
@@ -43,7 +43,7 @@ export const getAdventuresAsync = createAsyncThunk(
   'user/getData',
   async (id: string, thunkAPI) => {
     const response = await fetch(
-      'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/user/adventures',
+      'https://wildscribe.azurewebsites.net/api/v0/adventures',
       {
         method: 'POST',
         headers: {
@@ -67,7 +67,6 @@ export const getAdventuresAsync = createAsyncThunk(
     }
 
     const data = await response.json();
-    console.log(data)
     return data;
   }
 );
@@ -83,13 +82,15 @@ export const postAdventureAsync = createAsyncThunk(
       stress_level,
       hydration,
       diet,
+      lat,
+      lon,
       hours_slept: sleep,
       diet_hydration_notes,
       sleep_stress_notes,
       user_id,
     } = newAdventure;
     const response = await fetch(
-      'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/adventure',
+      'https://wildscribe.azurewebsites.net/api/v0/adventure',
       {
         method: 'POST',
         headers: {
@@ -107,6 +108,8 @@ export const postAdventureAsync = createAsyncThunk(
               stress_level,
               hydration,
               diet,
+              lat,
+              lon,
               hours_slept: sleep,
               diet_hydration_notes,
               sleep_stress_notes,
@@ -115,6 +118,7 @@ export const postAdventureAsync = createAsyncThunk(
         }),
       }
     );
+
     if (response.status === 404) {
       throw new Error('404 page not found');
     }
@@ -131,7 +135,7 @@ export const deleteAdventureAsync = createAsyncThunk(
   'post/deleteAdventure',
   async (id: string | undefined, thunkAPI) => {
     const response = await fetch(
-      'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/adventure',
+      'https://wildscribe.azurewebsites.net/api/v0/adventure',
       {
         method: 'DELETE',
         headers: {
@@ -174,14 +178,16 @@ export const editAdventureAsync = createAsyncThunk(
       sleep_stress_notes,
       hydration,
       diet,
+      lat,
+      lon,
       diet_hydration_notes,
       beta_notes,
     } = editedAdventure;
 
     const response = await fetch(
-      'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/adventure',
+      'https://wildscribe.azurewebsites.net/api/v0/adventure',
       {
-        method: 'PUT',
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -199,6 +205,8 @@ export const editAdventureAsync = createAsyncThunk(
               sleep_stress_notes: sleep_stress_notes,
               hydration: hydration,
               diet: diet,
+              lat: lat,
+              lon: lon,
               diet_hydration_notes: diet_hydration_notes,
               beta_notes: beta_notes,
             },

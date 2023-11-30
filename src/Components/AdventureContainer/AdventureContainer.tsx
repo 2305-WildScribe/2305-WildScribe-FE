@@ -17,12 +17,11 @@ function AdventureContainer(): React.ReactElement {
   const [searchedAdventures, setSearchedAdventures] = useState<
     Adventure[] | []
   >([]);
-
   useEffect(() => {
     setSearchedAdventures(sortByDateAscending());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [adventures]);
-
+  console.log(adventures)
   const searchAdventures = (keyword: string) => {
     return (
       sortByDateAscending() &&
@@ -39,7 +38,6 @@ function AdventureContainer(): React.ReactElement {
   };
 
   const handleSearch = (keyword: string) => {
-    console.log(keyword);
     let results = searchAdventures(keyword) || [];
     setSearchedAdventures([...results] as Adventure[]);
   };
@@ -116,7 +114,7 @@ function AdventureContainer(): React.ReactElement {
               <p>{`It looks like you don't have any ${activity?.toLowerCase()} logs yet, go ahead and add a log to get started!  `}</p>
             )}
             {/* <div className='map-container'> */}
-            <Map />
+            <Map activity={activity}/>
             {/* </div> */}
           </div>
         </>
