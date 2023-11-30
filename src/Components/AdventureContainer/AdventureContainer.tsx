@@ -21,7 +21,7 @@ function AdventureContainer(): React.ReactElement {
     setSearchedAdventures(sortByDateAscending());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [adventures]);
-
+  console.log(adventures)
   const searchAdventures = (keyword: string) => {
     return (
       sortByDateAscending() &&
@@ -114,7 +114,7 @@ function AdventureContainer(): React.ReactElement {
               <p>{`It looks like you don't have any ${activity?.toLowerCase()} logs yet, go ahead and add a log to get started!  `}</p>
             )}
             {/* <div className='map-container'> */}
-            <Map />
+            <Map activity={activity}/>
             {/* </div> */}
           </div>
         </>

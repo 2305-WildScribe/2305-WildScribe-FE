@@ -9,8 +9,8 @@ import {
 import { selectUser, toggleIsLoggedIn } from '../../Redux/slices/userSlice';
 
 function LoginPage(): React.ReactElement {
-  const [userEmail, setUserEmail] = useState<string>('billy@gmail.com');
-  const [userPassword, setUserPassword] = useState<string>('hi');
+  const [userEmail, setUserEmail] = useState<string>('me3501@gmail.com');
+  const [userPassword, setUserPassword] = useState<string>('Password3501');
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
@@ -25,6 +25,8 @@ function LoginPage(): React.ReactElement {
   async function handleLogin(event: React.FormEvent): Promise<void> {
     event.preventDefault();
     dispatch(toggleIsLoggedIn(true));
+    console.log(userEmail)
+    console.log(userPassword)
     const action = await dispatch(
       userLoginAsync({ email: userEmail, password: userPassword })
     );

@@ -5,13 +5,19 @@ import './Map.scss';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Adventure } from '../../types';
 
-function Map(): React.ReactElement {
+interface MapProps {
+  activity: string | undefined;
+}
+
+function Map({ activity }: MapProps): React.ReactElement {
   // const [validAdventures, setValidAdventures] = useState<Adventure[]>([]);
   const defaultZoomLevel = 4;
   let adventures = useAppSelector(selectAdventures).adventures;
+  // let activityTypes = useAppSelector(selectAdventures).activityTypes;
 
   const validAdventures = adventures.filter(
-    (adventure) => adventure.lat && adventure.lon
+    (adventure) =>
+      adventure.lat && adventure.lon && adventure.activity === activity
   );
 
   const mapPoints = validAdventures.map((adventure) => {
@@ -22,13 +28,15 @@ function Map(): React.ReactElement {
           position={[adventure.lat, adventure.lon]}
         >
           <Popup>
-            <p>{adventure.activity} log on {adventure.date}</p>
+            <p>
+              {adventure.activity} log on {adventure.date}
+            </p>
           </Popup>
         </Marker>
       );
     }
   });
-  
+
   return (
     <div className='map-container'>
       <MapContainer
