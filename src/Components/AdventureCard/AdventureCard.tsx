@@ -5,12 +5,12 @@ import { Adventure } from '../../types';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../Redux/hooks';
 import { deleteAdventureAsync } from '../../Redux/slices/AsyncThunks';
-import adventuresSlice, {
+import  {
   selectAdventures,
   setSingleAdventure,
 } from '../../Redux/slices/adventuresSlice';
 import dayjs from 'dayjs';
-import { RefObject, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 interface AdventureCardProps {
   adventure: Adventure;
@@ -24,9 +24,7 @@ interface AdventureCardProps {
 
 function AdventureCard({
   adventure,
-  setSelectedLog,
   zoomToLog,
-  selectedLog,
 }: AdventureCardProps): React.ReactElement {
   const {
     activity,
@@ -66,8 +64,6 @@ function AdventureCard({
   };
 
   let formattedDate = dayjs(date).format('MM-DD-YYYY');
-
-  const [validId, setValidId] = useState<string>('');
 
   const currentCardRef = useRef<any>({});
 
