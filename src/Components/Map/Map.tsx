@@ -46,7 +46,7 @@ function Map({ activity, zoomToLog, mapRef }: MapProps): React.ReactElement {
       adventure.adventure_id !== undefined
     ) {
       let correctedDate = dayjs(adventure.date).format('MM-DD-YYYY');
-      let map = (
+      return (
         <Marker
           key={adventure.adventure_id}
           position={[adventure.lat, adventure.lon]}
@@ -68,9 +68,8 @@ function Map({ activity, zoomToLog, mapRef }: MapProps): React.ReactElement {
           </Popup>
         </Marker>
       );
-
-      return map;
     }
+    return null;
   });
 
   return (
