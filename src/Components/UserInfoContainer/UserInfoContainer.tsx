@@ -7,9 +7,7 @@ import {
 import dayjs from 'dayjs';
 import { PieChart } from '@mui/x-charts/PieChart';
 import { useState } from 'react';
-// import {
-//   addNewActivityType,
-// } from '../../Redux/slices/adventuresSlice';
+
 function UserInfoContainer(): React.ReactElement  {
   let adventures = useAppSelector(selectAdventures).adventures;
   let activityTypes = useAppSelector(selectAdventures).activityTypes;
@@ -99,13 +97,21 @@ function UserInfoContainer(): React.ReactElement  {
         {adventures !== null && (
           <PieChart
             colors={palette}
+            margin={{ top: 0, bottom: 150, left: 50, right:50 }}
+
             series={[
               {
                 data: pieChartData(),
               },
             ]}
-            width={400}
-            height={200}
+            slotProps={{
+              legend: {
+                direction: 'row',
+                position: { vertical: 'bottom', horizontal: 'middle' },
+                padding: 0,
+              },
+            }}
+            width={300}
           />
         )}
       </div>

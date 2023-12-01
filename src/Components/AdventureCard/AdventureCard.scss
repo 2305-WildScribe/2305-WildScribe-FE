@@ -13,6 +13,10 @@
   border-radius: 10px;
   border: 1px solid $brown;
   box-shadow: 5px 5px 5px $brown;
+  &:hover{
+    cursor: pointer;
+    background-color: #008081;
+  }
 }
 
 .card-text-wrapper {
@@ -43,7 +47,6 @@
 }
 
 .second-line-info {
-  // display: flex;
   margin: 0px;
 }
 

@@ -3,16 +3,29 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faPencil } from '@fortawesome/free-solid-svg-icons';
 import { Adventure } from '../../types';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../Redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../Redux/hooks';
 import { deleteAdventureAsync } from '../../Redux/slices/AsyncThunks';
-import { setSingleAdventure } from '../../Redux/slices/adventuresSlice';
+import  {
+  selectAdventures,
+  setSingleAdventure,
+} from '../../Redux/slices/adventuresSlice';
+import dayjs from 'dayjs';
+import { useEffect, useRef } from 'react';
 
 interface AdventureCardProps {
   adventure: Adventure;
+  setSelectedLog: React.Dispatch<React.SetStateAction<string | null>>;
+  zoomToLog: (coordinates: {
+    lat: number;
+    lng: number;
+}, adventureId: string) => void;
+  selectedLog: string | null;
 }
 
-function AdventureCard({ adventure }: AdventureCardProps): React.ReactElement {
-
+function AdventureCard({
+  adventure,
+  zoomToLog,
+}: AdventureCardProps): React.ReactElement {
   const {
     activity,
     date,
@@ -24,6 +37,8 @@ function AdventureCard({ adventure }: AdventureCardProps): React.ReactElement {
     hours_slept,
     adventure_id,
   } = adventure;
+
+  const setLog = useAppSelector(selectAdventures).singleLog;
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -37,8 +52,36 @@ function AdventureCard({ adventure }: AdventureCardProps): React.ReactElement {
     navigate('/edit');
   };
 
+  const handleCardClick = () => {
+    if (adventure.lat && adventure.lon && adventure.adventure_id !== undefined) {
+      const coords = {
+        lat: adventure.lat,
+        lng: adventure.lon,
+      };
+      zoomToLog(coords, adventure.adventure_id);
+      console.log(coords)
+    }
+  };
+
+  let formattedDate = dayjs(date).format('MM-DD-YYYY');
+
+  const currentCardRef = useRef<any>({});
+
+  useEffect(() => {
+  if(setLog && currentCardRef.current[setLog]){
+    currentCardRef.current[setLog].scrollIntoView({ behavior: 'smooth'})
+    
+  }
+  }, [setLog]);
+
   return (
-    <div key={adventure_id} id={`${adventure_id}`} className='adventure-card'>
+    <div
+      key={adventure_id}
+      id={`${adventure_id}`}
+      ref={(ref) =>setLog && (currentCardRef.current[setLog] = ref)}
+      className='adventure-card'
+      onClick={() => handleCardClick()}
+    >
       <div className='inner-card'>
         <img className='adventure-img' src={image_url} alt={activity} />
         <div className='card-text-wrapper'>
@@ -47,7 +90,7 @@ function AdventureCard({ adventure }: AdventureCardProps): React.ReactElement {
               {date && (
                 <p>
                   <span>Date: </span>
-                  {date}
+                  {formattedDate}
                 </p>
               )}
             </div>

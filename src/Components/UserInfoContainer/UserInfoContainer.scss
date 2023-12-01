@@ -21,6 +21,7 @@
 
 .add-journal-btn {
   height: 100%;
+  @include btn;
 }
 
 .input-wrapper {
@@ -38,5 +39,5 @@
 }
 
 .pie-chart {
-  height: 50%;
+  height: 60%;
 }
