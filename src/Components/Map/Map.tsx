@@ -1,10 +1,8 @@
-import { RefObject, useRef } from 'react';
-import { useAppSelector } from '../../Redux/hooks';
-import { selectAdventures } from '../../Redux/slices/adventuresSlice';
+import { RefObject } from 'react';
+import { useAppDispatch, useAppSelector } from '../../Redux/hooks';
+import { selectAdventures, setSingleLog } from '../../Redux/slices/adventuresSlice';
 import './Map.scss';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { Adventure } from '../../types';
-// import { Marker } from 'leaflet';
 
 type MapMethods = {
   flyTo: (coordinates: [number, number], zoom: number) => void;
@@ -12,26 +10,18 @@ type MapMethods = {
 
 interface MapProps {
   activity: string | undefined;
-  setSelectedLog: React.Dispatch<React.SetStateAction<Adventure | null>>
   zoomToLog: ({ lat, lng }: {
     lat: number;
     lng: number;
 }) => void
 mapRef: RefObject<MapMethods>
+// setSelectedLog: React.Dispatch<React.SetStateAction<string | null>>
 }
 
-function Map({ activity, setSelectedLog, zoomToLog, mapRef }: MapProps): React.ReactElement {
-  // const [validAdventures, setValidAdventures] = useState<Adventure[]>([]);
+function Map({ activity, zoomToLog, mapRef }: MapProps): React.ReactElement {
+  const dispatch = useAppDispatch();
   const defaultZoomLevel = 4;
   let adventures = useAppSelector(selectAdventures).adventures;
-
-  // type MapMethods = {
-  //   flyTo: (coordinates: [number, number], zoom: number) => void;
-  // };
-
-  // const mapRef: RefObject<MapMethods> = useRef<MapMethods>(null as any);
-
-  // const markersRef: RefObject<{}> = useRef<Adventure | null| {}>({});
 
   const validAdventures = adventures.filter(
     (adventure) =>
@@ -39,10 +29,9 @@ function Map({ activity, setSelectedLog, zoomToLog, mapRef }: MapProps): React.R
   );
 
  
-
-  const showSelectedLog = (key: string) => {
-    const selectedAdventure = adventures.filter(adventure => adventure.adventure_id === key)[0];
-    setSelectedLog(selectedAdventure);
+  const displayAssociatedCard = (key: string) => {
+    console.log('key was pressed',key)
+    dispatch(setSingleLog(key))
   };
   
   const mapPoints = validAdventures.map((adventure) => {
@@ -57,7 +46,7 @@ function Map({ activity, setSelectedLog, zoomToLog, mapRef }: MapProps): React.R
           position={[adventure.lat, adventure.lon]} 
           eventHandlers={{
             click: (e) => {
-              showSelectedLog(
+              displayAssociatedCard(
                 e.target.options.children.props.children.key
               );
               zoomToLog(e.target._latlng);

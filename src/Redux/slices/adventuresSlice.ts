@@ -14,6 +14,7 @@ interface AdventureState {
   error: string | undefined;
   singleAdventure: Adventure | undefined;
   activityTypes: string[];
+  singleLog: string | null;
 }
 
 const initialState: AdventureState = {
@@ -22,6 +23,7 @@ const initialState: AdventureState = {
   error: '',
   singleAdventure: undefined,
   activityTypes: [],
+  singleLog: null,
 };
 
 export const adventuresSlice = createSlice({
@@ -30,6 +32,9 @@ export const adventuresSlice = createSlice({
   reducers: {
     setSingleAdventure(state, action: PayloadAction<Adventure | undefined>) {
       state.singleAdventure = action.payload;
+    },
+    setSingleLog(state, action: PayloadAction<string | null>) {
+      state.singleLog = action.payload;
     },
     setActivityTypes(state, action: PayloadAction<Adventure[] | undefined>) {
       let types: string[] = [];
@@ -86,7 +91,7 @@ export const adventuresSlice = createSlice({
   },
 });
 
-export const { setSingleAdventure, setActivityTypes, addNewActivityType } =
+export const { setSingleAdventure, setActivityTypes, addNewActivityType, setSingleLog } =
   adventuresSlice.actions;
 export const selectAdventures = (state: RootState) => state.adventures;
 export default adventuresSlice.reducer;

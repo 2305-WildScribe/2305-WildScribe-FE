@@ -3,20 +3,27 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faPencil } from '@fortawesome/free-solid-svg-icons';
 import { Adventure } from '../../types';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../Redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../Redux/hooks';
 import { deleteAdventureAsync } from '../../Redux/slices/AsyncThunks';
-import { setSingleAdventure } from '../../Redux/slices/adventuresSlice';
+import adventuresSlice, {
+  selectAdventures,
+  setSingleAdventure,
+} from '../../Redux/slices/adventuresSlice';
+import dayjs from 'dayjs';
+import { RefObject, useEffect, useRef, useState } from 'react';
 
 interface AdventureCardProps {
   adventure: Adventure;
-  setSelectedLog: React.Dispatch<React.SetStateAction<Adventure | null>>;
+  setSelectedLog: React.Dispatch<React.SetStateAction<string | null>>;
   zoomToLog: ({ lat, lng }: { lat: number; lng: number }) => void;
+  selectedLog: string | null;
 }
 
 function AdventureCard({
   adventure,
   setSelectedLog,
   zoomToLog,
+  selectedLog,
 }: AdventureCardProps): React.ReactElement {
   const {
     activity,
@@ -29,6 +36,8 @@ function AdventureCard({
     hours_slept,
     adventure_id,
   } = adventure;
+
+  const setLog = useAppSelector(selectAdventures).singleLog;
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -43,7 +52,6 @@ function AdventureCard({
   };
 
   const handleCardClick = () => {
-    setSelectedLog(adventure);
     if (adventure.lat && adventure.lon) {
       const coords = {
         lat: adventure.lat,
@@ -53,10 +61,26 @@ function AdventureCard({
     }
   };
 
+  let formattedDate = dayjs(date).format('MM-DD-YYYY');
+
+  const [validId, setValidId] = useState<string>('');
+
+  const currentCardRef = useRef<any>({});
+
+  useEffect(() => {
+    console.log('set',setLog);
+  if(setLog && currentCardRef.current[setLog]){
+    console.log('moving')
+    currentCardRef.current[setLog].scrollIntoView({ behavior: 'smooth'})
+  }
+  }, [setLog]);
+
+
   return (
     <div
       key={adventure_id}
       id={`${adventure_id}`}
+      ref={(ref) =>setLog && (currentCardRef.current[setLog] = ref)}
       className='adventure-card'
       onClick={() => handleCardClick()}
     >
@@ -68,7 +92,7 @@ function AdventureCard({
               {date && (
                 <p>
                   <span>Date: </span>
-                  {date}
+                  {formattedDate}
                 </p>
               )}
             </div>

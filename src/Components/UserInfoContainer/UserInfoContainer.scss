@@ -21,6 +21,7 @@
 
 .add-journal-btn {
   height: 100%;
+  @include btn;
 }
 
 .input-wrapper {

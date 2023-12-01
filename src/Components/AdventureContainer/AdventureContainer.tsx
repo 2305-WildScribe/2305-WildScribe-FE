@@ -18,8 +18,9 @@ function AdventureContainer(): React.ReactElement {
     Adventure[] | []
   >([]);
 
-  const [selectedLog, setSelectedLog] = useState<Adventure | null>(null);
-
+  const [selectedLog, setSelectedLog] = useState<string | null>(null);
+  
+  
   useEffect(() => {
     setSearchedAdventures(sortByDateAscending());
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -80,12 +81,20 @@ function AdventureContainer(): React.ReactElement {
     if (mapRef.current !== null) {
       mapRef.current?.flyTo([lat, lng], 15);
     }
-  }
+  };
+
+
 
   const adventureCards = searchedAdventures?.map((adventure) => {
+
     return (
       <div key={adventure.adventure_id}>
-        <AdventureCard adventure={adventure} setSelectedLog={setSelectedLog} zoomToLog={zoomToLog}/>
+        <AdventureCard
+          adventure={adventure}
+          setSelectedLog={setSelectedLog}
+          selectedLog={selectedLog}
+          zoomToLog={zoomToLog}
+        />
       </div>
     );
   });
@@ -97,24 +106,24 @@ function AdventureContainer(): React.ReactElement {
       ) : (
         <>
           <div className='search-bar-wrapper'>
-              <p>{activity} Journal</p>
-              <button className='new-adventure-btn' onClick={handleNewLog}>
-                {`Add ${activity} Log`}
-              </button>
+            <p>{activity} Journal</p>
+            <button className='new-adventure-btn' onClick={handleNewLog}>
+              {`Add Log`}
+            </button>
             <button className='view-stats-btn' onClick={handleViewStats}>
               {' '}
               {`View Stats`}
             </button>
-              <input
-                className='search-input'
-                type='text'
-                placeholder='Search logs here'
-                value={keyword}
-                onChange={(e) => {
-                  setKeyword(e.target.value);
-                  handleSearch(e.target.value);
-                }}
-              />
+            <input
+              className='search-input'
+              type='text'
+              placeholder='Search logs here'
+              value={keyword}
+              onChange={(e) => {
+                setKeyword(e.target.value);
+                handleSearch(e.target.value);
+              }}
+            />
           </div>
           <div className='map-card-wrapper'>
             <div className='adventure-card-container'>{adventureCards}</div>
@@ -128,7 +137,12 @@ function AdventureContainer(): React.ReactElement {
             {!sortByDateAscending()?.length && (
               <p>{`It looks like you don't have any ${activity?.toLowerCase()} logs yet, go ahead and add a log to get started!  `}</p>
             )}
-            <Map activity={activity} setSelectedLog={setSelectedLog} zoomToLog={zoomToLog} mapRef={mapRef}/>
+            <Map
+              activity={activity}
+              zoomToLog={zoomToLog}
+              mapRef={mapRef}
+              // setSelectedLog={setSelectedLog}
+            />
           </div>
         </>
       )}

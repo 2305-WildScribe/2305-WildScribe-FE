@@ -4,7 +4,7 @@
   background-color: $tan;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-auto-rows: min-content max-content auto;
+  grid-auto-rows: min-content max-content;
   gap: 1rem;
   padding: 1rem;
   max-height: 85%;
