@@ -12,8 +12,6 @@ import AdventureJournalContainer from '../AdventureJournalContainer/AdventureJou
 import UserInfoContainer from '../UserInfoContainer/UserInfoContainer';
 
 function Homepage(): React.ReactElement {
-  // const [newActivity, setNewActivity] = useState<string>('');
-  // const [message, setMessage] = useState<string>('');
   const dispatch = useAppDispatch();
   let activityTypes = useAppSelector(selectAdventures).activityTypes;
   let adventures = useAppSelector(selectAdventures).adventures;

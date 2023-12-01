@@ -1,8 +1,12 @@
 import { RefObject } from 'react';
 import { useAppDispatch, useAppSelector } from '../../Redux/hooks';
-import { selectAdventures, setSingleLog } from '../../Redux/slices/adventuresSlice';
+import {
+  selectAdventures,
+  setSingleLog,
+} from '../../Redux/slices/adventuresSlice';
 import './Map.scss';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import dayjs from 'dayjs';
 
 type MapMethods = {
   flyTo: (coordinates: [number, number], zoom: number) => void;
@@ -10,12 +14,15 @@ type MapMethods = {
 
 interface MapProps {
   activity: string | undefined;
-  zoomToLog: ({ lat, lng }: {
-    lat: number;
-    lng: number;
-}) => void
-mapRef: RefObject<MapMethods>
-// setSelectedLog: React.Dispatch<React.SetStateAction<string | null>>
+  zoomToLog: (
+    coordinates: {
+      lat: number;
+      lng: number;
+    },
+    adventureId: string
+  ) => void;
+  mapRef: RefObject<MapMethods>;
+  // setSelectedLog: React.Dispatch<React.SetStateAction<string | null>>
 }
 
 function Map({ activity, zoomToLog, mapRef }: MapProps): React.ReactElement {
@@ -28,34 +35,35 @@ function Map({ activity, zoomToLog, mapRef }: MapProps): React.ReactElement {
       adventure.lat && adventure.lon && adventure.activity === activity
   );
 
- 
   const displayAssociatedCard = (key: string) => {
-    console.log('key was pressed',key)
-    dispatch(setSingleLog(key))
+    dispatch(setSingleLog(key));
   };
-  
+
   const mapPoints = validAdventures.map((adventure) => {
     if (
       adventure.lat !== undefined &&
       adventure.lon !== undefined &&
       adventure.adventure_id !== undefined
     ) {
+      let correctedDate = dayjs(adventure.date).format('MM-DD-YYYY');
       return (
         <Marker
           key={adventure.adventure_id}
-          position={[adventure.lat, adventure.lon]} 
+          position={[adventure.lat, adventure.lon]}
           eventHandlers={{
             click: (e) => {
-              displayAssociatedCard(
-                e.target.options.children.props.children.key
-              );
-              zoomToLog(e.target._latlng);
+              if (adventure.adventure_id) { 
+                displayAssociatedCard(
+                  e.target.options.children.props.children.key
+                );
+                zoomToLog(e.target._latlng, adventure.adventure_id);
+              }
             },
           }}
         >
           <Popup>
-            <p key={adventure.adventure_id}>
-              {adventure.activity} log on {adventure.date}
+            <p key={adventure.adventure_id} >
+              {adventure.activity} log on {correctedDate}
             </p>
           </Popup>
         </Marker>

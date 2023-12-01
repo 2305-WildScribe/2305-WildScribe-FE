@@ -24,22 +24,24 @@ function Journal({ activity }: JournalProps) {
 
     const latest = filteredLogs?.reduce(
       (accum, adventure) => {
-        const adventureDate = dayjs(adventure?.date);
-        const accumDate = dayjs(accum?.date);
+        let adventureDate = dayjs(adventure?.date);
+        let accumDate = dayjs(accum?.date);
+
         if (adventureDate.isAfter(accumDate)) {
           accum = adventure;
         }
         return accum;
       },
-      { date: '0' }
+      { date: '1001-01-01' }
     );
 
-    if (latest?.date === '0') {
+    if (latest?.date === '1001-01-01') {
       return 'No logs yet';
     } else {
       return dayjs(latest?.date).format('MM-DD-YYYY');
     }
   };
+
 
   return (
     <div className='activity-card' onClick={() => handleJournalClick()}>

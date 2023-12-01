@@ -1,14 +1,18 @@
 import './AdventureContainer.scss';
 import { AdventureCard } from '../AdventureCard/AdventureCard';
 import { Adventure } from '../../types';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useAppSelector } from '../../Redux/hooks';
-import { selectAdventures } from '../../Redux/slices/adventuresSlice';
+import { useAsyncError, useNavigate, useParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../Redux/hooks';
+import {
+  selectAdventures,
+  setSingleLog,
+} from '../../Redux/slices/adventuresSlice';
 import { RefObject, useEffect, useRef, useState } from 'react';
 import Map from '../Map/Map';
 import StatsPage from '../StatsPage/StatsPage';
 
 function AdventureContainer(): React.ReactElement {
+  const dispatch = useAppDispatch();
   let adventures = useAppSelector(selectAdventures).adventures;
   const navigate = useNavigate();
   const activity = useParams().activity;
@@ -19,8 +23,7 @@ function AdventureContainer(): React.ReactElement {
   >([]);
 
   const [selectedLog, setSelectedLog] = useState<string | null>(null);
-  
-  
+
   useEffect(() => {
     setSearchedAdventures(sortByDateAscending());
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -77,16 +80,18 @@ function AdventureContainer(): React.ReactElement {
 
   const mapRef: RefObject<MapMethods> = useRef<MapMethods>(null as any);
 
-  const zoomToLog = ({ lat, lng }: { lat: number; lng: number }) => {
+  const zoomToLog = (
+    coordinates: { lat: number; lng: number },
+    adventureId: string
+  ) => {
     if (mapRef.current !== null) {
+      const { lat, lng } = coordinates;
       mapRef.current?.flyTo([lat, lng], 15);
+      dispatch(setSingleLog(adventureId));
     }
   };
 
-
-
   const adventureCards = searchedAdventures?.map((adventure) => {
-
     return (
       <div key={adventure.adventure_id}>
         <AdventureCard
@@ -126,7 +131,13 @@ function AdventureContainer(): React.ReactElement {
             />
           </div>
           <div className='map-card-wrapper'>
-            <div className='adventure-card-container'>{adventureCards}</div>
+            <div className='adventure-card-container'>
+              {adventureCards.length ? (
+                adventureCards
+              ) : (
+                <p>{`It looks like you don't have any ${activity?.toLowerCase()} logs yet, go ahead and add a log to get started!  `}</p>
+              )}
+            </div>
             {searchedAdventures?.length === 0 &&
               sortByDateAscending()?.length > 0 && (
                 <p className='no-results-msg'>
@@ -134,15 +145,8 @@ function AdventureContainer(): React.ReactElement {
                   again.
                 </p>
               )}
-            {!sortByDateAscending()?.length && (
-              <p>{`It looks like you don't have any ${activity?.toLowerCase()} logs yet, go ahead and add a log to get started!  `}</p>
-            )}
-            <Map
-              activity={activity}
-              zoomToLog={zoomToLog}
-              mapRef={mapRef}
-              // setSelectedLog={setSelectedLog}
-            />
+
+            <Map activity={activity} zoomToLog={zoomToLog} mapRef={mapRef} />
           </div>
         </>
       )}

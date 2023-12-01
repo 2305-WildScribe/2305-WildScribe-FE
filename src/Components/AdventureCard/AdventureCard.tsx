@@ -15,7 +15,10 @@ import { RefObject, useEffect, useRef, useState } from 'react';
 interface AdventureCardProps {
   adventure: Adventure;
   setSelectedLog: React.Dispatch<React.SetStateAction<string | null>>;
-  zoomToLog: ({ lat, lng }: { lat: number; lng: number }) => void;
+  zoomToLog: (coordinates: {
+    lat: number;
+    lng: number;
+}, adventureId: string) => void;
   selectedLog: string | null;
 }
 
@@ -52,12 +55,13 @@ function AdventureCard({
   };
 
   const handleCardClick = () => {
-    if (adventure.lat && adventure.lon) {
+    if (adventure.lat && adventure.lon && adventure.adventure_id !== undefined) {
       const coords = {
         lat: adventure.lat,
         lng: adventure.lon,
       };
-      zoomToLog(coords);
+      zoomToLog(coords, adventure.adventure_id);
+      console.log(coords)
     }
   };
 
@@ -68,13 +72,11 @@ function AdventureCard({
   const currentCardRef = useRef<any>({});
 
   useEffect(() => {
-    console.log('set',setLog);
   if(setLog && currentCardRef.current[setLog]){
-    console.log('moving')
     currentCardRef.current[setLog].scrollIntoView({ behavior: 'smooth'})
+    
   }
   }, [setLog]);
-
 
   return (
     <div
