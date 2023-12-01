@@ -46,13 +46,13 @@ function Map({ activity, zoomToLog, mapRef }: MapProps): React.ReactElement {
       adventure.adventure_id !== undefined
     ) {
       let correctedDate = dayjs(adventure.date).format('MM-DD-YYYY');
-      return (
+      let map = (
         <Marker
           key={adventure.adventure_id}
           position={[adventure.lat, adventure.lon]}
           eventHandlers={{
             click: (e) => {
-              if (adventure.adventure_id) { 
+              if (adventure.adventure_id) {
                 displayAssociatedCard(
                   e.target.options.children.props.children.key
                 );
@@ -62,12 +62,14 @@ function Map({ activity, zoomToLog, mapRef }: MapProps): React.ReactElement {
           }}
         >
           <Popup>
-            <p key={adventure.adventure_id} >
+            <p key={adventure.adventure_id}>
               {adventure.activity} log on {correctedDate}
             </p>
           </Popup>
         </Marker>
       );
+
+      return map;
     }
   });
 
