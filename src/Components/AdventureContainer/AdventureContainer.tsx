@@ -132,20 +132,19 @@ function AdventureContainer(): React.ReactElement {
           </div>
           <div className='map-card-wrapper'>
             <div className='adventure-card-container'>
-              {adventureCards.length ? (
+              {sortByDateAscending()?.length ? (
                 adventureCards
               ) : (
                 <p>{`It looks like you don't have any ${activity?.toLowerCase()} logs yet, go ahead and add a log to get started!  `}</p>
               )}
+              {searchedAdventures?.length === 0 &&
+                sortByDateAscending()?.length > 0 && (
+                  <p className='no-results-msg'>
+                    Sorry, we couldn't find anything that matched. Please try
+                    again.
+                  </p>
+                )}
             </div>
-            {searchedAdventures?.length === 0 &&
-              sortByDateAscending()?.length > 0 && (
-                <p className='no-results-msg'>
-                  Sorry, we couldn't find anything that matched. Please try
-                  again.
-                </p>
-              )}
-
             <Map activity={activity} zoomToLog={zoomToLog} mapRef={mapRef} />
           </div>
         </>
