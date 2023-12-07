@@ -31,29 +31,29 @@ describe('Homepage', () => {
       console.log('response --->', response);
     });
 
-    cy.fixture('example.json').then((response) => {
-      cy.intercept(
-        'DELETE',
-        'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/adventure',
-        {
-          statusCode: 201,
-          body: response,
-        }
-      ).as('deleteRequest');
-      console.log('response --->', response);
-    });
+    // cy.fixture('example.json').then((response) => {
+    //   cy.intercept(
+    //     'DELETE',
+    //     'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/adventure',
+    //     {
+    //       statusCode: 201,
+    //       body: response,
+    //     }
+    //   ).as('deleteRequest');
+    //   console.log('response --->', response);
+    // });
 
-    cy.fixture('edit_card.json').then((response) => {
-      cy.intercept(
-        'PUT',
-        'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/adventure',
-        {
-          statusCode: 201,
-          body: response,
-        }
-      ).as('editRequest');
-      console.log('response --->', response);
-    });
+    // cy.fixture('edit_card.json').then((response) => {
+    //   cy.intercept(
+    //     'PUT',
+    //     'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/adventure',
+    //     {
+    //       statusCode: 201,
+    //       body: response,
+    //     }
+    //   ).as('editRequest');
+    //   console.log('response --->', response);
+    // });
 
     cy.visit('http://localhost:3000/');
   });
@@ -109,133 +109,53 @@ describe('Homepage', () => {
         'Your last log was on 10-10-2023 in your Running journal'
       );
     cy.get('svg').should('exist');
-
-    //     cy.get('.adventure-card').should('have.length', 7);
-    //     cy.get('.adventure-card').first().should('have.id', 11);
-    //     cy.get('.adventure-card')
-    //       .first()
-    //       .should('contain', 'Running')
-    //       .should('contain', '10/11/2023')
-    //       .should('contain', 'Good Diet')
-    //       .should('contain', 'Hydrated')
-    //       .should('contain', 'Very High')
-    //       .should('contain', '8')
-    //       .should('contain', 'Some Hydraytion')
-    //       .should('contain', 'notes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stress')
-    //       .should('contain', 'Running is real hard');
-    //     cy.get('.adventure-card').last().should('have.id', 17);
-    //     cy.get('.adventure-card')
-    //       .last()
-    //       .should('contain', 'Running')
-    //       .should('contain', '10/11/2023')
-    //       .should('contain', 'Good Diet')
-    //       .should('contain', 'Hydrated')
-    //       .should('contain', 'Very High')
-    //       .should('contain', '8')
-    //       .should('contain', 'Some Hydraytion')
-    //       .should('contain', 'notes about sleep and stress')
-    //       .should('contain', 'Running is real hard');
-    //     cy.get('.adventure-card')
-    //       .get('.card-button-wrapper')
-    //       .get('.pencil-btn').should('exist')
-    //       .get('.trash-btn').should('exist');
   });
 
-  //   it('should be able to search for a logged adventure', () => {
-  //     cy.wait('@login');
-  //     cy.get('.login-btn').click();
+  it('Should allow a user to click a journal and see/search their logs', () => {
+    cy.url().should('contain', 'localhost:3000');
+    cy.get('.login-btn').click();
 
-  //     cy.wait('@getUserData');
-  //     cy.url().should('contain', 'localhost:3000/home');
-  //     cy.get('.search-input').should('have.attr', 'placeholder', 'Search logs here')
-  //       .type('HydraytionSome')
-  //     cy.get('.search-btn').should('exist').click();
-  //     cy.get('.adventure-card').should('have.length', 2);
-  //     cy.get('.adventure-card').first().should('have.id', 12);
-  //     cy.get('.adventure-card')
-  //       .first()
-  //       .should('contain', 'Running')
-  //       .should('contain', '10/11/2023')
-  //       .should('contain', 'Good Diet')
-  //       .should('contain', 'Hydrated')
-  //       .should('contain', 'Very High')
-  //       .should('contain', '8')
-  //       .should('contain', 'notes about sleep and stress')
-  //       .should('contain', 'Some HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome Hydraytion')
-  //       .should('contain', 'Running is real hard');
-  //     cy.get('.adventure-card').last().should('have.id', 15);
-  //     cy.get('.adventure-card')
-  //       .last()
-  //       .should('contain', 'Running')
-  //       .should('contain', '10/11/2023')
-  //       .should('contain', 'Good Diet')
-  //       .should('contain', 'Hydrated')
-  //       .should('contain', 'Very High')
-  //       .should('contain', '8')
-  //       .should('contain', 'notes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stress')
-  //       .should('contain', 'Some HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome Hydraytion')
-  //       .should('contain', 'Running is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hard');
-  //     cy.get('.search-bar > :nth-child(1) > .svg-inline--fa').should('exist').click()
-  //   })
+    cy.wait('@login');
+    cy.wait('@getUserData');
+    cy.url().should('contain', 'localhost:3000/home');
+    cy.get('.activity-card').first().click();
 
-  //   it('should delete a card', () => {
-  //     cy.wait('@login');
-  //     cy.get('.login-btn').click();
+    cy.url().should('contain', 'localhost:3000/Yoga');
+    cy.get('.search-bar-wrapper')
+      .should('exist')
+      .get('p')
+      .should('contain', 'Yoga Journal');
+    cy.get('.new-adventure-btn').should('exist');
+    cy.get('.view-stats-btn').should('exist');
+    cy.get('.search-input').should('exist');
+    cy.get('.leaflet-container').should('exist');
+    cy.get('.adventure-card-container').should('exist');
 
-  //     cy.wait('@getUserData');
-  //     cy.url().should('contain', 'localhost:3000/home');
-  //     cy.get('.adventure-card').should('have.length', 7);
-  //     cy.get('#\\31 1 > .inner-card > .card-text-wrapper > .top-line-info > .card-button-wrapper > .trash-btn').click()
-  //     cy.wait('@deleteRequest')
-  //     cy.get('.adventure-card').should('have.length', 6);
-  //   })
+    cy.get('.adventure-card').should('have.length', 2);
+    cy.get('.adventure-card')
+      .first()
+      .should('have.id', 12)
+      .should('contain', 'Date: 12-10-2020')
+      .should('contain', 'Hydration: Hydrated')
+      .should('contain', 'Calories: 1500')
+      .should('contain', 'Stress Level: Low')
+      .should('contain', 'Hours Slept: 8')
+      .should('contain', 'Notes: These are also some notes on yoga.');
 
-  //   it('should be able to edit card', () => {
-  //     cy.wait('@login');
-  //     cy.get('.login-btn').click();
+    cy.get('.adventure-card')
+      .last()
+      .should('have.id', 11)
+      .should('contain', 'Date: 04-01-2014')
+      .should('contain', 'Hydration: Dehydrated')
+      .should('contain', 'Calories: 3490')
+      .should('contain', 'Stress Level: Moderate')
+      .should('contain', 'Hours Slept: 11')
+      .should('contain', 'Notes: These are some notes about yoga.');
 
-  //     cy.wait('@getUserData');
-  //     cy.url().should('contain', 'localhost:3000/home');
-  //     cy.get('.adventure-card').first().should('have.id', 11);
-  //     cy.get('#\\31 1 > .inner-card > .card-text-wrapper > .top-line-info > .card-button-wrapper > .pencil-btn').click()
-  //     cy.get('[name="activity"]').should('have.value', 'Running').clear()
-  //       .type('Hiking')
-  //     cy.get("select[name='stressLevel']").should('exist').select('High');
-  //     cy.get("select[name='diet']").should('exist').select('Good');
-  //     cy.get('.sleep-notes-input').clear().type('Perfect amount of sleep before my hike')
-  //     cy.get('.notes-input').clear().type('Take picture of trail map, got lost.')
-  //     cy.get('.submit-button').should('exist').click();
-  //   })
-
-  //   it('should display error when theres no searches found', () => {
-  //     cy.wait('@login');
-  //     cy.get('.login-btn').click();
-
-  //     cy.wait('@getUserData');
-  //     cy.url().should('contain', 'localhost:3000/home');
-  //     cy.get('.search-input').should('have.attr', 'placeholder', 'Search logs here')
-  //       .type('Mountain')
-  //     cy.get('.search-btn').should('exist').click();
-  //     cy.get('p').contains('Sorry, we couldn\'t find anything that matched. Please try again.')
-  //   })
-
-  //   it('should display error', () => {
-  //     cy.wait('@login');
-  //     cy.intercept('GET', 'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/user', {
-  //       statusCode: 404
-  //     })
-  //     cy.visit('localhost:3000/nonsense')
-  //     cy.url().should('eq', 'http://localhost:3000/nonsense')
-  //     cy.get('p').contains('Error: 404 page not found')
-  //   })
-
-  //   it('should log user out', () => {
-  //     cy.wait('@login');
-  //     cy.get('.login-btn').click();
-
-  //     cy.wait('@getUserData');
-  //     cy.url().should('contain', 'localhost:3000/home');
-  //     cy.get('.log-out-btn').should('exist').click()
-  //     cy.url().should('eq', 'http://localhost:3000/')
-  //   })
+    cy.get('.search-input')
+      .should('exist')
+      .type('also')
+      .should('have.value', 'also');
+    cy.get('.adventure-card').should('have.length', 1).should('have.id', 12);
+  });
 });
