@@ -11,16 +11,17 @@ import { useAppSelector } from '../../Redux/hooks';
 import { selectUser } from '../../Redux/slices/userSlice';
 import AdventureContainer from '../AdventureContainer/AdventureContainer';
 import LandingPage from '../LandingPage/LandingPage';
+import CreateAccount from '../CreateAccount/CreateAccount';
 
 function App(): React.ReactElement {
   const isLoggedIn = useAppSelector(selectUser).isLoggedIn;
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!isLoggedIn) {
-      navigate('/');
-    }
-  }, [isLoggedIn, navigate]);
+  // useEffect(() => {
+  //   if (!isLoggedIn) {
+  //     navigate('/');
+  //   }
+  // }, [isLoggedIn, navigate]);
 
   return (
     <div className='App'>
@@ -30,6 +31,7 @@ function App(): React.ReactElement {
           <Routes>
             <Route path='/' element={<LandingPage />} />
             <Route path='/login' element={<LoginPage />} />
+            <Route path='/create' element={<CreateAccount />}/>
             <Route path='/home' element={<Homepage />} />
             <Route path=':activity' element={<AdventureContainer />} />
             <Route path=':activity/newLog' element={<LogAdventureForm />} />
