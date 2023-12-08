@@ -3,7 +3,7 @@ import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import logo from '../../Assets/logo.png';
 import { useAppDispatch, useAppSelector } from '../../Redux/hooks';
-import { selectUser, toggleIsLoggedIn } from '../../Redux/slices/userSlice';
+import { resetUserId, selectUser, toggleIsLoggedIn } from '../../Redux/slices/userSlice';
 
 function NavBar(): React.ReactElement {
   const isLoggedIn = useAppSelector(selectUser).isLoggedIn
@@ -12,6 +12,7 @@ function NavBar(): React.ReactElement {
 
   const handleLogOut = () => {
     navigate('/');
+    dispatch(resetUserId(''))
     dispatch(toggleIsLoggedIn(false))
   };
   

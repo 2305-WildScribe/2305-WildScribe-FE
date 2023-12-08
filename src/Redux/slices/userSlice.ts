@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import type { RootState } from '../store';
-import { userLoginAsync } from './AsyncThunks';
+import { userCreateAsync, userLoginAsync } from './AsyncThunks';
 // import { userLogin, fetchUserAdventures} from '../../apiCalls'
 
 interface UserState {
@@ -32,6 +32,9 @@ export const userSlice = createSlice({
     toggleIsLoggedIn: (state, action: PayloadAction<boolean>) => {
       state.isLoggedIn = action.payload;
     },
+    resetUserId: (state, action: PayloadAction<string>) => {
+      state.user_id = action.payload
+    }
   },
   extraReducers: builder => {
     builder
@@ -49,10 +52,25 @@ export const userSlice = createSlice({
         state.loading = false;
         state.error = action.error.message;
         state.isSuccessful = false;
-      });
+      })
+      .addCase(userCreateAsync.pending, state => {
+        state.loading = true;
+      })
+      .addCase(userCreateAsync.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user_id = action.payload.data.attributes.user_id;
+        state.userName = action.payload.data.attributes.name;
+        state.isSuccessful = true;
+        state.isLoggedIn = true;
+      })
+      .addCase(userCreateAsync.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+        state.isSuccessful = false;
+      })
   },
 });
 
-export const { toggleIsLoggedIn } = userSlice.actions;
+export const { toggleIsLoggedIn, resetUserId } = userSlice.actions;
 export const selectUser = (state: RootState) => state.user;
 export default userSlice.reducer;
