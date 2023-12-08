@@ -31,34 +31,10 @@ describe('Homepage', () => {
       console.log('response --->', response);
     });
 
-    // cy.fixture('example.json').then((response) => {
-    //   cy.intercept(
-    //     'DELETE',
-    //     'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/adventure',
-    //     {
-    //       statusCode: 201,
-    //       body: response,
-    //     }
-    //   ).as('deleteRequest');
-    //   console.log('response --->', response);
-    // });
-
-    // cy.fixture('edit_card.json').then((response) => {
-    //   cy.intercept(
-    //     'PUT',
-    //     'https://safe-refuge-07153-b08bc7602499.herokuapp.com/api/v0/adventure',
-    //     {
-    //       statusCode: 201,
-    //       body: response,
-    //     }
-    //   ).as('editRequest');
-    //   console.log('response --->', response);
-    // });
-
     cy.visit('http://localhost:3000/');
   });
 
-  it('should allow a user to login and see their dashboard', () => {
+  it('Should allow a user to login and see their dashboard', () => {
     cy.url().should('contain', 'localhost:3000');
     cy.get('.login-form').should('exist');
     cy.get('p').should(
@@ -157,5 +133,33 @@ describe('Homepage', () => {
       .type('also')
       .should('have.value', 'also');
     cy.get('.adventure-card').should('have.length', 1).should('have.id', 12);
+  });
+
+  it('Should allow a user to see their stats page', () => {
+    cy.url().should('contain', 'localhost:3000');
+    cy.get('.login-btn').click();
+
+    cy.wait('@login');
+    cy.wait('@getUserData');
+    cy.url().should('contain', 'localhost:3000/home');
+    cy.get('.activity-card').first().click();
+
+    cy.get('.view-stats-btn').click();
+    cy.get('.back-btn-wrapper').should('exist');
+    cy.get('.back-button').should('exist');
+    cy.get('.graph-wrapper')
+      .should('exist')
+      .should('contain', 'Hydration levels')
+      .should('contain', 'Stress levels')
+      .should('contain', 'Hours slept / night')
+      .should('contain', 'Calories');
+    cy.get('canvas').should('have.length', 4);
+    cy.get('.hydro-graph').should('exist');
+    cy.get('.stress-graph').should('exist');
+    cy.get('.sleep-graph').should('exist');
+    cy.get('.diet-graph').should('exist');
+
+    cy.get('.back-button').click();
+    cy.get('.map-card-wrapper').should('exist');
   });
 });

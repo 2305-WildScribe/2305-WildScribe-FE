@@ -96,7 +96,7 @@ function AdventureCard({
             </div>
             <div className='card-button-wrapper'>
               <button
-                className='fa-btn pencil-btn'
+                className='edit-btn fa-btn pencil-btn'
                 onClick={() => handleEdit()}
               >
                 {' '}
