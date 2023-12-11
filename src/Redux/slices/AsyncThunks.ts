@@ -35,6 +35,7 @@ export const userLoginAsync = createAsyncThunk(
     }
 
     const data = await response.json();
+    console.log('data:', data)
     return data;
   }
 );
@@ -127,6 +128,8 @@ export const postAdventureAsync = createAsyncThunk(
     }
 
     const data = await response.json();
+    console.log(data)
+
     return { newAdventure, data };
   }
 );

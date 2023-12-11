@@ -1,9 +1,6 @@
-{   
-    "data": {
-        "message": "success",
-        "type": "adventure",
-        "attributes":{
-            "adventure_id": "21"
-        }
-    }
+{
+  "data": {
+    "attributes": [{ "user_id": "1", "adventure_id": "5" }],
+    "type": "adventure"
+  }
 }

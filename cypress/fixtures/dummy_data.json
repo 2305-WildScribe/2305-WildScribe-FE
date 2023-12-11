@@ -1,99 +1,69 @@
 {
-  "data":{
-      "type": "adventures",
-      "attributes": [ 
-          {
-              "user_id": "12",
-              "adventure_id": "11",    
-              "activity": "Running",
-              "date": "10/11/2023",
-              "image_url": "https://www.rei.com/dam/parrish_091412_0679_main_lg.jpg",
-              "stress_level": "Very High",
-              "hours_slept": 8,
-              "sleep_stress_notes": "notes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stress",
-              "hydration": "Hydrated",
-              "diet": "Good Diet",
-              "diet_hydration_notes": "Some Hydraytion",
-              "beta_notes": "Running is real hard"
-          }, {
-              "user_id": "12",
-              "adventure_id": "12",    
-              "activity": "Running",
-              "date": "10/11/2023",
-              "image_url": "https://www.rei.com/dam/parrish_091412_0679_main_lg.jpg",
-              "stress_level": "Very High",
-              "hours_slept": 8,
-              "sleep_stress_notes": "notes about sleep and stress",
-              "hydration": "Hydrated",
-              "diet": "Good Diet",
-              "diet_hydration_notes": "Some HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome Hydraytion",
-              "beta_notes": "Running is real hard"
-          }, {
-              "user_id": "12",
-              "adventure_id": "13",    
-              "activity": "Running",
-              "date": "10/11/2023",
-              "image_url": "https://www.rei.com/dam/parrish_091412_0679_main_lg.jpg",
-              "stress_level": "Very High",
-              "hours_slept": 8,
-              "sleep_stress_notes": "notes about sleep and stress",
-              "hydration": "Hydrated",
-              "diet": "Good Diet",
-              "diet_hydration_notes": "Some Hydraytion",
-              "beta_notes": "Running is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hard"
-          }, {
-              "user_id": "12",
-              "adventure_id": "14",    
-              "activity": "Running",
-              "date": "10/11/2023",
-              "image_url": "https://www.rei.com/dam/parrish_091412_0679_main_lg.jpg",
-              "stress_level": "Very High",
-              "hours_slept": 8,
-              "sleep_stress_notes": "notes about sleep and stress",
-              "hydration": "Hydrated",
-              "diet": "Good Diet",
-              "diet_hydration_notes": "Some Hydraytion",
-              "beta_notes": "Running is real hard"
-          }, {
-              "user_id": "12",
-              "adventure_id": "15",    
-              "activity": "Running",
-              "date": "10/11/2023",
-              "image_url": "https://www.rei.com/dam/parrish_091412_0679_main_lg.jpg",
-              "stress_level": "Very High",
-              "hours_slept": 8,
-              "sleep_stress_notes": "notes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stressnotes about sleep and stress",
-              "hydration": "Hydrated",
-              "diet": "Good Diet",
-              "diet_hydration_notes": "Some HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome HydraytionSome Hydraytion",
-              "beta_notes": "Running is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hardRunning is real hard"
-          },  {
-              "user_id": "12",
-              "adventure_id": "16",    
-              "activity": "Running",
-              "date": "10/11/2023",
-              "image_url": "https://www.rei.com/dam/parrish_091412_0679_main_lg.jpg",
-              "stress_level": "Very High",
-              "hours_slept": 8,
-              "sleep_stress_notes": "notes about sleep and stress",
-              "hydration": "Hydrated",
-              "diet": "Good Diet",
-              "diet_hydration_notes": "Some Hydraytion",
-              "beta_notes": "Running is real hard"
-          }, {
-              "user_id": "12",
-              "adventure_id": "17",    
-              "activity": "Running",
-              "date": "10/11/2023",
-              "image_url": "https://www.rei.com/dam/parrish_091412_0679_main_lg.jpg",
-              "stress_level": "Very High",
-              "hours_slept": 8,
-              "sleep_stress_notes": "notes about sleep and stress",
-              "hydration": "Hydrated",
-              "diet": "Good Diet",
-              "diet_hydration_notes": "Some Hydraytion",
-              "beta_notes": "Running is real hard"
-          }          
-      ]
+  "data": {
+    "attributes": [
+      {
+        "activity": "Yoga",
+        "adventure_id": "11",
+        "beta_notes": "These are some notes about yoga.",
+        "date": "2014-04-01",
+        "diet": 3490,
+        "diet_hydration_notes": "Maiores adipisci molestiae non dolores nisi.",
+        "hours_slept": 11,
+        "hydration": "Dehydrated",
+        "image_url": "http://xyebjez.net/",
+        "lat": -87.03984832763672,
+        "lon": -7.9888153076171875,
+        "sleep_stress_notes": "",
+        "stress_level": "Moderate",
+        "user_id": "1"
+      },
+      {
+        "activity": "Yoga",
+        "adventure_id": "12",
+        "beta_notes": "These are also some notes on yoga.",
+        "date": "2020-12-10",
+        "diet": 1500,
+        "diet_hydration_notes": "",
+        "hours_slept": 8,
+        "hydration": "Hydrated",
+        "image_url": "http://xyebjez.net/",
+        "lat": 45.03984832763672,
+        "lon": -110.9888153076171875,
+        "sleep_stress_notes": "",
+        "stress_level": "Low",
+        "user_id": "1"
+      }, {
+        "activity": "Running",
+        "adventure_id": "13",
+        "beta_notes": "Vel quas at saepe voluptate eum.",
+        "date": "2023-10-10",
+        "diet": 3490,
+        "diet_hydration_notes": "Maiores adipisci molestiae non dolores nisi.",
+        "hours_slept": 11,
+        "hydration": "Hydrated",
+        "image_url": "http://xyebjez.net/",
+        "lat": 49.03984832763672,
+        "lon": -115.9888153076171875,
+        "sleep_stress_notes": "Quod iste qui possimus cumque voluptate.",
+        "stress_level": "Low",
+        "user_id": "1"
+      }, {
+        "activity": "Cycling",
+        "adventure_id": "14",
+        "beta_notes": "Vel quas at saepe voluptate eum.",
+        "date": "2022-05-15",
+        "diet": 3490,
+        "diet_hydration_notes": "Maiores adipisci molestiae non dolores nisi.",
+        "hours_slept": 11,
+        "hydration": "Hydrated",
+        "image_url": "http://xyebjez.net/",
+        "lat": -87.03984832763672,
+        "lon": -7.9888153076171875,
+        "sleep_stress_notes": "Quod iste qui possimus cumque voluptate.",
+        "stress_level": "Low",
+        "user_id": "1"
+      }
+    ],
+    "type": "adventures"
   }
 }

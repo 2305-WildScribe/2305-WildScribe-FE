@@ -94,7 +94,7 @@ function EditLogForm(): React.ReactElement {
   return (
     <form className='form'>
       <div className='top-line-components'>
-        <div>
+        <div className='edit-activity'>
           <label htmlFor='activity-input'>Activity:</label>
           <input
             type='text'
@@ -129,7 +129,7 @@ function EditLogForm(): React.ReactElement {
         </div>
       </div>
       <div className='second-line-components'>
-        <div>
+        <div className='edit-stress'>
           <label htmlFor='updated-stress-input'>Stress Level:</label>
 
           <select
@@ -146,7 +146,7 @@ function EditLogForm(): React.ReactElement {
           </select>
         </div>
 
-        <div>
+        <div className='edit-hydration'>
           <label htmlFor='updated-hydration-input'>Hydration Level:</label>
           <select
             name='updatedHydration'
@@ -160,7 +160,7 @@ function EditLogForm(): React.ReactElement {
             <option value='Very Hydrated'>Very Hydrated</option>
           </select>
         </div>
-        <div>
+        <div className='edit-calories'>
           <label htmlFor='diet-input'>Calories:</label>
           <input
             type='number'
@@ -175,8 +175,8 @@ function EditLogForm(): React.ReactElement {
             min='0'
           />
         </div>
-        <div>
-          <label htmlFor='sleep-input'>Hours slept / night:</label>
+        <div className='edit-sleep'>
+          <label htmlFor='sleep-input'>Hours Slept:</label>
           <input
             type='number'
             name='sleep'
@@ -189,7 +189,7 @@ function EditLogForm(): React.ReactElement {
         </div>
       </div>
       <div className='coordinate-wrapper'>
-        <div>
+        <div className='edit-lat'>
           <label htmlFor='lat-input'>Latitude:</label>
           <input
             type='number'
@@ -201,7 +201,7 @@ function EditLogForm(): React.ReactElement {
             }}
           />
         </div>
-        <div>
+        <div className='edit-long'>
           <label htmlFor='long-input'>Longitude:</label>
           <input
             type='number'
@@ -216,7 +216,7 @@ function EditLogForm(): React.ReactElement {
         </div>
       </div>
       <textarea
-        className='notes-input'
+        className='notes-input edit-notes'
         placeholder='Add any extra notes on any beta '
         name='notes'
         value={updatedBetaNotes}

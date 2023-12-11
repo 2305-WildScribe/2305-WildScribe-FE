@@ -106,7 +106,7 @@ function LogAdventureForm(): React.ReactElement {
           </div>
         </div>
         <div className='second-line-components'>
-          <div>
+          <div className='stress'>
             <label htmlFor='stress-input'>Stress Level:</label>
 
             <select
@@ -122,7 +122,7 @@ function LogAdventureForm(): React.ReactElement {
               <option value='Max'>Max</option>
             </select>
           </div>
-          <div>
+          <div className='hydration'>
             <label htmlFor='hydration-input'>Hydration Level:</label>
             <select
               name='hydration'
@@ -136,7 +136,7 @@ function LogAdventureForm(): React.ReactElement {
               <option value='Very Hydrated'>Very Hydrated</option>
             </select>
           </div>
-          <div>
+          <div className='calories'>
             <label htmlFor='diet-input'>Calories:</label>
             <input
               type='number'
@@ -151,8 +151,8 @@ function LogAdventureForm(): React.ReactElement {
               min='0'
             />
           </div>
-          <div>
-            <label htmlFor='sleep-input'>Hours slept / night:</label>
+          <div className='sleep'>
+            <label htmlFor='sleep-input'>Hours Slept:</label>
             <input
               type='number'
               name='sleep'
@@ -168,7 +168,7 @@ function LogAdventureForm(): React.ReactElement {
           </div>
         </div>
         <div className='coordinate-wrapper'>
-          <div>
+          <div className='lat'>
             <label htmlFor='lat-input'>Latitude:</label>
             <input
               type='number'
@@ -180,7 +180,7 @@ function LogAdventureForm(): React.ReactElement {
               }}
             />
           </div>
-          <div>
+          <div className='long'>
             <label htmlFor='long-input'>Longitude:</label>
             <input
               type='number'
