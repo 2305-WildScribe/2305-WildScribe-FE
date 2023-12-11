@@ -34,7 +34,6 @@ describe('Should allow a user to add a new Adventure and a new log', () => {
     });
 
     cy.url().should('contain', 'localhost:3000/home');
-
     cy.get('.activity-card').should('exist').should('have.length', 3);
     cy.get('.activity-card')
       .first()

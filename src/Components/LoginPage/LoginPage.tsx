@@ -24,13 +24,13 @@ function LoginPage(): React.ReactElement {
 
   async function handleLogin(event: React.FormEvent): Promise<void> {
     event.preventDefault();
-    dispatch(toggleIsLoggedIn(true));
     console.log(userEmail)
     console.log(userPassword)
     const action = await dispatch(
       userLoginAsync({ email: userEmail, password: userPassword })
-    );
-    if (userLoginAsync.fulfilled.match(action)) {
+      );
+      if (userLoginAsync.fulfilled.match(action)) {
+      dispatch(toggleIsLoggedIn(true));
       localStorage.setItem('user_id', JSON.stringify(user_id));
       localStorage.setItem('isLoggedIn', JSON.stringify(true));
     }
