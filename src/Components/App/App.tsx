@@ -1,5 +1,5 @@
 import './App.scss';
-import Homepage from '../Homepage/Homepage';
+import Homepage from '../HomePage/Homepage';
 import NavBar from '../NavBar/NavBar';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import LogAdventureForm from '../LogAdventureForm/LogAdventureForm';
@@ -10,16 +10,18 @@ import { useEffect } from 'react';
 import { useAppSelector } from '../../Redux/hooks';
 import { selectUser } from '../../Redux/slices/userSlice';
 import AdventureContainer from '../AdventureContainer/AdventureContainer';
+import LandingPage from '../LandingPage/LandingPage';
+import CreateAccount from '../CreateAccount/CreateAccount';
 
 function App(): React.ReactElement {
   const isLoggedIn = useAppSelector(selectUser).isLoggedIn;
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!isLoggedIn) {
-      navigate('/');
-    }
-  }, [isLoggedIn, navigate]);
+  // useEffect(() => {
+  //   if (!isLoggedIn) {
+  //     navigate('/');
+  //   }
+  // }, [isLoggedIn, navigate]);
 
   return (
     <div className='App'>
@@ -27,7 +29,9 @@ function App(): React.ReactElement {
       <main className='main'>
         <div className='inner-main'>
           <Routes>
-            <Route path='/' element={<LoginPage />} />
+            <Route path='/' element={<LandingPage />} />
+            <Route path='/login' element={<LoginPage />} />
+            <Route path='/create' element={<CreateAccount />}/>
             <Route path='/home' element={<Homepage />} />
             <Route path=':activity' element={<AdventureContainer />} />
             <Route path=':activity/newLog' element={<LogAdventureForm />} />

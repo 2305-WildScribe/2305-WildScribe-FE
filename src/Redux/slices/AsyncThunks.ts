@@ -40,6 +40,46 @@ export const userLoginAsync = createAsyncThunk(
   }
 );
 
+export const userCreateAsync = createAsyncThunk(
+  'user/create',
+  async (
+    { name, email, password }: {name: string; email: string; password: string },
+    thunkAPI
+  ) => {
+    const response = await fetch(
+      'https://wildscribe.azurewebsites.net/api/v0/user/create',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          data: {
+            type: 'user',
+            attributes: {
+              name: name,
+              email: email,
+              password: password,
+            },
+          },
+        }),
+      }
+    );
+
+    if (response.status === 404) {
+      throw new Error('404 page not found');
+    }
+
+    if (!response.ok) {
+      throw new Error('error');
+    }
+
+    const data = await response.json();
+    console.log(data)
+    return data;
+  }
+);
+
 export const getAdventuresAsync = createAsyncThunk(
   'user/getData',
   async (id: string, thunkAPI) => {
