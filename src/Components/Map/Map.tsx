@@ -22,7 +22,6 @@ interface MapProps {
     adventureId: string
   ) => void;
   mapRef: RefObject<MapMethods>;
-  // setSelectedLog: React.Dispatch<React.SetStateAction<string | null>>
 }
 
 function Map({ activity, zoomToLog, mapRef }: MapProps): React.ReactElement {
