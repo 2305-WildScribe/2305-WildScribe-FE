@@ -76,6 +76,7 @@ function AdventureContainer(): React.ReactElement {
 
   type MapMethods = {
     flyTo: (coordinates: [number, number], zoom: number) => void;
+    openPopup: () => void
   };
 
   const mapRef: RefObject<MapMethods> = useRef<MapMethods>(null as any);

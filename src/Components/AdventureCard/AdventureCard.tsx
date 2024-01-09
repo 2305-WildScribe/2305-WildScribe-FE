@@ -38,7 +38,7 @@ function AdventureCard({
     adventure_id,
   } = adventure;
 
-  const setLog = useAppSelector(selectAdventures).singleLog;
+  const singleLog = useAppSelector(selectAdventures).singleLog;
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -68,18 +68,18 @@ function AdventureCard({
   const currentCardRef = useRef<any>({});
 
   useEffect(() => {
-  if(setLog && currentCardRef.current[setLog]){
-    currentCardRef.current[setLog].scrollIntoView({ behavior: 'smooth'})
-    
+  if(singleLog && currentCardRef.current[singleLog]){
+    currentCardRef.current[singleLog].scrollIntoView({ behavior: 'smooth'})
+
   }
-  }, [setLog]);
+  }, [singleLog]);
 
   return (
     <div
       key={adventure_id}
       id={`${adventure_id}`}
-      ref={(ref) =>setLog && (currentCardRef.current[setLog] = ref)}
-      className='adventure-card'
+      ref={(ref) =>singleLog && (currentCardRef.current[singleLog] = ref)}
+      className={adventure_id === singleLog ? 'adventure-card selected-card' : 'adventure-card'}
       onClick={() => handleCardClick()}
     >
       <div className='inner-card'>

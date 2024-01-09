@@ -1,5 +1,5 @@
 import './App.scss';
-import Homepage from '../HomePage/Homepage';
+import Homepage from '../Homepage/Homepage';
 import NavBar from '../NavBar/NavBar';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import LogAdventureForm from '../LogAdventureForm/LogAdventureForm';
@@ -17,11 +17,11 @@ function App(): React.ReactElement {
   const isLoggedIn = useAppSelector(selectUser).isLoggedIn;
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (!isLoggedIn) {
-  //     navigate('/');
-  //   }
-  // }, [isLoggedIn, navigate]);
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate('/');
+    }
+  }, [isLoggedIn, navigate]);
 
   return (
     <div className='App'>
@@ -29,8 +29,10 @@ function App(): React.ReactElement {
       <main className='main'>
         <div className='inner-main'>
           <Routes>
-            <Route path='/' element={<LandingPage />} />
-            <Route path='/login' element={<LoginPage />} />
+            {/* <Route path='/' element={<LandingPage />} /> */}
+            <Route path='/' element={<LoginPage />} />
+            {/* <Route path='/login' element={<LoginPage />} /> */}
+
             <Route path='/create' element={<CreateAccount />}/>
             <Route path='/home' element={<Homepage />} />
             <Route path=':activity' element={<AdventureContainer />} />
