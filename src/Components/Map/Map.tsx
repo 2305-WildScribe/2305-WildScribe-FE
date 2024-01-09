@@ -1,4 +1,4 @@
-import { RefObject } from 'react';
+import { RefObject, useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../Redux/hooks';
 import {
   selectAdventures,
@@ -27,7 +27,9 @@ interface MapProps {
 function Map({ activity, zoomToLog, mapRef }: MapProps): React.ReactElement {
   const dispatch = useAppDispatch();
   const defaultZoomLevel = 4;
+  const markersRef = useRef<any>({});
   let adventures = useAppSelector(selectAdventures).adventures;
+  const singleLog = useAppSelector(selectAdventures).singleLog;
 
   const validAdventures = adventures.filter(
     (adventure) =>
@@ -38,6 +40,15 @@ function Map({ activity, zoomToLog, mapRef }: MapProps): React.ReactElement {
     dispatch(setSingleLog(key));
   };
 
+  useEffect(() => {
+    if (singleLog && Object.keys(markersRef.current).length !== 0) {
+      console.log('marker ref', markersRef.current[singleLog]);
+      console.log(markersRef)
+      markersRef.current[singleLog].openPopup();
+    }
+  }, [singleLog]);
+  
+
   const mapPoints = validAdventures.map((adventure) => {
     if (
       adventure.lat !== undefined &&
@@ -47,6 +58,11 @@ function Map({ activity, zoomToLog, mapRef }: MapProps): React.ReactElement {
       let correctedDate = dayjs(adventure.date).format('MM-DD-YYYY');
       return (
         <Marker
+          ref={(ref) => {
+            if (typeof singleLog === 'string' && ref) {
+              markersRef.current[singleLog] = ref;
+            }
+          }}
           key={adventure.adventure_id}
           position={[adventure.lat, adventure.lon]}
           eventHandlers={{
